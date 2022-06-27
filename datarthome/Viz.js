@@ -4,7 +4,7 @@ import {selectAll,select,xml,scaleLinear,extent,range,max,min} from "d3";
 
 
 const heart=  require('./assets/heart.svg')
-
+const webfont=require('./assets/fonts/yane-font.woff2')
 export const Viz=({x,svgRef,previousx})=>{
   
   const wrapperRef = useRef();
@@ -39,11 +39,14 @@ export const Viz=({x,svgRef,previousx})=>{
       var gapy
       const gap=0.7
       const del=0.05
+      
       const g=svg.append("g")  
       var k=0
 
       firstdisp.current=localStorage.getItem('firstdisplay')
       if (firstdisp.current==='0'){
+       
+
         array.map((d,i)=>{
   
 
@@ -76,22 +79,16 @@ export const Viz=({x,svgRef,previousx})=>{
             k=k+1
           
             if(k==len){
-              svg
-              .append("defs")
-              .append("font-face")
-              .append("font-face-uri")
-              .attr("href","https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@300&display=swap")
-
+              
               g
               .append("text") 
               .text("Developed by Jonas Carvalho 03/04/2022")
-              .attr("x",`${screenwidth/2-100}`)
+              .attr("x",`${screenwidth/2}`)
               .attr("y",`${screenheight-100}`)
               .attr("text-anchor","middle")
               .attr("id","author")
               .attr("fill","#997788")
-              .attr("style","font-family: 'Yanone Kaffeesatz', sans-serif;")
-              .attr("style","font-size: 1vw;")
+              .attr("style","font-family:YanoneKaffeesatz_400Regular")
               
               }
           });

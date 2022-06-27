@@ -2,9 +2,17 @@ import {Viz} from './Viz'
 import React, {useState,useRef} from 'react'
 import {csvParse} from 'd3';
 import { View, Text } from 'react-native';
-import { useFonts } from 'expo-font';
+import {
+  useFonts,
+  YanoneKaffeesatz_200ExtraLight,
+  YanoneKaffeesatz_300Light,
+  YanoneKaffeesatz_400Regular,
+  YanoneKaffeesatz_500Medium,
+  YanoneKaffeesatz_600SemiBold,
+  YanoneKaffeesatz_700Bold,
+} from '@expo-google-fonts/yanone-kaffeesatz';
 
-const dataj =require('./assets/data.json')
+
 localStorage.removeItem('pdata');
 localStorage.removeItem('firstdisplay');
 
@@ -21,7 +29,12 @@ export function Art2() {
     csvUrl='https://raw.githubusercontent.com/Jon83Carvalho/DataAndArt/main/LoveWord.csv'
     
     let [fontsLoaded] = useFonts({
-      'Inter-Black': require('./assets/fonts/yane-font.woff2'),
+      YanoneKaffeesatz_200ExtraLight,
+      YanoneKaffeesatz_300Light,
+      YanoneKaffeesatz_400Regular,
+      YanoneKaffeesatz_500Medium,
+      YanoneKaffeesatz_600SemiBold,
+      YanoneKaffeesatz_700Bold,
     })
   
     const fetcher = (url) => {
