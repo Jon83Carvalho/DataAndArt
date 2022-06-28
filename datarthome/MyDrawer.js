@@ -69,9 +69,9 @@ export function MyDrawer() {
      
     >
       <Drawer.Screen
-        name="Art 1 - Female internet"
+        name="Art 1 - Internet Gap"
         component={Art1}
-        options={{ drawerLabel: 'Art 1 - ',
+        options={{ drawerLabel: 'Art 1 - Internet Gap',
         drawerActiveBackgroundColor:"#444589",
         drawerInactiveBackgroundColor:"#999BHF",
         drawerActiveTintColor:"#ggg",
@@ -86,7 +86,7 @@ export function MyDrawer() {
       <Drawer.Screen
         name="Art 2- LoveWord"
         component={Art2}
-        options={{ drawerLabel: 'Updates' ,
+        options={{ drawerLabel: 'Art 2- LoveWord' ,
         drawerActiveBackgroundColor:"#444589",
         drawerInactiveBackgroundColor:"#999BHF",
         drawerLabelStyle: {
@@ -98,9 +98,9 @@ export function MyDrawer() {
       }}
       />
       <Drawer.Screen
-        name="Profile"
+        name="Art 3 - Under development"
         component={Art3}
-        options={{ drawerLabel: 'Profile',
+        options={{ drawerLabel: 'Art 3 - Under development',
         drawerActiveBackgroundColor:"#444589",
         drawerInactiveBackgroundColor:"#999BHF",
         drawerLabelStyle: {

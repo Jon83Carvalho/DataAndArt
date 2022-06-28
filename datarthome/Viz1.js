@@ -123,7 +123,7 @@ export const Viz1=({yAxislabelOffset,xAxislabelOffset,width,height,marginTop,mar
   return (
 
 
-  <svg width={width+200} height={height+100} style={{backgroundColor:"#222367"}}>
+  <svg width="100vw" height="100vh" style={{backgroundColor:"#222367"}}>
     
       <g transform={`translate(${marginLeft},${marginTop})`}>
       
@@ -227,13 +227,13 @@ export const Viz1=({yAxislabelOffset,xAxislabelOffset,width,height,marginTop,mar
           <text 
             x={0}
             y={5}
-            style={{fill:styles.baseText.fill,fontFamily: styles.baseText.fontFamily}}
+            style={{fill:styles.baseText.fill,fontFamily: styles.baseText.fontFamily,fontSize:20}}
           >- More Corrupt
           </text>
           <text 
             x={-0}
-            y={355}
-            style={{fill:styles.baseText.fill,fontFamily: styles.baseText.fontFamily}}
+            y={353}
+            style={{fill:styles.baseText.fill,fontFamily: styles.baseText.fontFamily,fontSize:20}}
           >- Less Corrupt
           </text>
 
