@@ -123,7 +123,7 @@ export const Viz1=({yAxislabelOffset,xAxislabelOffset,width,height,marginTop,mar
   return (
 
 
-  <svg width="100vw" height="100vh" style={{backgroundColor:"#222367"}}>
+  <svg width={width} height={height} style={{backgroundColor:"#222367"}}>
     
       <g transform={`translate(${marginLeft},${marginTop})`}>
       

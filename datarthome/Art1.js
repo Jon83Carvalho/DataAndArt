@@ -1,4 +1,4 @@
-import { View, Text,ImageBackground, StyleSheet} from 'react-native';
+import { scrollView, Text,ImageBackground, StyleSheet} from 'react-native';
 import React from 'react'; 
 import {range} from 'd3';
 
@@ -27,7 +27,7 @@ const yAxislabelOffset=50;
 
 export function Art1() {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'left' }}>
+      <scrollView width={width} style={{ justifyContent: 'center', alignItems: 'left' ,marginHorizontal: 20}}>
       
        <>
   <Viz1
@@ -43,7 +43,7 @@ export function Art1() {
     />
  </>
 
-      </View>
+      </scrollView>
     );
   }
   

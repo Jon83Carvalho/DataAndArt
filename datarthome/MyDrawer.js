@@ -53,22 +53,21 @@ export function MyDrawer() {
         },
         headerStyle: {
           backgroundColor:"#6667AB",
-          opacity: "100%"
+          opacity: "100%",
+       
           
         },
         headerTitleStyle: {
           fontFamily:styles.baseText.fontFamily,
           fontSize:styles.baseText.fontSize
-        },
-        sceneContainerStyle: {
-          backgroundColor:"#999AFG"
-      } 
+        }
       }}
 
          
      
     >
       <Drawer.Screen
+        
         name="Art 1 - Internet Gap"
         component={Art1}
         options={{ drawerLabel: 'Art 1 - Internet Gap',
@@ -79,7 +78,12 @@ export function MyDrawer() {
           color:styles.innerText.color,
           fontFamily:styles.innerText.fontFamily,
           fontSize:styles.innerText.fontSize        
-        }
+        },
+        sceneContainerStyle: {
+          backgroundColor:"#222367",
+          innerWidth:"960px",
+          
+      } 
        }}
         
       />
