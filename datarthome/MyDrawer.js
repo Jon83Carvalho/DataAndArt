@@ -49,11 +49,13 @@ export function MyDrawer() {
         drawerStyle: {
           backgroundColor:"#6667AB",
           opacity:"95%",
+       
 
         },
         headerStyle: {
           backgroundColor:"#6667AB",
           opacity: "100%",
+          width:"960px"
        
           
         },
