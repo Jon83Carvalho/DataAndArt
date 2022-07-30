@@ -69,6 +69,38 @@ export function MyDrawer() {
      
     >
       <Drawer.Screen
+        name="Art 3 - Under development"
+        component={Art3}
+        options={{ drawerLabel: 'Art 3 - Under development',
+        drawerActiveBackgroundColor:"#444589",
+        drawerInactiveBackgroundColor:"#999BHF",
+        drawerLabelStyle: {
+          color:styles.innerText.color,
+          fontFamily:styles.innerText.fontFamily,
+          fontSize:styles.innerText.fontSize
+
+        }
+
+
+      }}
+        
+      />
+      <Drawer.Screen
+        name="Art 2- LoveWord"
+        component={Art2}
+        options={{ drawerLabel: 'Art 2- LoveWord' ,
+        drawerActiveBackgroundColor:"#444589",
+        drawerInactiveBackgroundColor:"#999BHF",
+        drawerLabelStyle: {
+          color:styles.innerText.color,
+          fontFamily:styles.innerText.fontFamily,
+          fontSize:styles.innerText.fontSize        
+        }
+
+      }}
+      />
+      
+      <Drawer.Screen
         
         name="Art 1 - Internet Gap"
         component={Art1}
@@ -87,37 +119,6 @@ export function MyDrawer() {
           
       } 
        }}
-        
-      />
-      <Drawer.Screen
-        name="Art 2- LoveWord"
-        component={Art2}
-        options={{ drawerLabel: 'Art 2- LoveWord' ,
-        drawerActiveBackgroundColor:"#444589",
-        drawerInactiveBackgroundColor:"#999BHF",
-        drawerLabelStyle: {
-          color:styles.innerText.color,
-          fontFamily:styles.innerText.fontFamily,
-          fontSize:styles.innerText.fontSize        
-        }
-
-      }}
-      />
-      <Drawer.Screen
-        name="Art 3 - Under development"
-        component={Art3}
-        options={{ drawerLabel: 'Art 3 - Under development',
-        drawerActiveBackgroundColor:"#444589",
-        drawerInactiveBackgroundColor:"#999BHF",
-        drawerLabelStyle: {
-          color:styles.innerText.color,
-          fontFamily:styles.innerText.fontFamily,
-          fontSize:styles.innerText.fontSize
-
-        }
-
-
-      }}
         
       />
     </Drawer.Navigator>
