@@ -11,8 +11,8 @@ const circleRadius=30;
 
 const array=range(1);
 
-const width=960; 
-const height=500;
+const width="100wv"; 
+const height="100vh";
 const margin={
   top:0,
   right:0,
@@ -27,12 +27,10 @@ const yAxislabelOffset=50;
 
 export function Art3() {
     return (
-      <scrollView width={width} style={{ justifyContent: 'center', alignItems: 'left' ,marginHorizontal: 20}}>
-      
-       <>
+   
   <Viz2
-    width={width}
-    height={height}
+    width="100vw"
+    height="100vh"
     marginTop={margin.top}
     marginRight={margin.right}
     marginBottom={margin.bottom}
@@ -40,10 +38,10 @@ export function Art3() {
     xAxislabelOffset={xAxislabelOffset}
     yAxislabelOffset={yAxislabelOffset}
     
-    />
- </>
+  />
+ 
 
-      </scrollView>
-    );
+ 
+    )
   }
  
