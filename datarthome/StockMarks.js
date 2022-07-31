@@ -1,6 +1,7 @@
 import React,{memo,useState,useCallback} from 'react';
 import {format} from 'd3';
 
+
 const f = format(".1f");
 const styles = {
   baseText: {
