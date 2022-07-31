@@ -38,6 +38,7 @@
     "react-native-screens": "~3.10.1",
     "react-native-tab-view": "^3.0.0",
     "react-native-web": "0.17.1",
+    "react-polygon": "^0.2.0",
     "swr": "^1.2.2"
   },
   "devDependencies": {

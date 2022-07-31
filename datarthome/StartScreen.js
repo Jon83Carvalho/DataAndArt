@@ -10,8 +10,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     im: {
+        height:'100vh',
         width:'100vw',
-        height:'100vh'
+        resizeMode: 'contain'
     },
     button: {
         backgroundColor: '#fff',

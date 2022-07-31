@@ -1,7 +1,7 @@
 import React,{useState,useCallback,useEffect} from 'react';
 import {csv,descending,max,min} from 'd3';
 
-const data_stock_d1=require('./assets/day1.csv')
+const data_stock_d1=require('./assets/day1_g.csv')
 
 export const useData_stock=()=>{
   const [data,setData]=useState(null);

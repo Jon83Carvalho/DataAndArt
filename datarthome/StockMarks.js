@@ -18,6 +18,8 @@ export const StockMarks=({
   xScale,
   yValue,
   xValue,
+  rScale,
+  rValue,
   circleRadius,
   centerX,
   centerY,
@@ -39,16 +41,14 @@ export const StockMarks=({
   
   return (
         data.map(function(d,i){
-           //	console.log(colorScale(colorValue(d)))
-           
              
           				return (
               <>
                 	<circle 
                    className="mark"
-                   cx={xScale(xValue(d))} 
+                   cx={isNaN(xScale(Math.log10(xValue(d))))?0:xScale(Math.log10(xValue(d)))} 
                    cy={yScale(yValue(d))} 
-                   r={xScale(2)}
+                   r={isNaN(rScale(Math.log10(rValue(d))))?0:rScale(Math.log10(rValue(d)))*0.02}
                    opacity="0.8"
                    fill={colorScale(colorValue(d))}
                      
