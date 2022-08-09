@@ -1,6 +1,6 @@
 # DataAndArt
 ![StartScreen](https://user-images.githubusercontent.com/25573262/182051851-118a37b0-8320-46c7-a3e4-1d3bcb3fdb31.jpg)
-Thus project stores all data and links to the page http://datandart.com.
+This project stores all data and links to the page http://datandart.com.
 
 This is a project to create art through data and bring to knowledge amazing information as well to bring new perspectives to data visualization.
 
