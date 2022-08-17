@@ -101,19 +101,42 @@ export const Viz2=({data,data2,marginTop,marginRight,marginBottom,marginLeft})=>
   
 useEffect(()=>{
   const g=select("g");
+ 
+  g.selectAll('circle')
+    .data(data)
+    .join(enter=>
+      enter.append("circle")
+    .attr('class', "mark")
+    .attr('cx', (d,i)=>`${isNaN(xScale(Math.log10(xValue(d))))?0:xScale(Math.log10(xValue(d)))}`)
+    .attr('cy', (d,i)=>`${yScale(yValue(d))}`)
+    .attr('r',"0.1")
+    .attr('opacity',"0")
+    .attr('fill',(d,i)=> `${colorScale(colorValue(d))}`)
+    .transition()
+        .delay((d,i)=>i*0.5)
+        .duration(3000)
+        .attr('opacity',"0.5")
+        .attr('r',(d,i)=>`${isNaN(rScale(Math.log10(rValue(d))))?0:rScale(Math.log10(rValue(d)))*0.02}`),
+    update=>
+    update
+    .transition()
+        .delay((d,i)=>i*0.5)
+        .duration(3000)
+        .attr('cx', (d,i)=>`${isNaN(xScale(Math.log10(xValue(d))))?0:xScale(Math.log10(xValue(d)))}`)
+        .attr('cy', (d,i)=>`${yScale(yValue(d))}`)
+        .attr('r',(d,i)=>`${isNaN(rScale(Math.log10(rValue(d))))?0:rScale(Math.log10(rValue(d)))*0.02}`),
+    exit=>
+    exit
+    .transition()
+        .delay((d,i)=>i*0.5)
+        .duration(3000) 
+        .attr('r',"0")   
+    
+        
+    )
   
-  
-  
-  data.map(function(d,i){
-  g.append('circle')
-    .attr('className', "mark")
-    .attr('cx', `${isNaN(xScale(Math.log10(xValue(d))))?0:xScale(Math.log10(xValue(d)))}`)
-    .attr('cy', `${yScale(yValue(d))}`)
-    .attr('r',`${isNaN(rScale(Math.log10(rValue(d))))?0:rScale(Math.log10(rValue(d)))*0.02}`)
-    .attr('opacity',"0.5")
-    .attr('fill', `${colorScale(colorValue(d))}`)
-  })
- },[])
+ },[data]);
+
   return (
  <React.Fragment>
   <svg width={width} height={height} style={{backgroundColor:"#4d4a4a"}}>

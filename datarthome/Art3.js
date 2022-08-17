@@ -32,6 +32,7 @@ const margin={
 export function Art3() {
     
   const [start, setStart] = useState(false);
+  const dataused=useRef()
  
     
     let [fontsLoaded] = useFonts({
@@ -50,7 +51,11 @@ export function Art3() {
     const svgRef = useRef();
     
     const {data,data2}=useData_stock();
-      
+    
+    const [dataUsed,setdataUsed]=useState([{data1:"data"}])
+
+    
+
   
   
   
@@ -62,18 +67,23 @@ export function Art3() {
            </div>
   }
   
-
   
   
    
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-       <>
-       <button onClick={() => setStart(!start)}>
-        {start ? "Before the War" : "The War!"}
+       <React.Fragment>
+        <button onClick={() => {
+        
+        setStart(!start)
+        setdataUsed(data2)
+
+      }
+        }>
+        {start ? "Before the War!" : "The War!"}
       </button>
       <Viz2
-      data={data}
+      data={start ? dataUsed : data}
       data2={data2} 
       svgRef={svgRef}
       marginTop={margin.top}
@@ -82,7 +92,7 @@ export function Art3() {
       marginLeft={margin.left}
  />
         
-      </>
+        </React.Fragment>
       
       </View>
       
