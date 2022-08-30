@@ -2,7 +2,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { Art2 } from './Art2'
 import { Art1 } from './Art1';
 import { Art3 } from './Art3';
-import { StyleSheet } from 'react-native';
+import { Dimensions } from 'react-native';
 import {
   useFonts,
   YanoneKaffeesatz_200ExtraLight,
@@ -13,7 +13,7 @@ import {
   YanoneKaffeesatz_700Bold,
 } from '@expo-google-fonts/yanone-kaffeesatz';
 
-
+const { width, height } = Dimensions.get('window');
 
 const Drawer = createDrawerNavigator();
 
@@ -21,7 +21,7 @@ const styles = {
   baseText: {
     color:"#fff",
     fontFamily:"YanoneKaffeesatz_400Regular",
-    fontSize:"1.7rem"
+    fontSize:width<height?0.04*width:0.04*height
   },
   innerText: {
     color:"#fff",
@@ -55,7 +55,10 @@ export function MyDrawer() {
         headerStyle: {
           backgroundColor:"#6667AB",
           opacity: "100%",
-          width:"960px"
+          height:"5vh",
+          headerShown:"false",
+          borderBottomWidth: 0
+        
        
           
         },
@@ -69,9 +72,9 @@ export function MyDrawer() {
      
     >
       <Drawer.Screen
-        name="Art 3 - Under development"
+        name="Art 3 - Trade War"
         component={Art3}
-        options={{ drawerLabel: 'Art 3 - Under development',
+        options={{ drawerLabel: 'Art 3 - Trade War',
         drawerActiveBackgroundColor:"#444589",
         drawerInactiveBackgroundColor:"#999BHF",
         drawerLabelStyle: {

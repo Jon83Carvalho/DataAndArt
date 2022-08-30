@@ -1,14 +1,8 @@
-import React,{memo,useState,useCallback,useEffect,useRef} from 'react';
-import ReactDOM from 'react-dom';
+import React,{useEffect} from 'react';
 
-import {scaleLog,log,select,scaleOrdinal,extent,format,csv,scaleBand,scaleLinear} from 'd3';
-
-import {randArray} from './randArray'
+import {select,scaleOrdinal,extent,scaleLinear} from 'd3';
 
 
-import {StockMarks} from './StockMarks'
-import {ColorLegend} from './ColorLegend'
-import {SizeLegend} from './SizeLegend'
 
 
 
@@ -78,7 +72,7 @@ export const Viz2=({data,data2,marginTop,marginRight,marginBottom,marginLeft})=>
  
   const rScale = scaleLinear()
 		.domain([0,Math.log10(extent(data,rValue)[1])])
-  	.range([0, innerHeight]);
+  	.range([0, innerHeight>innerWidth?innerWidth:innerHeight]);
   
   
   
@@ -94,43 +88,54 @@ export const Viz2=({data,data2,marginTop,marginRight,marginBottom,marginLeft})=>
   
    const colorScale=scaleOrdinal()
   	.domain(data.map(colorValue))
-    .range(["#bebada","#b3de69","#fccde5","#d9d9d9","#bc80bd","#ccebc5","#ffed6f","#ffffb3","#8dd3c7","#fb8072","#80b1d3","#fdb462"])
+    .range(["#ff4040","#e78d0b","#a7d503","#58fc2a","#18f472","#00bfbf","#1872f4","#582afc","#a703d5","#e70b8d","#ff4040"])
    
   	
   const rfactor=1.7
+  const ry_fact=3.0
+  const dur=20000
   
 useEffect(()=>{
   const g=select("g");
  
-  g.selectAll('circle')
+  g.selectAll('ellipse')
     .data(data)
     .join(enter=>
-      enter.append("circle")
+      enter.append("ellipse")
     .attr('class', "mark")
     .attr('cx', (d,i)=>`${isNaN(xScale(Math.log10(xValue(d))))?0:xScale(Math.log10(xValue(d)))}`)
     .attr('cy', (d,i)=>`${yScale(yValue(d))}`)
-    .attr('r',"0.1")
-    .attr('opacity',"0")
+    .attr('rx',"0.5")
+    .attr('ry',ry_fact)
+    .attr('opacity',"0.1")
     .attr('fill',(d,i)=> `${colorScale(colorValue(d))}`)
     .transition()
-        .delay((d,i)=>i*0.5)
-        .duration(3000)
-        .attr('opacity',"0.5")
-        .attr('r',(d,i)=>`${isNaN(rScale(Math.log10(rValue(d))))?0:rScale(Math.log10(rValue(d)))*0.02}`),
+        .delay((d,i)=>i*2)
+        .duration(dur)
+        .attr('opacity',"0.3")
+        .attr('rx',(d,i)=>`${isNaN(rScale(Math.log10(rValue(d))))?0:rScale(Math.log10(rValue(d)))*0.07}`)
+        .attr('ry',ry_fact)
+        .attr("transform",(d,i)=>`rotate(${20+6*Math.random()}, ${isNaN(xScale(Math.log10(xValue(d))))?0:xScale(Math.log10(xValue(d)))},${yScale(yValue(d))})`),
+        
     update=>
     update
     .transition()
-        .delay((d,i)=>i*0.5)
-        .duration(3000)
+        .delay((d,i)=>i*2)
+        .duration(dur)
+        
         .attr('cx', (d,i)=>`${isNaN(xScale(Math.log10(xValue(d))))?0:xScale(Math.log10(xValue(d)))}`)
         .attr('cy', (d,i)=>`${yScale(yValue(d))}`)
-        .attr('r',(d,i)=>`${isNaN(rScale(Math.log10(rValue(d))))?0:rScale(Math.log10(rValue(d)))*0.02}`),
+        .attr('rx',(d,i)=>`${isNaN(rScale(Math.log10(rValue(d))))?0:rScale(Math.log10(rValue(d)))*0.07}`)
+        .attr('ry',ry_fact)
+        .attr("transform",(d,i)=>`rotate(${20+6*Math.random()}, ${isNaN(xScale(Math.log10(xValue(d))))?0:xScale(Math.log10(xValue(d)))},${yScale(yValue(d))})`),
+        
     exit=>
     exit
     .transition()
-        .delay((d,i)=>i*0.5)
-        .duration(3000) 
-        .attr('r',"0")   
+        .delay((d,i)=>i*2)
+        .duration(dur) 
+        .attr('rx',"0")
+        .attr('ry',"0")    
     
         
     )

@@ -28,6 +28,8 @@ import axios from 'axios';
 const screenwidth=+select("#root").style("width").slice(0,-2)
 const screenheight=+select("#root").style("height").slice(0,-2)
 
+console.log("width:",screenwidth,"height:",screenheight)
+
 const size_unit_w=screenwidth/20
 const size_unit_h=screenheight/20
 
@@ -105,9 +107,9 @@ export function Art3() {
       style={{
         position:'absolute',
         top:(screenheight-size_unit_h*10/aspect_ratio)/2,
-        right:(screenwidth+size_unit_h*10)/2,
-        width:size_unit_h,
-        height:size_unit_h/aspect_ratio,
+        right:(screenwidth-size_unit_h*10)/2,
+        width:size_unit_h*10,
+        height:size_unit_h*10/aspect_ratio,
         opacity:"70%"
 
         }}
@@ -117,7 +119,12 @@ export function Art3() {
         backgroundColor:start ? "#880000" : "#006600",
         activeOpacity:0.80,
         width:size_unit_h*10,
-        height:size_unit_h*10/aspect_ratio
+        height:size_unit_h*10/aspect_ratio,
+        shadowColor: 'rgba(255,255,255, .8)', // IOS
+        shadowOffset: { height: 0, width: 0 }, // IOS
+        shadowOpacity: 1, // IOS
+        shadowRadius: 20, //IOS
+        borderRadius:10
       }}
       onPress={() => {
         
@@ -132,8 +139,8 @@ export function Art3() {
             color:'white',
             alignItems: 'center',
             fontWeight: 'bold',
-            fontSize: "1.3rem",
-            marginTop: size_unit_h*10/aspect_ratio/2.5,
+            fontSize: size_unit_h/1.2,
+            marginTop: size_unit_h*10/aspect_ratio/2.8,
             fontFamily:'YanoneKaffeesatz_400Regular'
           }}>
           {start ? "The War!" : "Before the War!"}
@@ -141,6 +148,28 @@ export function Art3() {
         
         </TouchableOpacity>
         
+      </View>
+      <View 
+      style={{
+        position:'absolute',
+        top:(screenheight-size_unit_h*20/aspect_ratio),
+        right:(screenwidth-size_unit_h*10)/2,
+        width:size_unit_h*10,
+        height:size_unit_h*10/aspect_ratio,
+        opacity:"100%"
+      }}>
+   <Text  href="https://www.linkedin.com/in/jonascarvalhoeng" 
+        style={{
+            textAlign:'center',
+            color:'white',
+            alignItems: 'center',
+            fontWeight: 'light',
+            fontSize: size_unit_h/2.2,
+            marginTop: size_unit_h*15/aspect_ratio/2.8,
+            fontFamily:'YanoneKaffeesatz_400Regular'
+          }}>
+          Developed by Jonas Carvalho 22th Aug 2022
+          </Text>
       </View>
       </React.Fragment>
       
