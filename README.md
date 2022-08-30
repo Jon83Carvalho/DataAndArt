@@ -8,7 +8,7 @@ I use mainly D3.js visualizations and data engineering to extract and load any k
 
 So far I developed 2 arts, and working currently in a new one.
 
-##ART 3 - Trade War
+## ART 3 - Trade War
 ![Captura de tela de 2022-08-29 23-03-54](https://user-images.githubusercontent.com/25573262/187332410-918ddf6d-4b3c-4a9e-beef-1e08074ac3c2.png)
 
 X direction means volume of traded stocks, Y direction is the relative price to maximum and minimum negotiated in the specific stock (divided in fewer groups of price). Before war - means the thursday and friday before the scalation of Russian attack to Ukraine, after War is on 1st March where the tensions area clearly higher and and long war is evident. The markets, eventhought reacted in a recovery movement on the Friday before, by Tuesday 1st March, Nasdaq and other indexes dropped significantly.
@@ -20,11 +20,11 @@ Note that before the war, trades are lower volumes, more diverse. After war trad
 It is a clear picture of part of history in terms of trades.
 
 
-##ART 2 - Love word 
+## ART 2 - Love word 
 Extracts the frequency of the "love" word in different languages and expand and contracts the figure showing that the love is spread in a pulsing behavior. One time growing, the other decreasing.
 
 
-##ART 1 - Internet gender GAP
+## ART 1 - Internet gender GAP
 Is a way to read data from Meta data source about internet gender Gap. With it, not only an artistic view of the data but one can find that there might be a correlation between corrupcy and internet gap.
 
 
