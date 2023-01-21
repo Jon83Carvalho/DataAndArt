@@ -3,6 +3,7 @@ import {csv,descending,max,min} from 'd3';
 
 const csvUrl='https://raw.githubusercontent.com/Jon83Carvalho/DataAndArt/main/int_index.csv';
 
+
 export const useData=()=>{
   const [data,setData]=useState(null);
    useEffect(()=>{
