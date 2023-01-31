@@ -25,7 +25,7 @@ Extracts the frequency of the "love" word in different languages from twitter AP
 
 
 ## ART 1 - Internet gender GAP
-Is a way to read data from Meta data source about internet gender Gap. With it, not only an artistic view of the data but one can find that there might be a correlation between corrupcy and internet gap.
+Is a way to read data from Meta data source about internet gender Gap. With it, not only an artistic view of the data but one can find that there might be a correlation between corrupicy and internet gap.
 
 
 
