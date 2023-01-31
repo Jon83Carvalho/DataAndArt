@@ -6,7 +6,7 @@ This is a project to create art through data and bring to knowledge amazing info
 
 I use mainly D3.js visualizations and data engineering to extract and load any kind of data to be used in the art.
 
-So far I developed 2 arts, and working currently in a new one.
+So far I developed 3 arts, and working currently in a new one.
 
 ## ART 3 - Trade War
 ![Captura de tela de 2022-08-29 23-03-54](https://user-images.githubusercontent.com/25573262/187332410-918ddf6d-4b3c-4a9e-beef-1e08074ac3c2.png)
