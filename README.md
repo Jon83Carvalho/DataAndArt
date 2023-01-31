@@ -21,7 +21,7 @@ It is a clear picture of part of history in terms of trades.
 
 
 ## ART 2 - Love word 
-Extracts the frequency of the "love" word in different languages and expand and contracts the figure showing that the love is spread in a pulsing behavior. One time growing, the other decreasing.
+Extracts the frequency of the "love" word in different languages from twitter API and expand and contracts the figure showing that the love is spread in a pulsing behavior. One time growing, the other decreasing.
 
 
 ## ART 1 - Internet gender GAP
