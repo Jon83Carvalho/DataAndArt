@@ -1,7 +1,7 @@
 import React,{memo,useState,useCallback,useEffect} from 'react';
 
 
-import {scaleOrdinal,extent,format,csv,scaleBand,scaleLinear,max,ascending,descending,cos,sin,min, select,selectAll} from 'd3';
+import {interpolateNumber,scaleOrdinal,extent,format,csv,scaleBand,scaleLinear,max,ascending,descending,cos,sin,min, select,selectAll} from 'd3';
 
 import {randArray} from './randArray'
 
@@ -12,6 +12,7 @@ import {SizeLegend} from './SizeLegend'
 
 
 const image={uri:"https://raw.githubusercontent.com/Jon83Carvalho/DataAndArt/main/eye.png"};
+
 
 
 const styles = {
@@ -80,19 +81,34 @@ export const Viz4=({yAxislabelOffset,xAxislabelOffset,width,height,marginTop,mar
       const g=select("#animation");
       g.selectAll("text")
       .data([0,data.max])
-      .attr("fill-oppacity","0")
       .enter()
       .append("text")
       .attr('class', "value")
       .attr('x', "50%")
       .attr('y', "50%")
+      .attr('id', "value")
       .style('fill',"black")
-       .text((d,i)=>d)
+      .text((d,i)=>d)
           .transition()
-          .duration(2)
           .attr("fill-oppacity","1")
-          .text((d,i)=>d)
+          .duration(5000)
+          .textTween((d) => t =>{
+            const i=interpolateNumber(g.selectAll("#value").node().textContent,d) 
+            return `${i(t)}`
+          }) 
+          .end()
       
+          console.log(g.selectAll("#value").node().textContent)
+        g.select("#value")
+          .transition()
+          .attr("fill-oppacity","1")
+          .duration(5000)
+          .textTween((d) => t =>{
+            const i=interpolateNumber(g.selectAll("#value").node().textContent,d) 
+            return `${i(t)}`
+          })
+          .end()
+  
       },[data]);
  
   
@@ -107,9 +123,6 @@ export const Viz4=({yAxislabelOffset,xAxislabelOffset,width,height,marginTop,mar
         
 
         <g transform={`translate(0,70)`} id="animation">
-
-
-
           <text 
             x="0"
             y="0"

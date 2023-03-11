@@ -27,6 +27,7 @@
     "expo-asset": "~8.4.6",
     "expo-font": "~10.0.4",
     "expo-status-bar": "~1.2.0",
+    "kafkajs": "^2.2.3",
     "npm": "^8.13.1",
     "react": "17.0.1",
     "react-dom": "17.0.1",
