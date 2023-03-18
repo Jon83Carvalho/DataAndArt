@@ -20,6 +20,7 @@
     "@react-navigation/native": "6.0.10",
     "@react-navigation/native-stack": "6.6.1",
     "@react-navigation/stack": "6.2.1",
+    "@space-kit/redis-realtime-react": "^0.0.1",
     "axios": "^0.27.2",
     "babel-preset-expo": "^9.0.2",
     "d3": "^7.3.0",
@@ -41,10 +42,12 @@
     "react-native-tab-view": "^3.0.0",
     "react-native-web": "0.17.1",
     "react-polygon": "^0.2.0",
+    "redis": "^4.6.5",
     "swr": "^1.2.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9"
+    "@babel/core": "^7.12.9",
+    "@expo/webpack-config": "^18.0.1"
   },
   "private": true
 }
