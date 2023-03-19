@@ -3,17 +3,6 @@ import React,{memo,useState,useCallback,useEffect} from 'react';
 
 import {interpolateNumber,scaleOrdinal,extent,format,csv,scaleBand,scaleLinear,max,ascending,descending,cos,sin,min, select,selectAll} from 'd3';
 
-import {randArray} from './randArray'
-
-
-import {Marks} from './Marks'
-import {ColorLegend} from './ColorLegend'
-import {SizeLegend} from './SizeLegend'
-
-
-const image={uri:"https://raw.githubusercontent.com/Jon83Carvalho/DataAndArt/main/eye.png"};
-
-
 
 const styles = {
   baseText: {
@@ -79,13 +68,27 @@ export const Viz4=({yAxislabelOffset,xAxislabelOffset,width,height,marginTop,mar
   useEffect(
     ()=>{
       const g=select("#animation");
+      const g1=select("#static");
+
+      g1.selectAll("text")
+        .data([data.max,data.max*2,data.max*3,data.max*4,data.max*5])
+        .enter()
+        .append("text")
+        .attr('x', "40%")
+        .attr('y', (d,i)=>100+(i+1)*15)
+        .style('fill',"black")
+        .text("Valor =")
+      
+
       g.selectAll("text")
-      .data([0,data.max])
-      .enter()
+      .data([data.max,data.max*2,data.max*3,data.max*4,data.max*5])
+      .join(
+      enter=>
+      enter
       .append("text")
       .attr('class', "value")
       .attr('x', "50%")
-      .attr('y', "50%")
+      .attr('y', (d,i)=>100+(i+1)*15)
       .attr('id', "value")
       .style('fill',"black")
       .text((d,i)=>d)
@@ -95,19 +98,20 @@ export const Viz4=({yAxislabelOffset,xAxislabelOffset,width,height,marginTop,mar
           .textTween((d) => t =>{
             const i=interpolateNumber(g.selectAll("#value").node().textContent,d) 
             return `${i(t)}`
-          }) 
-          .end()
+          }),
+      update=>
+      update
+        .transition()
+        .attr("fill-oppacity","1")
+        .duration(5000)
+        .textTween((d) => t =>{
+          const i=interpolateNumber(g.selectAll("#value").node().textContent,d) 
+          return `${i(t)}`
+        })
+        
+      )
+
       
-          console.log(g.selectAll("#value").node().textContent)
-        g.select("#value")
-          .transition()
-          .attr("fill-oppacity","1")
-          .duration(5000)
-          .textTween((d) => t =>{
-            const i=interpolateNumber(g.selectAll("#value").node().textContent,d) 
-            return `${i(t)}`
-          })
-          .end()
   
       },[data]);
  
@@ -121,8 +125,13 @@ export const Viz4=({yAxislabelOffset,xAxislabelOffset,width,height,marginTop,mar
       
       
         
-
+        <g id="static" transform={`translate(0,70)`}>
+        </g>
+        
         <g transform={`translate(0,70)`} id="animation">
+        
+        </g>
+        <g transform={`translate(0,70)`} >
           <text 
             x="0"
             y="0"

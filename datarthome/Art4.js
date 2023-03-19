@@ -10,17 +10,7 @@ import {Viz4} from './Viz4';
 import { laggy } from './laggy';
 import axios from 'axios';
 
-//REDIS=====
 
-const userAction = () => {
-
-      
-     
-     
-  // do something with myJson
-}
-
-//FIM-REDIS====
 
 const image={uri:"https://github.com/Jon83Carvalho/DataAndArt/blob/main/eye.jpg?raw=true"};
 
@@ -54,23 +44,20 @@ export function Art4() {
     
     const request= axios.get(url).then(res=>res.data)
     const resp= request
-    const g_id="stock-view-app"
-    const REDIS_PASSW=process.env.REDIS_PASSW
-
+    
     const respo = axios.get('http://127.0.0.1:8000/').then(res=>res.data[0].loveword)
-    
-   
-    
-  return respo;
+     
+    return respo;
   };
 
   const {data} = useSWR(csvUrl,fetcher,{
-    revalidateIfStale: true,
+    revalidateIfStale: false,
     revalidateOnFocus: false,
-    revalidateOnReconnect: false,
+    revalidateOnReconnect: true,
     revalidateOnMount:true,
-    refreshInterval: 1000,
-    use:[laggy]
+    refreshInterval: 10000,
+
+    
   })
 
 
@@ -89,8 +76,6 @@ export function Art4() {
        return d}
        )
 
-
-
        if(!data){
    
         return <pre>...loading</pre>;
@@ -98,7 +83,7 @@ export function Art4() {
       
       
       
-        console.log("Dado lido",JSON.parse(data))
+      
       respdata.current=JSON.parse(data)
   //FINISH - reading data===============================
 
