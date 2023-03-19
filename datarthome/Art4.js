@@ -12,15 +12,14 @@ import axios from 'axios';
 
 //REDIS=====
 
-const userAction = async () => {
-      fetch('http://127.0.0.1:8000/')
-      .then(T=>T.json())
-      .then(console.log);
-  
-  
+const userAction = () => {
+
+      
+     
+     
   // do something with myJson
 }
-console.log(userAction());
+
 //FIM-REDIS====
 
 const image={uri:"https://github.com/Jon83Carvalho/DataAndArt/blob/main/eye.jpg?raw=true"};
@@ -58,10 +57,11 @@ export function Art4() {
     const g_id="stock-view-app"
     const REDIS_PASSW=process.env.REDIS_PASSW
 
+    const respo = axios.get('http://127.0.0.1:8000/').then(res=>res.data[0].loveword)
+    
    
-    userAction();
-
-    return request;
+    
+  return respo;
   };
 
   const {data} = useSWR(csvUrl,fetcher,{
@@ -98,8 +98,8 @@ export function Art4() {
       
       
       
-        
-      respdata.current=data
+        console.log("Dado lido",JSON.parse(data))
+      respdata.current=JSON.parse(data)
   //FINISH - reading data===============================
 
     return (
