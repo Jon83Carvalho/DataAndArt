@@ -71,14 +71,27 @@ export const Viz4=({yAxislabelOffset,xAxislabelOffset,width,height,marginTop,mar
   useEffect(
     ()=>{
       const screenheight=+select("#root").style("height").slice(0,-2)
-      const data_keys=data.map(d=>parseFloat(Object.keys(d)[0]))
+      const screenwidth=+select("#root").style("width").slice(0,-2)
+
+      //const data_keys=data.map(d=>parseFloat(Object.keys(d)[0]))
+      //const data_values=data.map(d=>JSON.parse(Object.values(d)[0]).Volume)
+      
+
       const data_complete=data.map(d=>{
         return {"price":parseFloat(Object.keys(d)[0]),"volume":JSON.parse(Object.values(d)[0]).Volume}
       })
 
+
+      //escala Y
       const sizey=scaleLinear()
-      .domain(extent(data_keys))
+      .domain(extent(data_complete,d=>d.price))
       .range([screenheight,10])
+
+      //escala X  
+      const sizex=scaleLinear()
+      .domain(extent(data_complete,d=>d.volume))
+      .range([10,screenwidth-100])
+
 
       console.log(data_complete)
 
@@ -104,28 +117,28 @@ export const Viz4=({yAxislabelOffset,xAxislabelOffset,width,height,marginTop,mar
         update
         .transition()
         .duration(5000)
-        .attr('x', (d,i)=>d-100)
-
+        .attr('x', (d,i)=>sizex(d.volume))
+        .attr('y', (d,i)=>sizey(d.price))
         )
       
 
       g.selectAll("text")
-      .data(data)
+      .data(data_complete)
       .join(
       enter=>
       enter
       .append("text")
       .attr('class', "value")
-      .attr('x', (d,i)=>d)
-      .attr('y', (d,i)=>100+(i+1)*15)
+      .attr('x', (d,i)=>200+sizex(d.volume))
+      .attr('y', (d,i)=>sizey(d.price))
       .attr('id', "value")
       .style('fill',"black")
-      .text((d,i)=>d)
+      .text((d,i)=>d.volume)
           .transition()
           .attr("fill-oppacity","1")
           .duration(5000)
           .textTween((d) => t =>{
-            const i=interpolateNumber(g.selectAll("#value").node().textContent,d) 
+            const i=interpolateNumber(g.selectAll("#value").node().textContent,d.volume) 
             return `${i(t)}`
           }),
       update=>
@@ -133,9 +146,10 @@ export const Viz4=({yAxislabelOffset,xAxislabelOffset,width,height,marginTop,mar
         .transition()
         .attr("fill-oppacity","1")
         .duration(5000)
-        .attr('x', (d,i)=>d)
+        .attr('x', (d,i)=>200+sizex(d.volume))
+        .attr('y', (d,i)=>sizey(d.price))
         .textTween((d) => t =>{
-          const i=interpolateNumber(g.selectAll("#value").node().textContent,d) 
+          const i=interpolateNumber(g.selectAll("#value").node().textContent,d.volume) 
           return `${i(t)}`
         })
         
