@@ -7,7 +7,7 @@ import {csvParse} from 'd3';
 
 import {Viz4} from './Viz4';
 
-import { laggy } from './laggy';
+
 import axios from 'axios';
 
 
@@ -32,7 +32,7 @@ const yAxislabelOffset=50;
 export function Art4() {
  
   //START - variable declaration=========================================
-  const rawdata=[{"count":5000,"max":0},{"count":5000,"max":100}]; 
+  const rawdata=[{"Volume":0.1}]; 
   var csvUrl
   csvUrl='https://raw.githubusercontent.com/Jon83Carvalho/DataAndArt/main/LoveWord.csv'
   const previousdata = useRef();
@@ -42,11 +42,12 @@ export function Art4() {
   //START - reading data===============================
   const fetcher = (url) => {
     
-    const request= axios.get(url).then(res=>res.data)
-    const resp= request
+    //const request= axios.get(url).then(res=>res.data)
+    //const resp= request
     
-    const respo = axios.get('http://127.0.0.1:8000/').then(res=>res.data[0].loveword)
-     
+    //const respo = axios.get('http://127.0.0.1:8000/').then(res=>res.data[0].loveword)
+    const respo = axios.get('http://127.0.0.1:8000/').then(res=>res.data)
+
     return respo;
   };
 
@@ -64,7 +65,7 @@ export function Art4() {
   previousdata.current=localStorage.getItem('cdata')
   
   if (previousdata.current===null){
-    localStorage.setItem('pdata',`count,max\n${rawdata[0].count},${rawdata[0].max}`);
+    localStorage.setItem('pdata',`Volume\n${rawdata[0].Volume}`);
     localStorage.setItem('firstdisplay',`0`);
     
     previousdata.current=localStorage.getItem('pdata');
@@ -72,7 +73,7 @@ export function Art4() {
   
   previousdata.current=csvParse(previousdata.current,
     (d)=>{
-      d.max=+d.max;
+      //d=+d;
        return d}
        )
 
@@ -84,7 +85,7 @@ export function Art4() {
       
       
       
-      respdata.current=JSON.parse(data)
+      respdata.current=data
   //FINISH - reading data===============================
 
     return (

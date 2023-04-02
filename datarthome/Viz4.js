@@ -1,4 +1,4 @@
-import React,{memo,useState,useCallback,useEffect} from 'react';
+import React,{useState,useEffect} from 'react';
 
 
 import {interpolateNumber,scaleOrdinal,extent,format,csv,scaleBand,scaleLinear,max,ascending,descending,cos,sin,min, select,selectAll} from 'd3';
@@ -65,21 +65,41 @@ export const Viz4=({yAxislabelOffset,xAxislabelOffset,width,height,marginTop,mar
 
   const xAxistickFormat=tickvalue=>siFormat(tickvalue).replace('G','Bi');
   
+  console.log(data)
+
+  
   useEffect(
     ()=>{
+      const screenheight=+select("#root").style("height").slice(0,-2)
+      const data_keys=data.map(d=>parseFloat(Object.keys(d)[0]))
+      const data_complete=data.map(d=>{
+        return {"price":parseFloat(Object.keys(d)[0]),"volume":JSON.parse(Object.values(d)[0]).Volume}
+      })
+
+      const sizey=scaleLinear()
+      .domain(extent(data_keys))
+      .range([screenheight,10])
+
+      console.log(data_complete)
+
       const g=select("#animation");
       const g1=select("#static");
 
+
+     //Ler os preços e criar escala
+
+
+
       g1.selectAll("text")
-        .data([data.max,data.max*2,data.max*3,data.max*4,data.max*5,data.max*6,data.max*7])
+        .data(data_complete)
         .join(
         enter=>
         enter
         .append("text")
-        .attr('x', (d,i)=>d-100)
-        .attr('y', (d,i)=>100+(i+1)*15)
+        .attr('x', "100")
+        .attr('y', (d,i)=>sizey(d.price))
         .style('fill',"black")
-        .text("Valor ="),
+        .text(d=>d.price),
         update=>
         update
         .transition()
@@ -90,7 +110,7 @@ export const Viz4=({yAxislabelOffset,xAxislabelOffset,width,height,marginTop,mar
       
 
       g.selectAll("text")
-      .data([data.max,data.max*2,data.max*3,data.max*4,data.max*5,data.max*6,data.max*7])
+      .data(data)
       .join(
       enter=>
       enter
