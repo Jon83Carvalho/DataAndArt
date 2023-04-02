@@ -55,7 +55,7 @@ export function Art4() {
     revalidateOnFocus: false,
     revalidateOnReconnect: true,
     revalidateOnMount:true,
-    refreshInterval: 10000,
+    refreshInterval: 3000,
 
     
   })

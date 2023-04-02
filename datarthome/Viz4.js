@@ -71,23 +71,32 @@ export const Viz4=({yAxislabelOffset,xAxislabelOffset,width,height,marginTop,mar
       const g1=select("#static");
 
       g1.selectAll("text")
-        .data([data.max,data.max*2,data.max*3,data.max*4,data.max*5])
-        .enter()
+        .data([data.max,data.max*2,data.max*3,data.max*4,data.max*5,data.max*6,data.max*7])
+        .join(
+        enter=>
+        enter
         .append("text")
-        .attr('x', "40%")
+        .attr('x', (d,i)=>d-100)
         .attr('y', (d,i)=>100+(i+1)*15)
         .style('fill',"black")
-        .text("Valor =")
+        .text("Valor ="),
+        update=>
+        update
+        .transition()
+        .duration(5000)
+        .attr('x', (d,i)=>d-100)
+
+        )
       
 
       g.selectAll("text")
-      .data([data.max,data.max*2,data.max*3,data.max*4,data.max*5])
+      .data([data.max,data.max*2,data.max*3,data.max*4,data.max*5,data.max*6,data.max*7])
       .join(
       enter=>
       enter
       .append("text")
       .attr('class', "value")
-      .attr('x', "50%")
+      .attr('x', (d,i)=>d)
       .attr('y', (d,i)=>100+(i+1)*15)
       .attr('id', "value")
       .style('fill',"black")
@@ -104,6 +113,7 @@ export const Viz4=({yAxislabelOffset,xAxislabelOffset,width,height,marginTop,mar
         .transition()
         .attr("fill-oppacity","1")
         .duration(5000)
+        .attr('x', (d,i)=>d)
         .textTween((d) => t =>{
           const i=interpolateNumber(g.selectAll("#value").node().textContent,d) 
           return `${i(t)}`
