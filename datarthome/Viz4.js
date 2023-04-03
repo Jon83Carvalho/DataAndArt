@@ -64,36 +64,41 @@ export const Viz4=({yAxislabelOffset,xAxislabelOffset,width,height,marginTop,mar
   const larr=[];
 
   const xAxistickFormat=tickvalue=>siFormat(tickvalue).replace('G','Bi');
-  
-  console.log(data)
+
 
   
   useEffect(
     ()=>{
-      const screenheight=+select("#root").style("height").slice(0,-2)
-      const screenwidth=+select("#root").style("width").slice(0,-2)
+      
 
-      //const data_keys=data.map(d=>parseFloat(Object.keys(d)[0]))
-      //const data_values=data.map(d=>JSON.parse(Object.values(d)[0]).Volume)
       
 
       const data_complete=data.map(d=>{
-        return {"price":parseFloat(Object.keys(d)[0]),"volume":JSON.parse(Object.values(d)[0]).Volume}
-      })
+        return {
+        "price":parseFloat(Object.keys(d)[0]),
+        "volume":JSON.parse(Object.values(d)[0]).Volume, 
+        "price_str":Object.keys(d)[0]
+      }
+      }).sort((a,b)=>b.price_str-a.price_str)
 
-
+      
       //escala Y
-      const sizey=scaleLinear()
-      .domain(extent(data_complete,d=>d.price))
-      .range([screenheight,10])
+  
+
+      const data_string=data_complete.map(d=>d.price_str).sort((a,b)=>b-a)
+      const sizey=scaleBand()
+      .domain(data_string)
+      .range([10,innerWidth])
+
+
 
       //escala X  
       const sizex=scaleLinear()
       .domain(extent(data_complete,d=>d.volume))
-      .range([10,screenwidth-100])
+      .range([10,innerWidth])
 
-
-      console.log(data_complete)
+      
+      console.log(sizey(data_complete[4].price_str))
 
       const g=select("#animation");
       const g1=select("#static");
@@ -110,33 +115,37 @@ export const Viz4=({yAxislabelOffset,xAxislabelOffset,width,height,marginTop,mar
         enter
         .append("text")
         .attr('x', "100")
-        .attr('y', (d,i)=>sizey(d.price))
+        .attr('y', (d,i)=>sizey(d.price_str))
         .style('fill',"black")
+        .attr('id', "price")
         .text(d=>d.price),
         update=>
         update
         .transition()
-        .duration(5000)
-        .attr('x', (d,i)=>sizex(d.volume))
-        .attr('y', (d,i)=>sizey(d.price))
-        )
+        .text(d=>d.price)
+         .duration(5000)
+         .attr('y', (d,i)=>sizey(d.price_str))
+         )
+          
       
 
       g.selectAll("text")
-      .data(data_complete)
+      .data(data_complete.sort((a,b)=>a.price-b.price))
       .join(
       enter=>
       enter
       .append("text")
       .attr('class', "value")
       .attr('x', (d,i)=>200+sizex(d.volume))
-      .attr('y', (d,i)=>sizey(d.price))
+      .attr('y', (d,i)=>sizey(d.price_str))
       .attr('id', "value")
       .style('fill',"black")
       .text((d,i)=>d.volume)
           .transition()
           .attr("fill-oppacity","1")
           .duration(5000)
+          .attr('x', (d,i)=>200+sizex(d.volume))
+          .attr('y', (d,i)=>sizey(d.price_str))
           .textTween((d) => t =>{
             const i=interpolateNumber(g.selectAll("#value").node().textContent,d.volume) 
             return `${i(t)}`
@@ -147,7 +156,7 @@ export const Viz4=({yAxislabelOffset,xAxislabelOffset,width,height,marginTop,mar
         .attr("fill-oppacity","1")
         .duration(5000)
         .attr('x', (d,i)=>200+sizex(d.volume))
-        .attr('y', (d,i)=>sizey(d.price))
+        .attr('y', (d,i)=>sizey(d.price_str))
         .textTween((d) => t =>{
           const i=interpolateNumber(g.selectAll("#value").node().textContent,d.volume) 
           return `${i(t)}`
@@ -163,7 +172,7 @@ export const Viz4=({yAxislabelOffset,xAxislabelOffset,width,height,marginTop,mar
   return (
 
 
-  <svg width={width} height={height} style={{backgroundColor:"#66679G"}}>
+  <svg width={innerWidth} height={innerHeight} style={{backgroundColor:"#66679G"}}>
     
       <g transform={`translate(${marginLeft},${marginTop})`}>
       

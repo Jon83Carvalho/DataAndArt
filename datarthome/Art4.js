@@ -19,12 +19,12 @@ const circleRadius=30;
 const array=range(1);
 
 const width=960; 
-const height=500;
+const height="100%";
 const margin={
-  top:0,
-  right:0,
-  bottom:0,
-  left:0
+  top:100,
+  right:100,
+  bottom:100,
+  left:100
 };
 const xAxislabelOffset=70;
 const yAxislabelOffset=50;
@@ -56,7 +56,7 @@ export function Art4() {
     revalidateOnFocus: false,
     revalidateOnReconnect: true,
     revalidateOnMount:true,
-    refreshInterval: 3000,
+    refreshInterval: 5000,
 
     
   })
