@@ -18,12 +18,12 @@ const circleRadius=30;
 
 const array=range(1);
 
-const width=960; 
+const width="100%"; 
 const height="100%";
 const margin={
   top:100,
-  right:100,
-  bottom:100,
+  right:400,
+  bottom:200,
   left:100
 };
 const xAxislabelOffset=70;
@@ -32,7 +32,7 @@ const yAxislabelOffset=50;
 export function Art4() {
  
   //START - variable declaration=========================================
-  const rawdata=[{"Volume":0.1}]; 
+  const rawdata=[{28000:'{"Volume":0.1}'}]; 
   var csvUrl
   csvUrl='https://raw.githubusercontent.com/Jon83Carvalho/DataAndArt/main/LoveWord.csv'
   const previousdata = useRef();

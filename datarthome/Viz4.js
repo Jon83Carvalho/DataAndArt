@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react';
 
 
-import {interpolateNumber,scaleOrdinal,extent,format,csv,scaleBand,scaleLinear,max,ascending,descending,cos,sin,min, select,selectAll} from 'd3';
+import {interpolateNumber,extent,scaleBand,scaleLinear,select,selectAll,format} from 'd3';
 
 
 const styles = {
@@ -50,45 +50,44 @@ export const Viz4=({yAxislabelOffset,xAxislabelOffset,width,height,marginTop,mar
   
   const [hoveredValue,setHoveredValue]=useState(null)
 
-  const innerHeight=height-marginTop-marginBottom;
-  const innerWidth=width-marginLeft-marginRight;
-  const centerX=innerWidth/2;
-  const centerY=innerHeight/2;
   
   
-  const xValue=d=>d.Corrup;
+  
 
+  
  
-  const yValue=d=>d.Gap;
-  const fadeOpacity=0.2;
-  const larr=[];
-
-  const xAxistickFormat=tickvalue=>siFormat(tickvalue).replace('G','Bi');
-
-
   
   useEffect(
     ()=>{
       
+      const screenheight=+select("#root").style("height").slice(0,-2)
+      const screenwidth=+select("#root").style("width").slice(0,-2)
 
+      const innerHeight=screenheight-marginTop-marginBottom;
+      const innerWidth=screenwidth-marginLeft-marginRight;
+      const centerX=innerWidth/2;
+      const centerY=innerHeight/2;
       
-
-      const data_complete=data.map(d=>{
-        return {
+     
+      const data_complete=data.map((d,i)=>{
+         return {
+        "order":JSON.parse(Object.values(d)[0]).Order,
         "price":parseFloat(Object.keys(d)[0]),
         "volume":JSON.parse(Object.values(d)[0]).Volume, 
-        "price_str":Object.keys(d)[0]
-      }
-      }).sort((a,b)=>b.price_str-a.price_str)
+        "price_str":Object.keys(d)[0],
+        "previous":JSON.parse(Object.values(d)[0]).Previous
+        }
+      }).sort((a,b)=>a.order-b.order)
+
+      
 
       
       //escala Y
   
-
       const data_string=data_complete.map(d=>d.price_str).sort((a,b)=>b-a)
       const sizey=scaleBand()
       .domain(data_string)
-      .range([10,innerWidth])
+      .range([10,innerHeight])
 
 
 
@@ -96,18 +95,14 @@ export const Viz4=({yAxislabelOffset,xAxislabelOffset,width,height,marginTop,mar
       const sizex=scaleLinear()
       .domain(extent(data_complete,d=>d.volume))
       .range([10,innerWidth])
-
-      
-      console.log(sizey(data_complete[4].price_str))
+  
 
       const g=select("#animation");
       const g1=select("#static");
 
+      const f=format(".4f")  
 
-     //Ler os preços e criar escala
-
-
-
+      console.log(data_complete)
       g1.selectAll("text")
         .data(data_complete)
         .join(
@@ -118,7 +113,11 @@ export const Viz4=({yAxislabelOffset,xAxislabelOffset,width,height,marginTop,mar
         .attr('y', (d,i)=>sizey(d.price_str))
         .style('fill',"black")
         .attr('id', "price")
-        .text(d=>d.price),
+        .attr("fill-opacity",0)
+        .text(d=>d.price)
+        .transition()
+          .attr("fill-opacity",1)
+        ,
         update=>
         update
         .transition()
@@ -130,25 +129,28 @@ export const Viz4=({yAxislabelOffset,xAxislabelOffset,width,height,marginTop,mar
       
 
       g.selectAll("text")
-      .data(data_complete.sort((a,b)=>a.price-b.price))
+      .data(data_complete)
       .join(
       enter=>
       enter
       .append("text")
       .attr('class', "value")
-      .attr('x', (d,i)=>200+sizex(d.volume))
+    //  .attr('x', (d,i)=>200+sizex(d.volume))
+      .attr('x',0)
       .attr('y', (d,i)=>sizey(d.price_str))
       .attr('id', "value")
       .style('fill',"black")
-      .text((d,i)=>d.volume)
+      .attr("fill-opacity",0)
+      .text(f(0))
           .transition()
-          .attr("fill-oppacity","1")
+          .attr("fill-opacity",1)
           .duration(5000)
           .attr('x', (d,i)=>200+sizex(d.volume))
           .attr('y', (d,i)=>sizey(d.price_str))
           .textTween((d) => t =>{
-            const i=interpolateNumber(g.selectAll("#value").node().textContent,d.volume) 
-            return `${i(t)}`
+
+            const i=interpolateNumber(0,d.volume) 
+            return `${f(i(t))}`
           }),
       update=>
       update
@@ -158,8 +160,9 @@ export const Viz4=({yAxislabelOffset,xAxislabelOffset,width,height,marginTop,mar
         .attr('x', (d,i)=>200+sizex(d.volume))
         .attr('y', (d,i)=>sizey(d.price_str))
         .textTween((d) => t =>{
-          const i=interpolateNumber(g.selectAll("#value").node().textContent,d.volume) 
-          return `${i(t)}`
+          
+          const i=interpolateNumber(d.previous,d.volume) 
+          return `${f(i(t))}`
         })
         
       )
@@ -172,7 +175,7 @@ export const Viz4=({yAxislabelOffset,xAxislabelOffset,width,height,marginTop,mar
   return (
 
 
-  <svg width={innerWidth} height={innerHeight} style={{backgroundColor:"#66679G"}}>
+  <svg width={width} height={height} style={{backgroundColor:"#66679G"}}>
     
       <g transform={`translate(${marginLeft},${marginTop})`}>
       
