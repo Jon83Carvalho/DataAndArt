@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react';
 
 
-import {interpolateNumber,extent,scaleBand,scaleLinear,select,selectAll,format} from 'd3';
+import {min,interpolateNumber,extent,scaleBand,scaleLinear,select,selectAll,format} from 'd3';
 
 
 const styles = {
@@ -13,7 +13,7 @@ const styles = {
   titText: {
     fill: "#DD7788",
     fontFamily:"YanoneKaffeesatz_400Regular",
-    fontSize:"2.3em"
+    fontSize:"3.5em"
   },
   innerText: {
     color:"#fff",
@@ -67,7 +67,7 @@ export const Viz4=({yAxislabelOffset,xAxislabelOffset,width,height,marginTop,mar
       const innerWidth=screenwidth-marginLeft-marginRight;
       const centerX=innerWidth/2;
       const centerY=innerHeight/2;
-      
+      const minf=20
      
       const data_complete=data.map((d,i)=>{
          return {
@@ -99,10 +99,13 @@ export const Viz4=({yAxislabelOffset,xAxislabelOffset,width,height,marginTop,mar
 
       const g=select("#animation");
       const g1=select("#static");
+      const g2=select("#bars");
 
-      const f=format(".4f")  
+      const f=format(".2f")  
 
-      console.log(data_complete)
+      //console.log(data_complete)
+
+      //STATIC Prince tick
       g1.selectAll("text")
         .data(data_complete)
         .join(
@@ -112,8 +115,10 @@ export const Viz4=({yAxislabelOffset,xAxislabelOffset,width,height,marginTop,mar
         .attr('x', "100")
         .attr('y', (d,i)=>sizey(d.price_str))
         .style('fill',"black")
+        .style('font-size',`${min([minf,sizey.bandwidth()])}px`)
         .attr('id', "price")
         .attr("fill-opacity",0)
+        .style('font-family', `${styles.baseText.fontFamily}`)
         .text(d=>d.price)
         .transition()
           .attr("fill-opacity",1)
@@ -125,9 +130,10 @@ export const Viz4=({yAxislabelOffset,xAxislabelOffset,width,height,marginTop,mar
          .duration(5000)
          .attr('y', (d,i)=>sizey(d.price_str))
          )
+         .style('font-size',`${min([minf,sizey.bandwidth()])}px`)
           
       
-
+      //Dynamic Volume
       g.selectAll("text")
       .data(data_complete)
       .join(
@@ -136,10 +142,12 @@ export const Viz4=({yAxislabelOffset,xAxislabelOffset,width,height,marginTop,mar
       .append("text")
       .attr('class', "value")
     //  .attr('x', (d,i)=>200+sizex(d.volume))
-      .attr('x',0)
+      .attr('x',100)
       .attr('y', (d,i)=>sizey(d.price_str))
       .attr('id', "value")
       .style('fill',"black")
+      .style('font-size',`${min([minf,sizey.bandwidth()])}px`)
+      .style('font-family', `${styles.baseText.fontFamily}`)
       .attr("fill-opacity",0)
       .text(f(0))
           .transition()
@@ -147,10 +155,10 @@ export const Viz4=({yAxislabelOffset,xAxislabelOffset,width,height,marginTop,mar
           .duration(5000)
           .attr('x', (d,i)=>200+sizex(d.volume))
           .attr('y', (d,i)=>sizey(d.price_str))
-          .textTween((d) => t =>{
-
+          .textTween((d) => (t) =>{
+            
             const i=interpolateNumber(0,d.volume) 
-            return `${f(i(t))}`
+            return `${f(i(t)*1000)}`
           }),
       update=>
       update
@@ -159,14 +167,53 @@ export const Viz4=({yAxislabelOffset,xAxislabelOffset,width,height,marginTop,mar
         .duration(5000)
         .attr('x', (d,i)=>200+sizex(d.volume))
         .attr('y', (d,i)=>sizey(d.price_str))
-        .textTween((d) => t =>{
+        .style('font-size',`${min([minf,sizey.bandwidth()])}px`)
+        .textTween((d,k) => t =>{
+          const volume_i=g.selectAll('text').nodes()[k].textContent/1000
+          //console.log(volume_i.nodes()[k].textContent)
           
-          const i=interpolateNumber(d.previous,d.volume) 
-          return `${f(i(t))}`
+          const i=interpolateNumber(volume_i,d.volume) 
+          return `${f(i(t)*1000)}`
         })
+             
         
       )
 
+      //Dynamic BARS
+      g2.selectAll("rect")
+      .data(data_complete)
+      .join(
+      enter=>
+      enter
+      .append("rect")
+      .attr('class', "bvol")
+    //  .attr('x', (d,i)=>200+sizex(d.volume))
+      .attr('x', 185)
+      .attr('y', (d,i)=>sizey(d.price_str)-min([minf,sizey.bandwidth()])*3/4)
+      .attr('width',0)
+      .attr('height',min([minf,sizey.bandwidth()]))
+      .attr('id', "bvol")
+      .style('fill',"blue")
+      .attr("fill-opacity",0)
+      .text(f(0))
+          .transition()
+          .attr("fill-opacity",1)
+          .duration(5000)
+          .attr('x', 185)
+          .attr('y', (d,i)=>sizey(d.price_str)-min([minf,sizey.bandwidth()])*3/4)
+          .attr('width',(d,i)=>sizex(d.volume))
+          .attr('height',min([minf,sizey.bandwidth()])),
+          
+      update=>
+      update
+        .transition()
+        .attr("fill-oppacity","1")
+        .duration(5000)
+        .attr('y', (d,i)=>sizey(d.price_str)-min([minf,sizey.bandwidth()])*3/4)
+        .attr('width',(d,i)=>sizex(d.volume))
+        .attr('height',min([minf,sizey.bandwidth()])),
+              
+      )
       
   
       },[data]);
@@ -181,16 +228,20 @@ export const Viz4=({yAxislabelOffset,xAxislabelOffset,width,height,marginTop,mar
       
       
         
+        <g transform={`translate(0,70)`} id="bars">
+        
+        </g>
         <g id="static" transform={`translate(0,70)`}>
         </g>
         
         <g transform={`translate(0,70)`} id="animation">
         
         </g>
+        
         <g transform={`translate(0,70)`} >
           <text 
             x="0"
-            y="0"
+            y="-40"
             
             style={{
               fill:styles.titText.fill,
