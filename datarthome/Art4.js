@@ -24,7 +24,7 @@ const margin={
   top:100,
   right:400,
   bottom:200,
-  left:100
+  left:20
 };
 const xAxislabelOffset=70;
 const yAxislabelOffset=50;
