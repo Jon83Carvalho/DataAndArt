@@ -41,6 +41,7 @@ const styles = {
     textAlign: "center",
     backgroundColor: "#000000c0"
   }
+ 
 };
 
 
@@ -50,27 +51,99 @@ export const Viz4=({yAxislabelOffset,xAxislabelOffset,width,height,marginTop,mar
   
   const [hoveredValue,setHoveredValue]=useState(null)
 
-  
-  
-  
+  const svg=select("svg")
+  var svgDefs=svg.append("defs")
+  var barsGradient = svgDefs.append('linearGradient')
+  .attr('id', 'barsGrad')
+  .attr('x1', '0%')
+  .attr('x2', "100%")
+  .attr("y1", "0%")
+  .attr("y2","100%");
 
-  
- 
+// Create the stops of the main gradient. Each stop will be assigned
+// a class to style the stop using CSS.
+barsGradient.append('stop')
+.attr("class", "start")
+.attr("offset", "0%")
+.attr("stop-color", "red")
+.attr("stop-opacity", 1);
+
+barsGradient.append('stop')
+.attr("class", "end")
+.attr("offset", "100%")
+.attr("stop-color", "blue")
+.attr("stop-opacity", 1);
   
   useEffect(
     ()=>{
       
+
+///////////////////////////////////////
+const svg=select("svg")
+var svgDefs=svg.append("defs")
+var barsGradient = svgDefs.append('linearGradient')
+.attr('id', 'barsGrad')
+.attr('x1', '0%')
+.attr('x2', "100%")
+.attr("y1", "0%")
+.attr("y2","0%")
+
+
+// Create the stops of the main gradient. Each stop will be assigned
+// a class to style the stop using CSS.
+barsGradient.append('stop')
+.attr("class", "start")
+.attr("offset", "0%")
+.attr("stop-color", "red")
+.attr("stop-opacity", 1);
+
+barsGradient.append('stop')
+.attr("class", "midle")
+.attr("offset", "50%")
+.attr("stop-color", "blue")
+.attr("stop-opacity", 0.2);
+
+
+barsGradient.append('stop')
+.attr("class", "midle")
+.attr("offset", "100%")
+.attr("stop-color", "red")
+.attr("stop-opacity", 1);
+
+
+
+
+//////////////////////////////////////
+
+
       const screenheight=+select("#root").style("height").slice(0,-2)
       const screenwidth=+select("#root").style("width").slice(0,-2)
       
       //Creating addustable margins according to screen size
-      const adjmarginTop=marginTop/700*screenheight
-      const adjmarginBottom=marginBottom/700*screenheight
-      const adjmarginLeft=marginLeft/1900*screenwidth
-      const adjmarginRight=marginRight/1900*screenwidth
+      let adjmarginTop;
+      let adjmarginBottom;
+      let adjmarginLeft;
+      let adjmarginRight;
+      if(screenheight<screenwidth) {
+        console.log("teste");
+        adjmarginTop=marginTop/700*9/16*screenheight;
+        adjmarginBottom=marginBottom/700*9/16*screenheight;
+        adjmarginLeft=marginLeft/1900*16/9*screenwidth;
+        adjmarginRight=marginRight/1900*16/9*screenwidth;
+      } else {
+        adjmarginTop=marginTop/1900*16/9*screenheight;
+        adjmarginBottom=marginBottom/1900*16/9*screenheight;
+        adjmarginLeft=marginLeft/700*9/16*screenwidth;
+        adjmarginRight=marginRight/700*9/16*screenwidth;
+
+      }
 
       const innerHeight=screenheight-adjmarginTop-adjmarginBottom;
       const innerWidth=screenwidth-adjmarginLeft-adjmarginRight;
+
+      //gap unit
+      const widthgap=marginLeft/30;
+
       const centerX=innerWidth/2;
       const centerY=innerHeight/2;
       const minf=20
@@ -99,7 +172,7 @@ export const Viz4=({yAxislabelOffset,xAxislabelOffset,width,height,marginTop,mar
 
       //escala X  
       const sizex=scaleLinear()
-      .domain(extent(data_complete,d=>d.volume))
+      .domain(extent(data_complete,d=>(d.volume)))
       .range([10,innerWidth])
   
 
@@ -118,7 +191,8 @@ export const Viz4=({yAxislabelOffset,xAxislabelOffset,width,height,marginTop,mar
         enter=>
         enter
         .append("text")
-        .attr('x', adjmarginLeft*1.22)
+        .attr('text-anchor','middle')
+        .attr('x', adjmarginLeft+innerWidth/2)
         .attr('y', (d,i)=>sizey(d.price_str))
         .style('fill',"black")
         .style('font-size',`${min([minf,sizey.bandwidth()])}px`)
@@ -148,7 +222,7 @@ export const Viz4=({yAxislabelOffset,xAxislabelOffset,width,height,marginTop,mar
       .append("text")
       .attr('class', "value")
     //  .attr('x', (d,i)=>200+sizex(d.volume))
-      .attr('x',adjmarginLeft*1.2)
+      .attr('x',adjmarginLeft+innerWidth/2)
       .attr('y', (d,i)=>sizey(d.price_str))
       .attr('id', "value")
       .style('fill',"black")
@@ -159,7 +233,7 @@ export const Viz4=({yAxislabelOffset,xAxislabelOffset,width,height,marginTop,mar
           .transition()
           .attr("fill-opacity",1)
           .duration(5000)
-          .attr('x', (d,i)=>adjmarginLeft*1.7+sizex(d.volume))
+          .attr('x', (d,i)=>sizex(d.volume)/2+adjmarginLeft+innerWidth/2+widthgap*7)
           .attr('y', (d,i)=>sizey(d.price_str))
           .textTween((d) => (t) =>{
             
@@ -171,7 +245,7 @@ export const Viz4=({yAxislabelOffset,xAxislabelOffset,width,height,marginTop,mar
         .transition()
         .attr("fill-oppacity","1")
         .duration(5000)
-        .attr('x', (d,i)=>adjmarginLeft*1.7+sizex(d.volume))
+        .attr('x', (d,i)=>sizex(d.volume)/2+adjmarginLeft+innerWidth/2+widthgap*7)
         .attr('y', (d,i)=>sizey(d.price_str))
         .style('font-size',`${min([minf,sizey.bandwidth()])}px`)
         .textTween((d,k) => t =>{
@@ -192,21 +266,21 @@ export const Viz4=({yAxislabelOffset,xAxislabelOffset,width,height,marginTop,mar
       enter=>
       enter
       .append("rect")
-      .attr('class', "bvol")
+    //  .classed('barsGrad', true)
     //  .attr('x', (d,i)=>200+sizex(d.volume))
-      .attr('x', adjmarginLeft*1.6)
+      .attr('x', adjmarginLeft+innerWidth/2)
       .attr('y', (d,i)=>sizey(d.price_str)-min([minf,sizey.bandwidth()])*3/4)
       .attr('width',0)
       .attr('height',min([minf,sizey.bandwidth()]))
       .attr('id', "bvol")
-      .style('fill',"blue")
-      .attr("fill-opacity",0)
+      .attr('fill',"url(#barsGrad)")
+      //.attr("fill-opacity",0)
       .text(f(0))
           .transition()
-          .attr("fill-opacity",1)
+        //  .attr("fill-opacity",1)
           .duration(5000)
-          .attr('x', adjmarginLeft*1.6)
           .attr('y', (d,i)=>sizey(d.price_str)-min([minf,sizey.bandwidth()])*3/4)
+          .attr('x', (d,i)=>adjmarginLeft+innerWidth/2-sizex(d.volume)/2)
           .attr('width',(d,i)=>sizex(d.volume))
           .attr('height',min([minf,sizey.bandwidth()])),
           
@@ -216,6 +290,7 @@ export const Viz4=({yAxislabelOffset,xAxislabelOffset,width,height,marginTop,mar
         .attr("fill-oppacity","1")
         .duration(5000)
         .attr('y', (d,i)=>sizey(d.price_str)-min([minf,sizey.bandwidth()])*3/4)
+        .attr('x', (d,i)=>adjmarginLeft+innerWidth/2-sizex(d.volume)/2)
         .attr('width',(d,i)=>sizex(d.volume))
         .attr('height',min([minf,sizey.bandwidth()])),
               
