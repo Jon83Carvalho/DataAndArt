@@ -2,6 +2,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { Art2 } from './Art2'
 import { Art1 } from './Art1';
 import { Art3 } from './Art3';
+import { Art4 } from './Art4';
 import { Dimensions } from 'react-native';
 import {
   useFonts,
@@ -71,6 +72,23 @@ export function MyDrawer() {
          
      
     >
+      <Drawer.Screen
+        name="Art 4 - Coin Volume"
+        component={Art4}
+        options={{ drawerLabel: 'Art 4 - Coin Volume',
+        drawerActiveBackgroundColor:"#444589",
+        drawerInactiveBackgroundColor:"#999BHF",
+        drawerLabelStyle: {
+          color:styles.innerText.color,
+          fontFamily:styles.innerText.fontFamily,
+          fontSize:styles.innerText.fontSize
+
+        }
+
+
+      }}
+        
+      />
       <Drawer.Screen
         name="Art 3 - Trade War"
         component={Art3}
