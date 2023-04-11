@@ -44,14 +44,6 @@ const styles = {
  
 };
 
-const function svgtagstart(iter) {
-
-  if(iter==0){
-    return <svg width={width} height={height} style={{backgroundColor:"#66679G"}}>;
-  };
-
-  return <>;
-}
 
 
 export const Viz4=({ichart,yAxislabelOffset,xAxislabelOffset,width,height,marginTop,marginRight,marginBottom,marginLeft,data})=>{

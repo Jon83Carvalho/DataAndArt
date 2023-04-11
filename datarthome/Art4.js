@@ -1,5 +1,5 @@
 import { scrollView, Text,ImageBackground, StyleSheet} from 'react-native';
-import React from 'react'; 
+import React, { useEffect } from 'react'; 
 import {range} from 'd3';
 import useSWR from 'swr';
 import { useRef } from 'react';
@@ -7,9 +7,55 @@ import {csvParse} from 'd3';
 
 import {Viz4} from './Viz4';
 
+import {min,interpolateNumber,extent,scaleBand,scaleLinear,select,selectAll,format} from 'd3';
+
 
 import axios from 'axios';
 
+
+/////////////////////////
+const styles = {
+  baseText: {
+    fill: "darkgrey",
+    fontFamily:"YanoneKaffeesatz_400Regular",
+    fontSize:"12"
+  },
+  titText: {
+    fill: "#DD7788",
+    fontFamily:"YanoneKaffeesatz_400Regular",
+    fontSize:"4.5vw"
+  },
+  innerText: {
+    color:"#fff",
+    fontFamily:"YanoneKaffeesatz_400Regular",
+    fontSize:"1.7rem"
+  },
+  container: {
+    flex: 1,
+  },
+  image: {
+    flex:1,
+    resizeMode:"cover",
+    width:"1450px",
+    position:"relative",
+    top:0,
+    left:-200,
+    backgroundColor:"#6667AB",
+    opacity:"50%"
+  },
+  text: {
+    color: "white",
+    fontSize: 42,
+    lineHeight: 84,
+    fontWeight: "bold",
+    textAlign: "center",
+    backgroundColor: "#000000c0"
+  }
+ 
+};
+
+
+///////////////////////
 
 
 const image={uri:"https://github.com/Jon83Carvalho/DataAndArt/blob/main/eye.jpg?raw=true"};
@@ -21,7 +67,7 @@ const array=range(1);
 const width="100%"; 
 const height="100%";
 const margin={
-  top:100,
+  top:50,
   right:400,
   bottom:200,
   left:20
@@ -88,8 +134,25 @@ export function Art4() {
       respdata.current=data
   //FINISH - reading data===============================
 
-    return (
+const sequence=[[1,2],[2,1]]
+
+  
+ 
       
+   
+    return (
+    
+      
+    sequence.map((d,i)=>{
+      
+       
+        setTimeout(()=>console.log(d),10000*i)
+        return (
+      
+  
+  <svg width={width} height={height} style={{backgroundColor:"#66679G"}} key={`svg${i}`}>
+   
+  <g transform={`translate(${margin.left},${margin.top})`} key={`g${i}`}>
   <Viz4
     width={width}
     height={height}
@@ -100,8 +163,34 @@ export function Art4() {
     xAxislabelOffset={xAxislabelOffset}
     yAxislabelOffset={yAxislabelOffset}
     data={respdata.current}
+    ichart={d[0]}
     
     />
-    );
+
+<Viz4
+    width={width}
+    height={height}
+    marginTop={margin.top}
+    marginRight={margin.right}
+    marginBottom={margin.bottom+100}
+    marginLeft={margin.left+300}
+    xAxislabelOffset={xAxislabelOffset}
+    yAxislabelOffset={yAxislabelOffset}
+    data={respdata.current}
+    ichart={d[1]}
+    
+    />
+  </g>
+  
+   
+    </svg>
+    
+      )}))
+
+  return ""
+    
+
+  
+    ;
   }
   
