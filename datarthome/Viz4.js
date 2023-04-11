@@ -337,9 +337,13 @@ barsGradient.append('stop')
  
 
       
-const g_bars=<g transform={`translate(0,70)`} id={`bars${ichart}`}></g>
-const g_static=<g id={`static${ichart}`} transform={`translate(0,70)`}></g>
-const g_volume=<g transform={`translate(0,70)`} id={`animation${ichart}`}></g>
+      let g_bars
+      let g_static
+      let g_volume
+      
+g_bars=<g transform={`translate(0,70)`} id={`bars${ichart}`}></g>
+g_static=<g id={`static${ichart}`} transform={`translate(0,70)`}></g>
+g_volume=<g transform={`translate(0,70)`} id={`animation${ichart}`}></g>
 
 
 
@@ -350,14 +354,10 @@ return (
      // <g transform={`translate(${marginLeft},${marginTop})`}>
  
       <>
-        
         {g_bars}
         {g_static}  
         {g_volume}
         
-        
-
-
       </>
  
   
