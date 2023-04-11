@@ -336,11 +336,14 @@ barsGradient.append('stop')
       },[data]);
  
 
-      
+      let svg_main
       let g_bars
       let g_static
       let g_volume
-      
+
+  if(ichart==0){svg_main=<svg width={width} height={height} style={{backgroundColor:"#66679G"}} id="svg_main"><text>Teste {ichart}</text></svg>}
+  else {svg_main=""}
+      console.log(svg_main)
 g_bars=<g transform={`translate(0,70)`} id={`bars${ichart}`}></g>
 g_static=<g id={`static${ichart}`} transform={`translate(0,70)`}></g>
 g_volume=<g transform={`translate(0,70)`} id={`animation${ichart}`}></g>
@@ -354,6 +357,7 @@ return (
      // <g transform={`translate(${marginLeft},${marginTop})`}>
  
       <>
+        {svg_main}
         {g_bars}
         {g_static}  
         {g_volume}
