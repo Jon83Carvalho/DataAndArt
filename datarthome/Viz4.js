@@ -44,8 +44,17 @@ const styles = {
  
 };
 
+const function svgtagstart(iter) {
 
-export const Viz4=({yAxislabelOffset,xAxislabelOffset,width,height,marginTop,marginRight,marginBottom,marginLeft,data})=>{
+  if(iter==0){
+    return <svg width={width} height={height} style={{backgroundColor:"#66679G"}}>;
+  };
+
+  return <>;
+}
+
+
+export const Viz4=({ichart,yAxislabelOffset,xAxislabelOffset,width,height,marginTop,marginRight,marginBottom,marginLeft,data})=>{
   //START - Variable declarations====================
   
   
@@ -74,12 +83,14 @@ barsGradient.append('stop')
 .attr("stop-color", "blue")
 .attr("stop-opacity", 1);
   
-  useEffect(
+useEffect(
     ()=>{
       
 
-///////////////////////////////////////
+///////////////////////////////////////Gradient
+
 const svg=select("svg")
+
 var svgDefs=svg.append("defs")
 var barsGradient = svgDefs.append('linearGradient')
 .attr('id', 'barsGrad')
@@ -99,9 +110,38 @@ barsGradient.append('stop')
 
 barsGradient.append('stop')
 .attr("class", "midle")
+.attr("offset", "5%")
+.attr("stop-color", "red")
+.attr("stop-opacity", 0.95);
+
+
+barsGradient.append('stop')
+.attr("class", "midle")
+.attr("offset", "30%")
+.attr("stop-color", "blue")
+.attr("stop-opacity", 0.6);
+
+
+barsGradient.append('stop')
+.attr("class", "midle")
 .attr("offset", "50%")
 .attr("stop-color", "blue")
 .attr("stop-opacity", 0.2);
+
+
+barsGradient.append('stop')
+.attr("class", "midle")
+.attr("offset", "70%")
+.attr("stop-color", "blue")
+.attr("stop-opacity", 0.6);
+
+
+barsGradient.append('stop')
+.attr("class", "midle")
+.attr("offset", "95%")
+.attr("stop-color", "red")
+.attr("stop-opacity", 0.95);
+
 
 
 barsGradient.append('stop')
@@ -176,9 +216,11 @@ barsGradient.append('stop')
       .range([10,innerWidth])
   
 
-      const g=select("#animation");
-      const g1=select("#static");
-      const g2=select("#bars");
+      const g=select(`#animation${ichart}`);
+      const g1=select(`#static${ichart}`);
+      const g2=select(`#bars${ichart}`);
+
+      
 
       const f=format(".2f")  
 
@@ -266,13 +308,15 @@ barsGradient.append('stop')
       enter=>
       enter
       .append("rect")
+      
     //  .classed('barsGrad', true)
     //  .attr('x', (d,i)=>200+sizex(d.volume))
       .attr('x', adjmarginLeft+innerWidth/2)
       .attr('y', (d,i)=>sizey(d.price_str)-min([minf,sizey.bandwidth()])*3/4)
+      .attr('rx',5)
+      .attr('ry',5)
       .attr('width',0)
       .attr('height',min([minf,sizey.bandwidth()]))
-      .attr('id', "bvol")
       .attr('fill',"url(#barsGrad)")
       //.attr("fill-opacity",0)
       .text(f(0))
@@ -299,48 +343,39 @@ barsGradient.append('stop')
   
       },[data]);
  
-  
-  return (
+
+      
 
 
-  <svg width={width} height={height} style={{backgroundColor:"#66679G"}}>
+
+
+return (
+ // <svg width={width} height={height} style={{backgroundColor:"#66679G"}}>
     
-      <g transform={`translate(${marginLeft},${marginTop})`}>
-      
-      
+     // <g transform={`translate(${marginLeft},${marginTop})`}>
+ 
+      <>
         
-        <g transform={`translate(0,70)`} id="bars">
-        
-        </g>
-        <g id="static" transform={`translate(0,70)`}>
-        </g>
-        
-        <g transform={`translate(0,70)`} id="animation">
+        <g transform={`translate(0,70)`} id={`bars${ichart}`}>
         
         </g>
-        
-        <g transform={`translate(0,70)`} >
-          <text 
-            x="0"
-            y="-40"
-            
-            style={{
-              fill:styles.titText.fill,
-              fontFamily: styles.titText.fontFamily,
-              fontSize:styles.titText.fontSize
-            }}
-            
-            >
-            Crypto Coins Values Vs Volume 
-          
-          </text>
+        <g id={`static${ichart}`} transform={`translate(0,70)`}>
         </g>
         
+        <g transform={`translate(0,70)`} id={`animation${ichart}`}>
+        
+        </g>
+        {testoteste}
 
 
-       </g>
+      </>
+ 
+  
+
+      // </g>
       
         
- 	</svg>
-);
+ 	//</svg>
+)
+
 };  
