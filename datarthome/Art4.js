@@ -15,6 +15,7 @@ import axios from 'axios';
 
 /////////////////////////
 const styles = {
+  
   baseText: {
     fill: "darkgrey",
     fontFamily:"YanoneKaffeesatz_400Regular",
@@ -67,10 +68,10 @@ const array=range(1);
 const width="100%"; 
 const height="100%";
 const margin={
-  top:50,
+  top:100,
   right:400,
   bottom:200,
-  left:20
+  left:0
 };
 const xAxislabelOffset=70;
 const yAxislabelOffset=50;
@@ -150,9 +151,11 @@ const sequence=[[1,2],[2,1]]
         return (
       
   
-  <svg width={width} height={height} style={{backgroundColor:"#66679G"}} key={`svg${i}`}>
+ // <svg width={width} height={height} style={{backgroundColor:"#66679G"}} key={`svg${i}`}>
    
-  <g transform={`translate(${margin.left},${margin.top})`} key={`g${i}`}>
+//  <g transform={`translate(${margin.left},${margin.top})`} key={`g${i}`}>
+
+<div id="root_svg" key={`main_div${i}`} style={i==0?{"height": "100%"}:{"height": "0%"}}>
   <Viz4
     width={width}
     height={height}
@@ -164,7 +167,7 @@ const sequence=[[1,2],[2,1]]
     yAxislabelOffset={yAxislabelOffset}
     data={respdata.current}
     ichart={d[0]}
-    
+    iterate_plot={i}
     />
 
 <Viz4
@@ -178,12 +181,15 @@ const sequence=[[1,2],[2,1]]
     yAxislabelOffset={yAxislabelOffset}
     data={respdata.current}
     ichart={d[1]}
+    iterate_plot={i}
     
     />
-  </g>
+</div>
+
+//  </g>
   
    
-    </svg>
+  //  </svg>
     
       )}))
 

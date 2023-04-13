@@ -46,34 +46,13 @@ const styles = {
 
 
 
-export const Viz4=({ichart,yAxislabelOffset,xAxislabelOffset,width,height,marginTop,marginRight,marginBottom,marginLeft,data})=>{
+export const Viz4=({iterate_plot,ichart,yAxislabelOffset,xAxislabelOffset,width,height,marginTop,marginRight,marginBottom,marginLeft,data})=>{
   //START - Variable declarations====================
   
   
   const [hoveredValue,setHoveredValue]=useState(null)
 
-  const svg=select("svg")
-  var svgDefs=svg.append("defs")
-  var barsGradient = svgDefs.append('linearGradient')
-  .attr('id', 'barsGrad')
-  .attr('x1', '0%')
-  .attr('x2', "100%")
-  .attr("y1", "0%")
-  .attr("y2","100%");
 
-// Create the stops of the main gradient. Each stop will be assigned
-// a class to style the stop using CSS.
-barsGradient.append('stop')
-.attr("class", "start")
-.attr("offset", "0%")
-.attr("stop-color", "red")
-.attr("stop-opacity", 1);
-
-barsGradient.append('stop')
-.attr("class", "end")
-.attr("offset", "100%")
-.attr("stop-color", "blue")
-.attr("stop-opacity", 1);
   
 useEffect(
     ()=>{
@@ -81,9 +60,35 @@ useEffect(
 
 ///////////////////////////////////////Gradient
 
-const svg=select("svg")
+const main_root=select("#root_svg")
 
-var svgDefs=svg.append("defs")
+if(iterate_plot==0 && ichart==1){
+  
+  main_root.append("svg")
+    .attr("id","main_svg")  
+    .attr("width",width)
+    .attr("height",height)
+
+  main_root.select("#main_svg")
+    .append('g')
+    .attr("id","main_g")
+  
+
+ 
+}
+
+
+const main_g=select("#main_g")
+      .attr("transform",`translate(${marginLeft},${marginTop})`)
+      .attr("key",`g${iterate_plot}`)
+
+const svg=main_root.select("#main_svg")
+
+if (iterate_plot==0 && ichart==1){
+  svg.append("defs")
+}
+
+var svgDefs=svg.select("defs")
 var barsGradient = svgDefs.append('linearGradient')
 .attr('id', 'barsGrad')
 .attr('x1', '0%')
@@ -207,10 +212,35 @@ barsGradient.append('stop')
       .domain(extent(data_complete,d=>(d.volume)))
       .range([10,innerWidth])
   
+      if(iterate_plot==0){
+      
+        main_g.append('g')
+        .attr('key',`g2${ichart}`)
+        .attr("id",`bars${ichart}`)
 
-      const g=select(`#animation${ichart}`);
-      const g1=select(`#static${ichart}`);
-      const g2=select(`#bars${ichart}`);
+        main_g.append('g')
+        .attr('key',`g${ichart}`)
+        .attr("id",`animation${ichart}`)
+
+        main_g.append('g')
+        .attr('key',`g1${ichart}`)
+        .attr("id",`static${ichart}`)
+
+  
+      }
+
+      
+
+      const g=svg.select(`#animation${ichart}`)
+
+      const g1=svg.select(`#static${ichart}`)
+      
+
+      const g2=svg.select(`#bars${ichart}`)
+      
+      //const g=select(`#animation${ichart}`);
+      //const g1=select(`#static${ichart}`);
+      //const g2=select(`#bars${ichart}`);
 
       
 
@@ -228,13 +258,14 @@ barsGradient.append('stop')
         .attr('text-anchor','middle')
         .attr('x', adjmarginLeft+innerWidth/2)
         .attr('y', (d,i)=>sizey(d.price_str))
-        .style('fill',"black")
         .style('font-size',`${min([minf,sizey.bandwidth()])}px`)
         .attr('id', "price")
         .attr("fill-opacity",0)
+        .style('fill',"black")
         .style('font-family', `${styles.baseText.fontFamily}`)
         .text(d=>d.price)
         .transition()
+          .duration(5000)
           .attr("fill-opacity",1)
         ,
         update=>
@@ -242,8 +273,11 @@ barsGradient.append('stop')
         .transition()
         .text(d=>d.price)
          .duration(5000)
+         .duration(5000)
+         .attr("fill-opacity",1)
          .attr('y', (d,i)=>sizey(d.price_str))
          )
+         .attr('x', adjmarginLeft+innerWidth/2)
          .style('font-size',`${min([minf,sizey.bandwidth()])}px`)
           
       
@@ -265,8 +299,8 @@ barsGradient.append('stop')
       .attr("fill-opacity",0)
       .text(f(0))
           .transition()
-          .attr("fill-opacity",1)
           .duration(5000)
+          .attr("fill-opacity",1)
           .attr('x', (d,i)=>sizex(d.volume)/2+adjmarginLeft+innerWidth/2+widthgap*7)
           .attr('y', (d,i)=>sizey(d.price_str))
           .textTween((d) => (t) =>{
@@ -277,8 +311,8 @@ barsGradient.append('stop')
       update=>
       update
         .transition()
-        .attr("fill-oppacity","1")
         .duration(5000)
+        .attr("fill-oppacity",1)
         .attr('x', (d,i)=>sizex(d.volume)/2+adjmarginLeft+innerWidth/2+widthgap*7)
         .attr('y', (d,i)=>sizey(d.price_str))
         .style('font-size',`${min([minf,sizey.bandwidth()])}px`)
@@ -336,18 +370,7 @@ barsGradient.append('stop')
       },[data]);
  
 
-      let svg_main
-      let g_bars
-      let g_static
-      let g_volume
-
-  if(ichart==0){svg_main=<svg width={width} height={height} style={{backgroundColor:"#66679G"}} id="svg_main"><text>Teste {ichart}</text></svg>}
-  else {svg_main=""}
-      console.log(svg_main)
-g_bars=<g transform={`translate(0,70)`} id={`bars${ichart}`}></g>
-g_static=<g id={`static${ichart}`} transform={`translate(0,70)`}></g>
-g_volume=<g transform={`translate(0,70)`} id={`animation${ichart}`}></g>
-
+  
 
 
 
@@ -357,10 +380,7 @@ return (
      // <g transform={`translate(${marginLeft},${marginTop})`}>
  
       <>
-        {svg_main}
-        {g_bars}
-        {g_static}  
-        {g_volume}
+     
         
       </>
  
