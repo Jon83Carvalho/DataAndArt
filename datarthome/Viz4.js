@@ -273,13 +273,12 @@ barsGradient.append('stop')
         .transition()
         .text(d=>d.price)
          .duration(5000)
-         .duration(5000)
          .attr("fill-opacity",1)
          .attr('y', (d,i)=>sizey(d.price_str))
-         )
+         
          .attr('x', adjmarginLeft+innerWidth/2)
          .style('font-size',`${min([minf,sizey.bandwidth()])}px`)
-          
+        ) 
       
       //Dynamic Volume
       g.selectAll("text")
