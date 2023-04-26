@@ -88,6 +88,8 @@ if (iterate_plot==0 && ichart==1){
   svg.append("defs")
 }
 
+/// GRADIENT DEFINITION==============================
+
 var svgDefs=svg.select("defs")
 var barsGradient = svgDefs.append('linearGradient')
 .attr('id', 'barsGrad')
@@ -147,7 +149,7 @@ barsGradient.append('stop')
 .attr("stop-color", "red")
 .attr("stop-opacity", 1);
 
-
+///END GRADIENT DEFINITION==============================
 
 
 //////////////////////////////////////
@@ -184,6 +186,8 @@ barsGradient.append('stop')
       const centerX=innerWidth/2;
       const centerY=innerHeight/2;
       const minf=20
+
+      //PARSING DATA==============================
      
       const data_complete=data.map((d,i)=>{
          return {
@@ -195,7 +199,7 @@ barsGradient.append('stop')
         }
       }).sort((a,b)=>a.order-b.order)
 
-      
+      //END PARSING DATA==============================
 
       
       //escala Y
@@ -212,6 +216,7 @@ barsGradient.append('stop')
       .domain(extent(data_complete,d=>(d.volume)))
       .range([10,innerWidth])
   
+      //appeding once the g groups used for the animation
       if(iterate_plot==0){
       
         main_g.append('g')
@@ -238,12 +243,6 @@ barsGradient.append('stop')
 
       const g2=svg.select(`#bars${ichart}`)
       
-      //const g=select(`#animation${ichart}`);
-      //const g1=select(`#static${ichart}`);
-      //const g2=select(`#bars${ichart}`);
-
-      
-
       const f=format(".2f")  
 
       //console.log(data_complete)
@@ -288,40 +287,41 @@ barsGradient.append('stop')
       enter
       .append("text")
       .attr('class', "value")
-    //  .attr('x', (d,i)=>200+sizex(d.volume))
       .attr('x',adjmarginLeft+innerWidth/2)
       .attr('y', (d,i)=>sizey(d.price_str))
-      .attr('id', "value")
-      .style('fill',"black")
       .style('font-size',`${min([minf,sizey.bandwidth()])}px`)
-      .style('font-family', `${styles.baseText.fontFamily}`)
+      .attr('id', "value")
       .attr("fill-opacity",0)
+      .style('fill',"black")
+      .style('font-family', `${styles.baseText.fontFamily}`)
       .text(f(0))
           .transition()
           .duration(5000)
           .attr("fill-opacity",1)
           .attr('x', (d,i)=>sizex(d.volume)/2+adjmarginLeft+innerWidth/2+widthgap*7)
           .attr('y', (d,i)=>sizey(d.price_str))
+          
           .textTween((d) => (t) =>{
             
             const i=interpolateNumber(0,d.volume) 
             return `${f(i(t)*1000)}`
-          }),
+          })
+          ,
       update=>
       update
         .transition()
         .duration(5000)
-        .attr("fill-oppacity",1)
         .attr('x', (d,i)=>sizex(d.volume)/2+adjmarginLeft+innerWidth/2+widthgap*7)
         .attr('y', (d,i)=>sizey(d.price_str))
         .style('font-size',`${min([minf,sizey.bandwidth()])}px`)
         .textTween((d,k) => t =>{
           const volume_i=g.selectAll('text').nodes()[k].textContent/1000
-          //console.log(volume_i.nodes()[k].textContent)
+   
           
           const i=interpolateNumber(volume_i,d.volume) 
           return `${f(i(t)*1000)}`
         })
+        .attr("fill-opacity",1)
              
         
       )
@@ -374,9 +374,6 @@ barsGradient.append('stop')
 
 
 return (
- // <svg width={width} height={height} style={{backgroundColor:"#66679G"}}>
-    
-     // <g transform={`translate(${marginLeft},${marginTop})`}>
  
       <>
      
@@ -385,10 +382,6 @@ return (
  
   
 
-      // </g>
-      
-        
- 	//</svg>
 )
 
 };  
