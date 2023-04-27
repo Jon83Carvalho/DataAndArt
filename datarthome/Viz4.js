@@ -2,6 +2,7 @@ import React,{useState,useEffect} from 'react';
 
 
 import {min,interpolateNumber,extent,scaleBand,scaleLinear,select,selectAll,format} from 'd3';
+import { firstGradient, secondGradient } from './Gradient';
 
 
 const styles = {
@@ -46,7 +47,7 @@ const styles = {
 
 
 
-export const Viz4=({iterate_plot,ichart,yAxislabelOffset,xAxislabelOffset,width,height,marginTop,marginRight,marginBottom,marginLeft,data})=>{
+export const Viz4=({gradType,iterate_plot,ichart,opac,yAxislabelOffset,xAxislabelOffset,width,height,marginTop,marginRight,marginBottom,marginLeft,data})=>{
   //START - Variable declarations====================
   
   
@@ -91,66 +92,12 @@ if (iterate_plot==0 && ichart==1){
 /// GRADIENT DEFINITION==============================
 
 var svgDefs=svg.select("defs")
-var barsGradient = svgDefs.append('linearGradient')
-.attr('id', 'barsGrad')
-.attr('x1', '0%')
-.attr('x2', "100%")
-.attr("y1", "0%")
-.attr("y2","0%")
+var barsGradient
+const fGrad=firstGradient
+const sGrad=secondGradient
 
-
-// Create the stops of the main gradient. Each stop will be assigned
-// a class to style the stop using CSS.
-barsGradient.append('stop')
-.attr("class", "start")
-.attr("offset", "0%")
-.attr("stop-color", "red")
-.attr("stop-opacity", 1);
-
-barsGradient.append('stop')
-.attr("class", "midle")
-.attr("offset", "5%")
-.attr("stop-color", "red")
-.attr("stop-opacity", 0.95);
-
-
-barsGradient.append('stop')
-.attr("class", "midle")
-.attr("offset", "30%")
-.attr("stop-color", "blue")
-.attr("stop-opacity", 0.6);
-
-
-barsGradient.append('stop')
-.attr("class", "midle")
-.attr("offset", "50%")
-.attr("stop-color", "blue")
-.attr("stop-opacity", 0.2);
-
-
-barsGradient.append('stop')
-.attr("class", "midle")
-.attr("offset", "70%")
-.attr("stop-color", "blue")
-.attr("stop-opacity", 0.6);
-
-
-barsGradient.append('stop')
-.attr("class", "midle")
-.attr("offset", "95%")
-.attr("stop-color", "red")
-.attr("stop-opacity", 0.95);
-
-
-
-barsGradient.append('stop')
-.attr("class", "midle")
-.attr("offset", "100%")
-.attr("stop-color", "red")
-.attr("stop-opacity", 1);
-
-///END GRADIENT DEFINITION==============================
-
+fGrad(barsGradient,svgDefs)
+sGrad(barsGradient,svgDefs)
 
 //////////////////////////////////////
 
@@ -300,8 +247,7 @@ barsGradient.append('stop')
           .attr("fill-opacity",1)
           .attr('x', (d,i)=>sizex(d.volume)/2+adjmarginLeft+innerWidth/2+widthgap*7)
           .attr('y', (d,i)=>sizey(d.price_str))
-          
-          .textTween((d) => (t) =>{
+           .textTween((d) => (t) =>{
             
             const i=interpolateNumber(0,d.volume) 
             return `${f(i(t)*1000)}`
@@ -316,8 +262,6 @@ barsGradient.append('stop')
         .style('font-size',`${min([minf,sizey.bandwidth()])}px`)
         .textTween((d,k) => t =>{
           const volume_i=g.selectAll('text').nodes()[k].textContent/1000
-   
-          
           const i=interpolateNumber(volume_i,d.volume) 
           return `${f(i(t)*1000)}`
         })
@@ -333,21 +277,17 @@ barsGradient.append('stop')
       enter=>
       enter
       .append("rect")
-      
-    //  .classed('barsGrad', true)
-    //  .attr('x', (d,i)=>200+sizex(d.volume))
       .attr('x', adjmarginLeft+innerWidth/2)
       .attr('y', (d,i)=>sizey(d.price_str)-min([minf,sizey.bandwidth()])*3/4)
       .attr('rx',5)
       .attr('ry',5)
       .attr('width',0)
       .attr('height',min([minf,sizey.bandwidth()]))
-      .attr('fill',"url(#barsGrad)")
-      //.attr("fill-opacity",0)
-      .text(f(0))
+      .attr('fill',"black")
+      .attr("fill-opacity",opac)
           .transition()
-        //  .attr("fill-opacity",1)
           .duration(5000)
+          .attr('fill',`url(#${gradType})`)
           .attr('y', (d,i)=>sizey(d.price_str)-min([minf,sizey.bandwidth()])*3/4)
           .attr('x', (d,i)=>adjmarginLeft+innerWidth/2-sizex(d.volume)/2)
           .attr('width',(d,i)=>sizex(d.volume))
@@ -356,10 +296,11 @@ barsGradient.append('stop')
       update=>
       update
         .transition()
-        .attr("fill-oppacity","1")
         .duration(5000)
+        .attr("fill-opacity",opac)
         .attr('y', (d,i)=>sizey(d.price_str)-min([minf,sizey.bandwidth()])*3/4)
         .attr('x', (d,i)=>adjmarginLeft+innerWidth/2-sizex(d.volume)/2)
+        .attr('fill',`url(#${gradType})`)
         .attr('width',(d,i)=>sizex(d.volume))
         .attr('height',min([minf,sizey.bandwidth()])),
               

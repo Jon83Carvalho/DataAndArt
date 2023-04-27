@@ -10,6 +10,7 @@ import {Viz4} from './Viz4';
 import {min,interpolateNumber,extent,scaleBand,scaleLinear,select,selectAll,format} from 'd3';
 
 
+
 import axios from 'axios';
 
 
@@ -75,6 +76,12 @@ const margin={
 };
 const xAxislabelOffset=70;
 const yAxislabelOffset=50;
+
+function sleep(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
 
 export function Art4() {
  
@@ -146,15 +153,13 @@ const sequence=[[1,2],[2,1]]
       
     sequence.map((d,i)=>{
       
-       
-        setTimeout(()=>console.log(d),10000*i)
+
+
+        
+
         return (
       
-  
- // <svg width={width} height={height} style={{backgroundColor:"#66679G"}} key={`svg${i}`}>
-   
-//  <g transform={`translate(${margin.left},${margin.top})`} key={`g${i}`}>
-
+ 
 <div id="root_svg" key={`main_div${i}`} style={i==0?{"height": "100%"}:{"height": "0%"}}>
   <Viz4
     width={width}
@@ -168,6 +173,8 @@ const sequence=[[1,2],[2,1]]
     data={respdata.current}
     ichart={d[0]}
     iterate_plot={i}
+    opac={1}
+    gradType="barsGrad"
     />
 
 <Viz4
@@ -182,21 +189,14 @@ const sequence=[[1,2],[2,1]]
     data={respdata.current}
     ichart={d[1]}
     iterate_plot={i}
+    opac={0.6}
+    gradType="barsGrad-2"
     
     />
 </div>
-
-//  </g>
-  
    
-  //  </svg>
-    
       )}))
 
-  return ""
-    
-
-  
-    ;
+ 
   }
   
