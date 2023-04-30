@@ -22,35 +22,35 @@ bar.append('stop')
 .attr("class", "midle")
 .attr("offset", "5%")
 .attr("stop-color", "red")
-.attr("stop-opacity", 0.95);
+.attr("stop-opacity", 1);
 
 
 bar.append('stop')
 .attr("class", "midle")
 .attr("offset", "30%")
 .attr("stop-color", "blue")
-.attr("stop-opacity", 0.6);
+.attr("stop-opacity", 1);
 
 
 bar.append('stop')
 .attr("class", "midle")
 .attr("offset", "50%")
-.attr("stop-color", "blue")
-.attr("stop-opacity", 0.2);
+.attr("stop-color", "white")
+.attr("stop-opacity", 1);
 
 
 bar.append('stop')
 .attr("class", "midle")
 .attr("offset", "70%")
 .attr("stop-color", "blue")
-.attr("stop-opacity", 0.6);
+.attr("stop-opacity", 1);
 
 
 bar.append('stop')
 .attr("class", "midle")
 .attr("offset", "95%")
 .attr("stop-color", "red")
-.attr("stop-opacity", 0.95);
+.attr("stop-opacity", 1);
 
 
 

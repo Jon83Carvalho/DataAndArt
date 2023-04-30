@@ -72,7 +72,7 @@ const margin={
   top:100,
   right:400,
   bottom:200,
-  left:0
+  left:10
 };
 const xAxislabelOffset=70;
 const yAxislabelOffset=50;
@@ -165,7 +165,7 @@ const sequence=[[1,2],[2,1]]
     width={width}
     height={height}
     marginTop={margin.top}
-    marginRight={margin.right}
+    marginRight={margin.right+100}
     marginBottom={margin.bottom}
     marginLeft={margin.left}
     xAxislabelOffset={xAxislabelOffset}

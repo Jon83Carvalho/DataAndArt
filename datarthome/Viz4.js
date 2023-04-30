@@ -110,17 +110,20 @@ sGrad(barsGradient,svgDefs)
       let adjmarginBottom;
       let adjmarginLeft;
       let adjmarginRight;
-      if(screenheight<screenwidth) {
-        console.log("teste");
+      
+      if(screenheight<=screenwidth) {
+        
         adjmarginTop=marginTop/700*9/16*screenheight;
         adjmarginBottom=marginBottom/700*9/16*screenheight;
         adjmarginLeft=marginLeft/1900*16/9*screenwidth;
         adjmarginRight=marginRight/1900*16/9*screenwidth;
+        
       } else {
         adjmarginTop=marginTop/1900*16/9*screenheight;
         adjmarginBottom=marginBottom/1900*16/9*screenheight;
         adjmarginLeft=marginLeft/700*9/16*screenwidth;
         adjmarginRight=marginRight/700*9/16*screenwidth;
+        
 
       }
 
@@ -128,7 +131,8 @@ sGrad(barsGradient,svgDefs)
       const innerWidth=screenwidth-adjmarginLeft-adjmarginRight;
 
       //gap unit
-      const widthgap=marginLeft/30;
+      
+      const widthgap=innerWidth/100;
 
       const centerX=innerWidth/2;
       const centerY=innerHeight/2;
@@ -212,14 +216,14 @@ sGrad(barsGradient,svgDefs)
         .text(d=>d.price)
         .transition()
           .duration(5000)
-          .attr("fill-opacity",1)
+          .attr("fill-opacity",opac)
         ,
         update=>
         update
         .transition()
         .text(d=>d.price)
          .duration(5000)
-         .attr("fill-opacity",1)
+         .attr("fill-opacity",opac)
          .attr('y', (d,i)=>sizey(d.price_str))
          
          .attr('x', adjmarginLeft+innerWidth/2)
@@ -244,8 +248,8 @@ sGrad(barsGradient,svgDefs)
       .text(f(0))
           .transition()
           .duration(5000)
-          .attr("fill-opacity",1)
-          .attr('x', (d,i)=>sizex(d.volume)/2+adjmarginLeft+innerWidth/2+widthgap*7)
+          .attr("fill-opacity",opac)
+          .attr('x', (d,i)=>sizex(d.volume)/2+adjmarginLeft+innerWidth/2+widthgap)
           .attr('y', (d,i)=>sizey(d.price_str))
            .textTween((d) => (t) =>{
             
@@ -257,7 +261,7 @@ sGrad(barsGradient,svgDefs)
       update
         .transition()
         .duration(5000)
-        .attr('x', (d,i)=>sizex(d.volume)/2+adjmarginLeft+innerWidth/2+widthgap*7)
+        .attr('x', (d,i)=>sizex(d.volume)/2+adjmarginLeft+innerWidth/2+widthgap)
         .attr('y', (d,i)=>sizey(d.price_str))
         .style('font-size',`${min([minf,sizey.bandwidth()])}px`)
         .textTween((d,k) => t =>{
@@ -265,7 +269,7 @@ sGrad(barsGradient,svgDefs)
           const i=interpolateNumber(volume_i,d.volume) 
           return `${f(i(t)*1000)}`
         })
-        .attr("fill-opacity",1)
+        .attr("fill-opacity",opac)
              
         
       )
