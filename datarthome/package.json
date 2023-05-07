@@ -1,6 +1,6 @@
 {
   "main": "node_modules/expo/AppEntry.js",
-  "homepage": "http://Jon83Carvalho.github.io/DataAndArt/datarhome",
+  "homepage": "http://Jon83Carvalho.github.io/DataAndArt/datarhome/web-build/",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
