@@ -88,7 +88,7 @@ export function Art4() {
   //START - variable declaration=========================================
   const rawdata=[{28000:'{"Volume":0.1}'}]; 
   var csvUrl
-  csvUrl='https://raw.githubusercontent.com/Jon83Carvalho/DataAndArt/main/LoveWord.csv'
+  csvUrl='http://127.0.0.1:8000/'
   const previousdata = useRef();
   const respdata=useRef()
   //END - variable declaration=========================================
@@ -96,12 +96,10 @@ export function Art4() {
   //START - reading data===============================
   const fetcher = (url) => {
     
-    //const request= axios.get(url).then(res=>res.data)
-    //const resp= request
     
-    //const respo = axios.get('http://127.0.0.1:8000/').then(res=>res.data[0].loveword)
-    const respo = axios.get('http://127.0.0.1:8000/').then(res=>res.data)
-
+    const respo = axios.get(url).then(res=>res.data)
+      
+    
     return respo;
   };
 
@@ -114,6 +112,25 @@ export function Art4() {
 
     
   })
+  
+  // const fetcher_count = (url) => {
+    
+    
+  //   const respo = axios.get(url).then(res=>res.data.count_data)
+    
+    
+  //   return respo;
+  // };
+
+  // const {data_count} = useSWR(csvUrl,fetcher_count,{
+  //   revalidateIfStale: false,
+  //   revalidateOnFocus: false,
+  //   revalidateOnReconnect: true,
+  //   revalidateOnMount:true,
+  //   refreshInterval: 5000,
+
+    
+  // })
 
 
   previousdata.current=localStorage.getItem('cdata')
@@ -131,36 +148,27 @@ export function Art4() {
        return d}
        )
 
-       if(!data){
+if(!data){
    
-        return <pre>...loading</pre>;
-      };
+       return <pre>...loading</pre>;
+};
       
       
       
       
-      respdata.current=data
+      respdata.current=data.trade_data
+      
+      
   //FINISH - reading data===============================
 
-const sequence=[[1,2],[2,1]]
+const sequence=data.count
 
   
  
       
    
     return (
-    
-      
-    sequence.map((d,i)=>{
-      
-
-
-        
-
-        return (
-      
- 
-<div id="root_svg" key={`main_div${i}`} style={i==0?{"height": "100%"}:{"height": "0%"}}>
+<div id="root_svg" key={`main_div`} style={{"height": "100%"}}>
   <Viz4
     width={width}
     height={height}
@@ -171,8 +179,8 @@ const sequence=[[1,2],[2,1]]
     xAxislabelOffset={xAxislabelOffset}
     yAxislabelOffset={yAxislabelOffset}
     data={respdata.current}
-    ichart={d[0]}
-    iterate_plot={i}
+    ichart={sequence[0]}
+    iterate_plot={0}
     opac={1}
     gradType="barsGrad"
     />
@@ -187,16 +195,15 @@ const sequence=[[1,2],[2,1]]
     xAxislabelOffset={xAxislabelOffset}
     yAxislabelOffset={yAxislabelOffset}
     data={respdata.current}
-    ichart={d[1]}
-    iterate_plot={i}
+    ichart={sequence[1]}
+    iterate_plot={0}
     opac={0.6}
     gradType="barsGrad-2"
     
     />
 </div>
    
-      )}))
-
- 
-  }
+      )}    
+      
+    
   
