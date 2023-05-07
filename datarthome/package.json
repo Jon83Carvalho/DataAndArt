@@ -1,14 +1,15 @@
 {
   "main": "node_modules/expo/AppEntry.js",
+  "homepage": "http://Jon83Carvalho.github.io/DataAndArt/datarhome",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "deploy": "gh-pages -d web-build",
-    "predeploy": "expo export:web"
-  },
+    "predeploy": "expo export:web",
+    "deploy": "gh-pages -d web-build"
+      },
   "dependencies": {
     "@expo-google-fonts/inter": "^0.2.2",
     "@expo-google-fonts/yanone-kaffeesatz": "^0.2.2",
@@ -52,6 +53,5 @@
     "@expo/webpack-config": "^18.0.1",
     "gh-pages": "^5.0.0"
   },
-  "private": true,
-  "homepage": "http://Jon83Carvalho.github.io/DataAndArt/datarhome"
-}
+  "private": true
+  }
