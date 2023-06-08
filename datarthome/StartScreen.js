@@ -34,7 +34,9 @@ export default function StartScreen ({navigation}) {
             <TouchableOpacity style={styles.button} onPress={()=>{navigation.navigate("Content")}}>
           <Image
             style={styles.im} 
-            source={require("./assets/StartScreen.jpg")}/>
+            source={require("./assets/StartScreen.jpg")}
+            resizeMode="cover"
+            />
         </TouchableOpacity>
         </View>
     )
