@@ -1,12 +1,15 @@
 {
   "main": "node_modules/expo/AppEntry.js",
+  "homepage": "http://jon83carvalho.github.io/DataAndArt",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
-  },
+    "eject": "expo eject",
+    "predeploy": "npx expo build:web",
+    "deploy": "gh-pages -d web-build"
+      },
   "dependencies": {
     "@expo-google-fonts/inter": "^0.2.2",
     "@expo-google-fonts/yanone-kaffeesatz": "^0.2.2",
@@ -20,12 +23,15 @@
     "@react-navigation/native": "6.0.10",
     "@react-navigation/native-stack": "6.6.1",
     "@react-navigation/stack": "6.2.1",
+    "@space-kit/redis-realtime-react": "^0.0.1",
     "axios": "^0.27.2",
+    "babel-preset-expo": "^9.0.2",
     "d3": "^7.3.0",
     "expo": "~44.0.0",
     "expo-asset": "~8.4.6",
     "expo-font": "~10.0.4",
     "expo-status-bar": "~1.2.0",
+    "kafkajs": "^2.2.3",
     "npm": "^8.13.1",
     "react": "17.0.1",
     "react-dom": "17.0.1",
@@ -39,10 +45,13 @@
     "react-native-tab-view": "^3.0.0",
     "react-native-web": "0.17.1",
     "react-polygon": "^0.2.0",
+    "redis": "^4.6.5",
     "swr": "^1.2.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9"
+    "@babel/core": "^7.12.9",
+    "@expo/webpack-config": "^18.0.1",
+    "gh-pages": "^5.0.0"
   },
   "private": true
-}
+  }
