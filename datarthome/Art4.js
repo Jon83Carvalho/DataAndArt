@@ -1,14 +1,10 @@
-import { scrollView, Text,ImageBackground, StyleSheet} from 'react-native';
-import React, { useEffect } from 'react'; 
+import React from 'react'; 
 import {range} from 'd3';
 import useSWR from 'swr';
 import { useRef } from 'react';
 import {csvParse} from 'd3';
 
 import {Viz4} from './Viz4';
-
-import {min,interpolateNumber,extent,scaleBand,scaleLinear,select,selectAll,format} from 'd3';
-
 
 
 import axios from 'axios';
@@ -113,27 +109,7 @@ export function Art4() {
     
   })
   
-  // const fetcher_count = (url) => {
-    
-    
-  //   const respo = axios.get(url).then(res=>res.data.count_data)
-    
-    
-  //   return respo;
-  // };
-
-  // const {data_count} = useSWR(csvUrl,fetcher_count,{
-  //   revalidateIfStale: false,
-  //   revalidateOnFocus: false,
-  //   revalidateOnReconnect: true,
-  //   revalidateOnMount:true,
-  //   refreshInterval: 5000,
-
-    
-  // })
-
-
-  previousdata.current=localStorage.getItem('cdata')
+   previousdata.current=localStorage.getItem('cdata')
   
   if (previousdata.current===null){
     localStorage.setItem('pdata',`Volume\n${rawdata[0].Volume}`);
@@ -158,7 +134,7 @@ if(!data){
       
       respdata.current=data.trade_data
       
-      console.log(respdata.current)
+
   //FINISH - reading data===============================
 
 const sequence=data.count

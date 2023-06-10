@@ -13,6 +13,8 @@ window.mobileCheck = function() {
 console.log(window.mobileCheck())
 let mobile=true
 
+
+
 mobile=window.mobileCheck()
 
 export const useData_stock=()=>{

@@ -59,7 +59,7 @@ export function Art3() {
     
   
     
-    const svgRef = useRef();
+    
     
     let {data,data2}=useData_stock();
     
@@ -78,9 +78,7 @@ export function Art3() {
   
   
 
-  
-  
-   
+     
     return (
       <React.Fragment>
       
@@ -91,7 +89,6 @@ export function Art3() {
       <Viz2
       data={start ? dataUsed : data}
       data2={data2} 
-      svgRef={svgRef}
       marginTop={margin.top}
       marginRight={margin.right}
       marginBottom={margin.bottom}
