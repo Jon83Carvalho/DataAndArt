@@ -158,7 +158,7 @@ if(!data){
       
       respdata.current=data.trade_data
       
-      
+      console.log(respdata.current)
   //FINISH - reading data===============================
 
 const sequence=data.count
