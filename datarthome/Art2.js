@@ -26,8 +26,7 @@ export function Art2() {
     const rawdata=[{"count":5000,"max":0},{"count":5000,"max":100}];
   
     var csvUrl
-    //csvUrl='https://raw.githubusercontent.com/Jon83Carvalho/DataAndArt/main/LoveWord.csv'
-    csvUrl='http://179.95.137.112:8000/'
+    csvUrl='https://raw.githubusercontent.com/Jon83Carvalho/DataAndArt/main/LoveWord.csv'
     
     let [fontsLoaded] = useFonts({
       YanoneKaffeesatz_200ExtraLight,
@@ -60,7 +59,7 @@ export function Art2() {
       revalidateOnFocus: false,
       revalidateOnReconnect: false,
       revalidateOnMount:true,
-      refreshInterval: 61000,
+      refreshInterval: 1000,
       use:[laggy]
     })
   
@@ -85,7 +84,6 @@ export function Art2() {
         </div>}
   
   respdata.current=data
-  //respdata.current.max=Math.abs(data.max-previousdata.current[0].max)*10
   
   localStorage.setItem('pdata', `count,max\n${respdata.current.count},${respdata.current.max}`);
   
@@ -93,7 +91,7 @@ export function Art2() {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
        <>
-      <Viz x={respdata.current} svgRef={svgRef} previousx={previousdata.current[0].max}/>
+      <Viz x={respdata.current.max} svgRef={svgRef} previousx={previousdata.current[0].max}/>
         
       </>
       </View>

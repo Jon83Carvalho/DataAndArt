@@ -1,5 +1,5 @@
 import {Viz2} from './Viz2'
-import React, {useState,useRef, useEffect} from 'react'
+import React, {useState,useRef} from 'react'
 import {select} from 'd3';
 import { View, Text,Button, TouchableOpacity } from 'react-native';
 import {useData_stock} from './useData_stock'
@@ -20,6 +20,11 @@ localStorage.removeItem('pdata');
 localStorage.removeItem('firstdisplay');
 
 
+import useSWR from 'swr';
+
+import { laggy } from './laggy';
+import axios from 'axios';
+
 const screenwidth=+select("#root").style("width").slice(0,-2)
 const screenheight=+select("#root").style("height").slice(0,-2)
 
@@ -39,11 +44,10 @@ const margin={
 };
 
 
-
-
 export function Art3() {
     
   const [start, setStart] = useState(false);
+  const dataused=useRef()
  
     
     let [fontsLoaded] = useFonts({
@@ -61,12 +65,13 @@ export function Art3() {
     
     const svgRef = useRef();
     
-    let {data,data2}=useData_stock();
+    const {data,data2}=useData_stock();
     
     const [dataUsed,setdataUsed]=useState([{data1:"data"}])
 
   
-    
+
+ 
     
   if (!data||!data2 || !fontsLoaded) 
   {
@@ -74,10 +79,7 @@ export function Art3() {
             <Text>Carregando...</Text>
            </div>
   }
-
   
-  
-
   
   
    

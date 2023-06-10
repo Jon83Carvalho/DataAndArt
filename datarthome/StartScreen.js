@@ -30,13 +30,11 @@ const styles = StyleSheet.create({
 
 export default function StartScreen ({navigation}) {
     return (
-        <View style={styles.container} name="Data and Art">
+        <View style={styles.container}>
             <TouchableOpacity style={styles.button} onPress={()=>{navigation.navigate("Content")}}>
           <Image
             style={styles.im} 
-            source={require("./assets/StartScreen.jpg")}
-            resizeMode="cover"
-            />
+            source={require("./assets/StartScreen.jpg")}/>
         </TouchableOpacity>
         </View>
     )

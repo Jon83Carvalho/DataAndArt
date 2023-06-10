@@ -7,9 +7,8 @@ const heart=  require('./assets/heart.svg')
 const webfont=require('./assets/fonts/yane-font.woff2')
 export const Viz=({x,svgRef,previousx})=>{
   
+  const wrapperRef = useRef();
   const firstdisp = useRef();
-  const rate_love=(x.count/x.max)*2;
-  
   
   useEffect(()=>{
     const du=5000
@@ -37,6 +36,7 @@ export const Viz=({x,svgRef,previousx})=>{
       const array=range(len)
 
 
+      var gapy
       const gap=0.7
       const del=0.05
       
@@ -57,8 +57,8 @@ export const Viz=({x,svgRef,previousx})=>{
 
               const previousw=size(previousx)*(1+gap*(k+1))
               const previoush=sizey(previousx)*(1+gap*(k+1)) 
-              const currentw=size(rate_love)*(1+gap*(k+1))
-              const currenth=sizey(rate_love)*(1+gap*(k+1)) 
+              const currentw=size(x)*(1+gap*(k+1))
+              const currenth=sizey(x)*(1+gap*(k+1)) 
               
               img2
               .attr("x",`${screenwidth/2-previousw/2}`)
@@ -102,10 +102,10 @@ export const Viz=({x,svgRef,previousx})=>{
       img2
       .transition()
       .duration((d,i)=>du*(1+gap*del*(i)))
-      .attr("width", (d,i)=>size(rate_love)*(1+gap*(i+1)))
-      .attr("height", (d,i)=>sizey(rate_love)*(1+gap*(i+1)))
-      .attr("x",(d,i)=>screenwidth/2-(size(rate_love)*(1+gap*(i+1)))/2)
-      .attr("y",(d,i)=>screenheight/2-(sizey(rate_love)*(1+gap*(i+1)))/2)
+      .attr("width", (d,i)=>size(x)*(1+gap*(i+1)))
+      .attr("height", (d,i)=>sizey(x)*(1+gap*(i+1)))
+      .attr("x",(d,i)=>screenwidth/2-(size(x)*(1+gap*(i+1)))/2)
+      .attr("y",(d,i)=>screenheight/2-(sizey(x)*(1+gap*(i+1)))/2)
       
     }
  
