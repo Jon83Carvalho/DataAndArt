@@ -50,7 +50,6 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
-    "@expo/webpack-config": "^18.0.1",
     "gh-pages": "^5.0.0"
   },
   "private": true
