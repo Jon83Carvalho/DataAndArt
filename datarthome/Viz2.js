@@ -49,7 +49,7 @@ const styles = {
 };
 
 
-export const Viz2=({data,data2,marginTop,marginRight,marginBottom,marginLeft})=>{
+export const Viz2=({data,marginTop,marginRight,marginBottom,marginLeft})=>{
   
   const width=+select("#root").style("width").slice(0,-2)
   const height=+select("#root").style("height").slice(0,-2)
@@ -64,10 +64,7 @@ export const Viz2=({data,data2,marginTop,marginRight,marginBottom,marginLeft})=>
   const rValue=(d)=>d.timestamp;
  
   const yValue=d=>d.price;
-  const fadeOpacity=0.2;
-  const larr=[];
 
-  const xAxistickFormat=tickvalue=>siFormat(tickvalue).replace('G','Bi');
   
  
   const rScale = scaleLinear()
@@ -91,9 +88,8 @@ export const Viz2=({data,data2,marginTop,marginRight,marginBottom,marginLeft})=>
     .range(["#ff4040","#e78d0b","#a7d503","#58fc2a","#18f472","#00bfbf","#1872f4","#582afc","#a703d5","#e70b8d","#ff4040"])
    
   	
-  const rfactor=1.7
   const ry_fact=3.0
-  const dur=20000
+  const dur=5000
   
 useEffect(()=>{
   const g=select("g");

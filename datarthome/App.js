@@ -12,9 +12,9 @@ export default function App() {
   
     return (
       <NavigationContainer>
-        <RootStack.Navigator screenOptions={{headerShown:false}}>
+        <RootStack.Navigator screenOptions={{headerShown:false}} initialRouteName="Data and Art">
           <RootStack.Screen
-            name="StartScreen" 
+            name="Data and Art" 
             component={StartScreen}
           />
           <RootStack.Screen
