@@ -3,6 +3,7 @@ import {range} from 'd3';
 
 
 import {Viz1} from './Viz1';
+import { View } from 'react-native';
 
 const image={uri:"https://github.com/Jon83Carvalho/DataAndArt/blob/main/eye.jpg?raw=true"};
 
@@ -26,7 +27,7 @@ const yAxislabelOffset=50;
 
 export function Art1() {
     return (
-      <scrollView width={width} style={{ justifyContent: 'center', alignItems: 'left' ,marginHorizontal: 20}}>
+      <View width={width} style={{ justifyContent: 'center', alignItems: 'left' ,marginHorizontal: 20}}>
       
        <>
   <Viz1
@@ -42,7 +43,7 @@ export function Art1() {
     />
  </>
 
-      </scrollView>
+      </View>
     );
   }
   

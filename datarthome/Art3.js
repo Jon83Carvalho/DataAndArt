@@ -1,7 +1,7 @@
 import {Viz2} from './Viz2'
-import React, {useState,useRef, useEffect} from 'react'
+import React, {useState} from 'react'
 import {select} from 'd3';
-import { View, Text,Button, TouchableOpacity } from 'react-native';
+import { View, Text,TouchableOpacity } from 'react-native';
 import {useData_stock} from './useData_stock'
 
 
@@ -80,7 +80,8 @@ export function Art3() {
 
      
     return (
-      <React.Fragment>
+     
+        <React.Fragment>
       
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
        
@@ -93,9 +94,8 @@ export function Art3() {
       marginRight={margin.right}
       marginBottom={margin.bottom}
       marginLeft={margin.left}
- />
-        
-       
+      
+ />    
       
       </View>
       <View 
@@ -166,7 +166,7 @@ export function Art3() {
           Developed by Jonas Carvalho 22th Aug 2022
           </Text>
       </View>
-      </React.Fragment>
       
+      </React.Fragment>
     );
   }

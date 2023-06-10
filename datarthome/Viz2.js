@@ -92,8 +92,7 @@ export const Viz2=({data,marginTop,marginRight,marginBottom,marginLeft})=>{
   const dur=5000
   
 useEffect(()=>{
-  const g=select("g");
- 
+  const g=select("#war")
   g.selectAll('ellipse')
     .data(data)
     .join(enter=>
@@ -139,10 +138,10 @@ useEffect(()=>{
  },[data]);
 
   return (
- <React.Fragment>
+<React.Fragment>
   <svg width={width} height={height} style={{backgroundColor:"#4d4a4a"}}>
   
-   <g transform={`translate(${marginLeft},${marginTop})`}>
+   <g transform={`translate(${marginLeft},${marginTop})`} id="war">
 
 
 </g>
