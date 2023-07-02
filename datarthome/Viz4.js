@@ -47,7 +47,7 @@ const styles = {
 
 
 
-export const Viz4=({gradType,iterate_plot,ichart,opac,yAxislabelOffset,xAxislabelOffset,width,height,marginTop,marginRight,marginBottom,marginLeft,data})=>{
+export const Viz4=({coin,gradType,iterate_plot,ichart,opac,width,height,marginTop,marginRight,marginBottom,marginLeft,data})=>{
   //START - Variable declarations====================
   
   
@@ -143,9 +143,9 @@ sGrad(barsGradient,svgDefs)
       const data_complete=data.map((d,i)=>{
          return {
         "order":JSON.parse(Object.values(d)[0]).Order,
-        "price":parseFloat(Object.keys(d)[0]),
+        "price":JSON.parse(Object.keys(d)[0].replace("coin\":","coin\":\"").replace(",","\"\,")).price,
+        "coin":JSON.parse(Object.keys(d)[0].replace("coin\":","coin\":\"").replace(",","\"\,")).coin,
         "volume":JSON.parse(Object.values(d)[0]).Volume, 
-        "price_str":Object.keys(d)[0],
         "previous":JSON.parse(Object.values(d)[0]).Previous
         }
       }).sort((a,b)=>a.order-b.order)
@@ -154,8 +154,15 @@ sGrad(barsGradient,svgDefs)
 
       
       //escala Y
-  
-      const data_string=data_complete.map(d=>d.price_str).sort((a,b)=>b-a)
+      function coinfilter(cointext,coinverify){
+
+        return cointext.coin==coinverify
+      }
+
+      const data_coin=coin
+      const filtered_data_complete=data_complete.filter(d=>coinfilter(d,data_coin))
+      const data_string=filtered_data_complete.map(d=>(d.price).toString()).sort((a,b)=>b-a)
+      console.log(data_string)
       const sizey=scaleBand()
       .domain(data_string)
       .range([10,innerHeight])
@@ -164,8 +171,9 @@ sGrad(barsGradient,svgDefs)
 
       //escala X  
       const sizex=scaleLinear()
-      .domain(extent(data_complete,d=>(d.volume)))
+      .domain(extent(filtered_data_complete,d=>(d.volume)))
       .range([10,innerWidth])
+
   
       //appeding once the g groups used for the animation
       if(iterate_plot==0){
@@ -195,25 +203,25 @@ sGrad(barsGradient,svgDefs)
       const g2=svg.select(`#bars${ichart}`)
       
       const f=format(".2f")  
-
-      //console.log(data_complete)
-
+      
+      console.log(data_complete.filter(d=>coinfilter(d,"BTC/USD")))
+      
       //STATIC Prince tick
       g1.selectAll("text")
-        .data(data_complete)
+        .data(filtered_data_complete)
         .join(
         enter=>
         enter
         .append("text")
         .attr('text-anchor','middle')
         .attr('x', adjmarginLeft+innerWidth/2)
-        .attr('y', (d,i)=>sizey(d.price_str))
+        .attr('y', (d,i)=>sizey(d.price.toString()))
         .style('font-size',`${min([minf,sizey.bandwidth()])}px`)
         .attr('id', "price")
         .attr("fill-opacity",0)
         .style('fill',"black")
         .style('font-family', `${styles.baseText.fontFamily}`)
-        .text(d=>d.price)
+        .text(d=>d.price.toString())
         .transition()
           .duration(5000)
           .attr("fill-opacity",opac)
@@ -221,10 +229,10 @@ sGrad(barsGradient,svgDefs)
         update=>
         update
         .transition()
-        .text(d=>d.price)
+        .text(d=>d.price.toString())
          .duration(5000)
          .attr("fill-opacity",opac)
-         .attr('y', (d,i)=>sizey(d.price_str))
+         .attr('y', (d,i)=>sizey(d.price.toString()))
          
          .attr('x', adjmarginLeft+innerWidth/2)
          .style('font-size',`${min([minf,sizey.bandwidth()])}px`)
@@ -232,14 +240,14 @@ sGrad(barsGradient,svgDefs)
       
       //Dynamic Volume
       g.selectAll("text")
-      .data(data_complete)
+      .data(filtered_data_complete)
       .join(
       enter=>
       enter
       .append("text")
       .attr('class', "value")
       .attr('x',adjmarginLeft+innerWidth/2)
-      .attr('y', (d,i)=>sizey(d.price_str))
+      .attr('y', (d,i)=>sizey(d.price.toString()))
       .style('font-size',`${min([minf,sizey.bandwidth()])}px`)
       .attr('id', "value")
       .attr("fill-opacity",0)
@@ -250,7 +258,7 @@ sGrad(barsGradient,svgDefs)
           .duration(5000)
           .attr("fill-opacity",opac)
           .attr('x', (d,i)=>sizex(d.volume)/2+adjmarginLeft+innerWidth/2+widthgap)
-          .attr('y', (d,i)=>sizey(d.price_str))
+          .attr('y', (d,i)=>sizey(d.price.toString()))
            .textTween((d) => (t) =>{
             
             const i=interpolateNumber(0,d.volume) 
@@ -262,7 +270,7 @@ sGrad(barsGradient,svgDefs)
         .transition()
         .duration(5000)
         .attr('x', (d,i)=>sizex(d.volume)/2+adjmarginLeft+innerWidth/2+widthgap)
-        .attr('y', (d,i)=>sizey(d.price_str))
+        .attr('y', (d,i)=>sizey(d.price.toString()))
         .style('font-size',`${min([minf,sizey.bandwidth()])}px`)
         .textTween((d,k) => t =>{
           const volume_i=g.selectAll('text').nodes()[k].textContent/1000
@@ -276,13 +284,13 @@ sGrad(barsGradient,svgDefs)
 
       //Dynamic BARS
       g2.selectAll("rect")
-      .data(data_complete)
+      .data(filtered_data_complete)
       .join(
       enter=>
       enter
       .append("rect")
       .attr('x', adjmarginLeft+innerWidth/2)
-      .attr('y', (d,i)=>sizey(d.price_str)-min([minf,sizey.bandwidth()])*3/4)
+      .attr('y', (d,i)=>sizey(d.price.toString())-min([minf,sizey.bandwidth()])*3/4)
       .attr('rx',5)
       .attr('ry',5)
       .attr('width',0)
@@ -292,7 +300,7 @@ sGrad(barsGradient,svgDefs)
           .transition()
           .duration(5000)
           .attr('fill',`url(#${gradType})`)
-          .attr('y', (d,i)=>sizey(d.price_str)-min([minf,sizey.bandwidth()])*3/4)
+          .attr('y', (d,i)=>sizey(d.price.toString())-min([minf,sizey.bandwidth()])*3/4)
           .attr('x', (d,i)=>adjmarginLeft+innerWidth/2-sizex(d.volume)/2)
           .attr('width',(d,i)=>sizex(d.volume))
           .attr('height',min([minf,sizey.bandwidth()])),
@@ -302,7 +310,7 @@ sGrad(barsGradient,svgDefs)
         .transition()
         .duration(5000)
         .attr("fill-opacity",opac)
-        .attr('y', (d,i)=>sizey(d.price_str)-min([minf,sizey.bandwidth()])*3/4)
+        .attr('y', (d,i)=>sizey(d.price.toString())-min([minf,sizey.bandwidth()])*3/4)
         .attr('x', (d,i)=>adjmarginLeft+innerWidth/2-sizex(d.volume)/2)
         .attr('fill',`url(#${gradType})`)
         .attr('width',(d,i)=>sizex(d.volume))

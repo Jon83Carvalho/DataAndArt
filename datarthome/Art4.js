@@ -140,7 +140,7 @@ if(!data){
 const sequence=data.count
 
   
- 
+
       
    
     return (
@@ -159,6 +159,7 @@ const sequence=data.count
     iterate_plot={0}
     opac={1}
     gradType="barsGrad"
+    coin="BTC/USD"
     />
 
 <Viz4
@@ -175,7 +176,7 @@ const sequence=data.count
     iterate_plot={0}
     opac={0.6}
     gradType="barsGrad-2"
-    
+    coin="ETH/USD"
     />
 </div>
    

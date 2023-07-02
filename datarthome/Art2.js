@@ -27,7 +27,7 @@ export function Art2() {
   
     var csvUrl
     //csvUrl='https://raw.githubusercontent.com/Jon83Carvalho/DataAndArt/main/LoveWord.csv'
-    csvUrl='http://179.95.137.112:8000/'
+    csvUrl='http://177.96.164.16:8000/'
     
     let [fontsLoaded] = useFonts({
       YanoneKaffeesatz_200ExtraLight,
