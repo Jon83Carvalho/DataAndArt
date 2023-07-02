@@ -47,7 +47,7 @@ const styles = {
 
 
 
-export const Viz4=({coin,gradType,iterate_plot,ichart,opac,width,height,marginTop,marginRight,marginBottom,marginLeft,data})=>{
+export const Viz4=({gradType,iterate_plot,ichart,opac,width,height,marginTop,marginRight,marginBottom,marginLeft,data})=>{
   //START - Variable declarations====================
   
   
@@ -63,7 +63,7 @@ useEffect(
 
 const main_root=select("#root_svg")
 
-if(iterate_plot==0 && ichart==1){
+if(iterate_plot==0 && ichart==3){
   
   main_root.append("svg")
     .attr("id","main_svg")  
@@ -85,7 +85,7 @@ const main_g=select("#main_g")
 
 const svg=main_root.select("#main_svg")
 
-if (iterate_plot==0 && ichart==1){
+if (iterate_plot==0 && ichart==3){
   svg.append("defs")
 }
 
@@ -158,11 +158,22 @@ sGrad(barsGradient,svgDefs)
 
         return cointext.coin==coinverify
       }
+      
+      let coin = ""
 
+      if (ichart==1) {
+        coin="BTC/USD"
+      }
+      else if (ichart==2) {
+        coin="ETH/USD"
+      } else {
+        coin="MATIC/USD"
+      }
+      
       const data_coin=coin
       const filtered_data_complete=data_complete.filter(d=>coinfilter(d,data_coin))
       const data_string=filtered_data_complete.map(d=>(d.price).toString()).sort((a,b)=>b-a)
-      console.log(data_string)
+      
       const sizey=scaleBand()
       .domain(data_string)
       .range([10,innerHeight])
@@ -204,7 +215,7 @@ sGrad(barsGradient,svgDefs)
       
       const f=format(".2f")  
       
-      console.log(data_complete.filter(d=>coinfilter(d,"BTC/USD")))
+      console.log(ichart)
       
       //STATIC Prince tick
       g1.selectAll("text")

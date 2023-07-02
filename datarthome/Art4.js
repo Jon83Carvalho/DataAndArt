@@ -139,28 +139,29 @@ if(!data){
 
 const sequence=data.count
 
-  
-
-      
+    
    
     return (
 <div id="root_svg" key={`main_div`} style={{"height": "100%"}}>
-  <Viz4
+
+<Viz4
     width={width}
     height={height}
     marginTop={margin.top}
-    marginRight={margin.right+100}
-    marginBottom={margin.bottom}
+    marginRight={margin.right+300}
+    marginBottom={margin.bottom+200}
     marginLeft={margin.left}
     xAxislabelOffset={xAxislabelOffset}
     yAxislabelOffset={yAxislabelOffset}
     data={respdata.current}
     ichart={sequence[0]}
     iterate_plot={0}
-    opac={1}
-    gradType="barsGrad"
-    coin="BTC/USD"
+    opac={0.4}
+    gradType="barsGrad-2"
     />
+
+
+
 
 <Viz4
     width={width}
@@ -174,10 +175,30 @@ const sequence=data.count
     data={respdata.current}
     ichart={sequence[1]}
     iterate_plot={0}
-    opac={0.6}
+    opac={0.8}
     gradType="barsGrad-2"
-    coin="ETH/USD"
+    
     />
+
+
+
+
+<Viz4
+    width={width}
+    height={height}
+    marginTop={margin.top}
+    marginRight={margin.right+100}
+    marginBottom={margin.bottom}
+    marginLeft={margin.left}
+    xAxislabelOffset={xAxislabelOffset}
+    yAxislabelOffset={yAxislabelOffset}
+    data={respdata.current}
+    ichart={sequence[2]}
+    iterate_plot={0}
+    opac={1}
+    gradType="barsGrad"
+    />
+
 </div>
    
       )}    
