@@ -3,7 +3,9 @@ import {range} from 'd3';
 import useSWR from 'swr';
 import { useRef } from 'react';
 import {csvParse} from 'd3';
-
+import { View, Text,StyleSheet } from 'react-native';
+import Constants from 'expo-constants';
+import { Card } from 'react-native-paper';
 import {Viz4} from './Viz4';
 
 
@@ -11,7 +13,8 @@ import axios from 'axios';
 
 
 /////////////////////////
-const styles = {
+
+const styles = StyleSheet.create({
   
   baseText: {
     fill: "darkgrey",
@@ -29,8 +32,23 @@ const styles = {
     fontSize:"1.7rem"
   },
   container: {
+    paddingTop: Constants.statusBarHeight,
     flex: 1,
+    backgroundColor: "green",
   },
+  row: {
+    flex: 1,
+    backgroundColor: "blue",
+    marginVertical: 5,
+    flexDirection: "row",
+  },
+  card: {
+    backgroundColor: "#7ca1b4",
+    flex: 1,
+    margin: 5,
+    
+  },
+    
   image: {
     flex:1,
     resizeMode:"cover",
@@ -50,7 +68,7 @@ const styles = {
     backgroundColor: "#000000c0"
   }
  
-};
+});
 
 
 ///////////////////////
@@ -65,10 +83,10 @@ const array=range(1);
 const width="100%"; 
 const height="100%";
 const margin={
-  top:100,
-  right:400,
-  bottom:200,
-  left:10
+  top:10,
+  right:0,
+  bottom:100,
+  left:0
 };
 const xAxislabelOffset=70;
 const yAxislabelOffset=50;
@@ -142,14 +160,34 @@ const sequence=data.count
     
    
     return (
-<div id="root_svg" key={`main_div`} style={{"height": "100%"}}>
 
-<Viz4
+<View style={styles.container}>
+      <Text>This is top filler</Text>
+      <View style={styles.row}>
+        <Card style={styles.card}>
+        <Card.Content>
+        <div id="root_svg" key={`main_div`} style={{"height": "100%"}}>
+        <Viz4
     width={width}
     height={height}
     marginTop={margin.top}
-    marginRight={margin.right+300}
-    marginBottom={margin.bottom+200}
+    marginRight={margin.right+200}
+    marginBottom={margin.bottom}
+    marginLeft={margin.left+200}
+    xAxislabelOffset={xAxislabelOffset}
+    yAxislabelOffset={yAxislabelOffset}
+    data={respdata.current}
+    ichart={sequence[2]}
+    iterate_plot={0}
+    opac={1}
+    gradType="barsGrad"
+    />
+    <Viz4
+    width={width}
+    height={height}
+    marginTop={margin.top}
+    marginRight={margin.right+900}
+    marginBottom={margin.bottom}
     marginLeft={margin.left}
     xAxislabelOffset={xAxislabelOffset}
     yAxislabelOffset={yAxislabelOffset}
@@ -168,8 +206,8 @@ const sequence=data.count
     height={height}
     marginTop={margin.top}
     marginRight={margin.right}
-    marginBottom={margin.bottom+100}
-    marginLeft={margin.left+300}
+    marginBottom={margin.bottom}
+    marginLeft={margin.left+500}
     xAxislabelOffset={xAxislabelOffset}
     yAxislabelOffset={yAxislabelOffset}
     data={respdata.current}
@@ -179,29 +217,39 @@ const sequence=data.count
     gradType="barsGrad-2"
     
     />
+    
+    
+    </div>
+        </Card.Content>
+        
+          </Card>
+          
+        
+        <Card>
+        <Card.Content>
+     
+        </Card.Content>
+        
+
+        </Card>
+        <Card />
+      </View>
+      <View style={styles.row}>
+        <Card />
+        <Card />
+        <Card />
+      </View>
+      <View style={styles.row}>
+        <Card />
+        <Card />
+        <Card />
+      </View>
+      <Text>This is bottom filler</Text>
+    </View>
 
 
-
-
-<Viz4
-    width={width}
-    height={height}
-    marginTop={margin.top}
-    marginRight={margin.right+100}
-    marginBottom={margin.bottom}
-    marginLeft={margin.left}
-    xAxislabelOffset={xAxislabelOffset}
-    yAxislabelOffset={yAxislabelOffset}
-    data={respdata.current}
-    ichart={sequence[2]}
-    iterate_plot={0}
-    opac={1}
-    gradType="barsGrad"
-    />
-
-</div>
    
       )}    
-      
-    
-  
+
+
+//R
