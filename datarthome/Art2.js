@@ -19,15 +19,23 @@ localStorage.removeItem('firstdisplay');
 
 import useSWR from 'swr';
 
+
 import { laggy } from './laggy';
 import axios from 'axios';
+//Collecting IP Adrress
 
+
+
+////
 export function Art2() {
     const rawdata=[{"count":5000,"max":0},{"count":5000,"max":100}];
+
+
   
     var csvUrl
     //csvUrl='https://raw.githubusercontent.com/Jon83Carvalho/DataAndArt/main/LoveWord.csv'
-    csvUrl='http://177.96.164.16:8000/'
+    
+  csvUrl ='http://177.96.163.231:8000/'
     
     let [fontsLoaded] = useFonts({
       YanoneKaffeesatz_200ExtraLight,
