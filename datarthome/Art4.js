@@ -36,13 +36,43 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "green",
   },
+  container_card: {
+    paddingTop: Constants.statusBarHeight,
+    flex: 1,
+    backgroundColor: "darkgrey",
+    height:"100%",
+  },
   row: {
     flex: 1,
-    backgroundColor: "blue",
-    marginVertical: 5,
+    backgroundColor: "white",
+    marginVertical: 0,
     flexDirection: "row",
   },
-  card: {
+  card1: {
+    backgroundColor: "#7ca1b4",
+    flex: 4,
+    margin: 5,
+    
+  },
+  card2: {
+    backgroundColor: "#7ca1b4",
+    flex: 2.4,
+    margin: 5,
+    
+  },
+  card3: {
+    backgroundColor: "#7ca1b4",
+    flex: 1.2,
+    margin: 5,
+    
+  },
+  card4: {
+    backgroundColor: "#7ca1b4",
+    flex: 1.1,
+    margin: 5,
+    
+  },
+  card5: {
     backgroundColor: "#7ca1b4",
     flex: 1,
     margin: 5,
@@ -83,9 +113,9 @@ const array=range(1);
 const width="100%"; 
 const height="100%";
 const margin={
-  top:10,
+  top:20,
   right:0,
-  bottom:100,
+  bottom:0,
   left:0
 };
 const xAxislabelOffset=70;
@@ -164,29 +194,14 @@ const sequence=data.count
 <View style={styles.container}>
       <Text>This is top filler</Text>
       <View style={styles.row}>
-        <Card style={styles.card}>
-        <Card.Content>
-        <div id="root_svg" key={`main_div`} style={{"height": "100%"}}>
+        <Card style={styles.card1}>
+        <Card.Content style={styles.container_card}>
+      <div id="root_svg_1" style={{"flex":"1"}}>
         <Viz4
     width={width}
     height={height}
     marginTop={margin.top}
-    marginRight={margin.right+200}
-    marginBottom={margin.bottom}
-    marginLeft={margin.left+200}
-    xAxislabelOffset={xAxislabelOffset}
-    yAxislabelOffset={yAxislabelOffset}
-    data={respdata.current}
-    ichart={sequence[2]}
-    iterate_plot={0}
-    opac={1}
-    gradType="barsGrad"
-    />
-    <Viz4
-    width={width}
-    height={height}
-    marginTop={margin.top}
-    marginRight={margin.right+900}
+    marginRight={margin.right}
     marginBottom={margin.bottom}
     marginLeft={margin.left}
     xAxislabelOffset={xAxislabelOffset}
@@ -194,56 +209,114 @@ const sequence=data.count
     data={respdata.current}
     ichart={sequence[0]}
     iterate_plot={0}
-    opac={0.4}
-    gradType="barsGrad-2"
+    opac={1}
+    gradType="barsGrad"
+    root_div={1}
     />
-
-
-
-
-<Viz4
+    </div>
+    </Card.Content>
+       
+    </Card>
+          
+        
+    <Card style={styles.card2}>
+    <Card.Content style={styles.container_card}>
+      <div id="root_svg_2" style={{"flex":"1"}}>
+        <Viz4
     width={width}
     height={height}
     marginTop={margin.top}
     marginRight={margin.right}
     marginBottom={margin.bottom}
-    marginLeft={margin.left+500}
+    marginLeft={margin.left}
     xAxislabelOffset={xAxislabelOffset}
     yAxislabelOffset={yAxislabelOffset}
     data={respdata.current}
     ichart={sequence[1]}
     iterate_plot={0}
-    opac={0.8}
-    gradType="barsGrad-2"
-    
+    opac={1}
+    gradType="barsGrad"
+    root_div={2}
     />
-    
-    
     </div>
-        </Card.Content>
-        
-          </Card>
-          
-        
-        <Card>
-        <Card.Content>
-     
-        </Card.Content>
+    </Card.Content>
         
 
         </Card>
-        <Card />
+        <Card style={styles.card3}>
+        <Card.Content style={styles.container_card}>
+      <div id="root_svg_3" style={{"flex":"1"}}>
+        <Viz4
+    width={width}
+    height={height}
+    marginTop={margin.top}
+    marginRight={margin.right}
+    marginBottom={margin.bottom}
+    marginLeft={margin.left}
+    xAxislabelOffset={xAxislabelOffset}
+    yAxislabelOffset={yAxislabelOffset}
+    data={respdata.current}
+    ichart={sequence[2]}
+    iterate_plot={0}
+    opac={1}
+    gradType="barsGrad"
+    root_div={3}
+    />
+    </div>
+    </Card.Content>
+        
+
+        </Card>
+        <Card style={styles.card4}>
+        <Card.Content style={styles.container_card}>
+      <div id="root_svg_4" style={{"flex":"1"}}>
+        <Viz4
+    width={width}
+    height={height}
+    marginTop={margin.top}
+    marginRight={margin.right}
+    marginBottom={margin.bottom}
+    marginLeft={margin.left}
+    xAxislabelOffset={xAxislabelOffset}
+    yAxislabelOffset={yAxislabelOffset}
+    data={respdata.current}
+    ichart={sequence[2]}
+    iterate_plot={0}
+    opac={1}
+    gradType="barsGrad"
+    root_div={4}
+    />
+    </div>
+    </Card.Content>
+        
+
+        </Card>
+        <Card style={styles.card5}>
+        <Card.Content style={styles.container_card}>
+      <div id="root_svg_5" style={{"flex":"1"}}>
+        <Viz4
+    width={width}
+    height={height}
+    marginTop={margin.top}
+    marginRight={margin.right}
+    marginBottom={margin.bottom}
+    marginLeft={margin.left}
+    xAxislabelOffset={xAxislabelOffset}
+    yAxislabelOffset={yAxislabelOffset}
+    data={respdata.current}
+    ichart={sequence[2]}
+    iterate_plot={0}
+    opac={1}
+    gradType="barsGrad"
+    root_div={5}
+    />
+    </div>
+    </Card.Content>
+        
+
+        </Card>
       </View>
-      <View style={styles.row}>
-        <Card />
-        <Card />
-        <Card />
-      </View>
-      <View style={styles.row}>
-        <Card />
-        <Card />
-        <Card />
-      </View>
+     
       <Text>This is bottom filler</Text>
     </View>
 

@@ -61,30 +61,29 @@ useEffect(
 
 ///////////////////////////////////////Gradient
 
-const main_root=select(`#root_svg_${root_div}`)
+const main_root=select("#root_svg")
 
-if(iterate_plot==0){
+if(iterate_plot==0 && ichart==3){
   
   main_root.append("svg")
-    .attr("id",`main_svg_${root_div}`)  
+    .attr("id","main_svg")  
     .attr("width",width)
     .attr("height",height)
 
-  main_root.select(`#main_svg_${root_div}`)
+  main_root.select("#main_svg")
     .append('g')
-    .attr("id",`main_g_${root_div}`)
+    .attr("id","main_g")
   
-console.log(`#main_g_${root_div}`)
+
  
 }
 
 
-const main_g=select(`#main_g_${root_div}`)
+const main_g=select("#main_g")
       .attr("transform",`translate(${marginLeft},${marginTop})`)
       .attr("key",`g${iterate_plot}`)
 
-const svg=main_root.select(`#main_svg_${root_div}`)
-
+const svg=main_root.select("#main_svg")
 
 if (iterate_plot==0 && ichart==3){
   svg.append("defs")
@@ -103,10 +102,10 @@ sGrad(barsGradient,svgDefs)
 //////////////////////////////////////
 
 
-      const screenheight=+select(`#root_svg_${root_div}`).style("height").slice(0,-2)
-      const screenwidth=+select(`#root_svg_${root_div}`).style("width").slice(0,-2)
-      //const screenwidth=width
-      console.log("screenheight",screenheight)
+      const screenheight=+select("#root").style("height").slice(0,-2)
+      //const screenwidth=+select("#root").style("width").slice(0,-2)
+      const screenwidth=width
+      
       //Creating addustable margins according to screen size
       let adjmarginTop;
       let adjmarginBottom;
@@ -115,16 +114,16 @@ sGrad(barsGradient,svgDefs)
       
       if(screenheight<=screenwidth) {
         
-        adjmarginTop=marginTop;
-        adjmarginBottom=marginBottom;
-        adjmarginLeft=marginLeft;
-        adjmarginRight=marginRight;
+        adjmarginTop=marginTop/700*9/16*screenheight;
+        adjmarginBottom=marginBottom/700*9/16*screenheight;
+        adjmarginLeft=marginLeft/1900*16/9*screenwidth;
+        adjmarginRight=marginRight/1900*16/9*screenwidth;
         
       } else {
-        adjmarginTop=marginTop;
-        adjmarginBottom=marginBottom;
-        adjmarginLeft=marginLeft;
-        adjmarginRight=marginRight;
+        adjmarginTop=marginTop/1900*16/9*screenheight;
+        adjmarginBottom=marginBottom/1900*16/9*screenheight;
+        adjmarginLeft=marginLeft/700*9/16*screenwidth;
+        adjmarginRight=marginRight/700*9/16*screenwidth;
         
 
       }
