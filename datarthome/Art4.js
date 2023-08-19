@@ -179,7 +179,7 @@ if(!data){
       
       
       
-      
+  //Collecting trade data
       respdata.current=data.trade_data
       
 
