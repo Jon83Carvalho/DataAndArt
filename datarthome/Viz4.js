@@ -47,7 +47,7 @@ const styles = {
 
 
 
-export const Viz4=({root_div,gradType,iterate_plot,ichart,opac,width,height,marginTop,marginRight,marginBottom,marginLeft,data})=>{
+export const Viz4=({root_div,gradType,iterate_plot,ichart,opac,width,height,marginTop,marginRight,marginBottom,marginLeft,data,datacount})=>{
   //START - Variable declarations====================
   
   
@@ -74,7 +74,7 @@ if(iterate_plot==0){
     .append('g')
     .attr("id",`main_g_${root_div}`)
   
-console.log(`#main_g_${root_div}`)
+
  
 }
 
@@ -105,8 +105,7 @@ sGrad(barsGradient,svgDefs)
 
       const screenheight=+select(`#root_svg_${root_div}`).style("height").slice(0,-2)
       const screenwidth=+select(`#root_svg_${root_div}`).style("width").slice(0,-2)
-      //const screenwidth=width
-      console.log("screenheight",screenheight)
+     
       //Creating addustable margins according to screen size
       let adjmarginTop;
       let adjmarginBottom;
@@ -145,8 +144,10 @@ sGrad(barsGradient,svgDefs)
       const data_complete=data.map((d,i)=>{
          return {
         "order":JSON.parse(Object.values(d)[0]).Order,
-        "price":JSON.parse(Object.keys(d)[0].replace("coin\":","coin\":\"").replace(",","\"\,")).price,
-        "coin":JSON.parse(Object.keys(d)[0].replace("coin\":","coin\":\"").replace(",","\"\,")).coin,
+        // "price":JSON.parse(Object.keys(d)[0].replace("coin\":","coin\":\"").replace(",","\"\,")).price,
+        // "coin":JSON.parse(Object.keys(d)[0].replace("coin\":","coin\":\"").replace(",","\"\,")).coin,
+        "price":JSON.parse(Object.keys(d)[0]).price,
+        "coin":JSON.parse(Object.keys(d)[0]).coin,
         "volume":JSON.parse(Object.values(d)[0]).Volume, 
         "previous":JSON.parse(Object.values(d)[0]).Previous
         }
@@ -163,16 +164,18 @@ sGrad(barsGradient,svgDefs)
       
       let coin = ""
 
-      if (ichart==1) {
-        coin="BTC/USD"
-      }
-      else if (ichart==2) {
-        coin="ETH/USD"
-      } else {
-        coin="MATIC/USD"
-      }
+      // if (ichart==1) {
+      //   coin="BTC/USDT"
+      // }
+      // else if (ichart==2) {
+      //   coin="ETH/USDT"
+      // } else {
+      //   coin="MATIC/USDT"
+      // }
       
-      const data_coin=coin
+      const data_coin=datacount[ichart].coin
+
+    
       const filtered_data_complete=data_complete.filter(d=>coinfilter(d,data_coin))
       const data_string=filtered_data_complete.map(d=>(d.price).toString()).sort((a,b)=>b-a)
       
@@ -217,8 +220,7 @@ sGrad(barsGradient,svgDefs)
       
       const f=format(".2f")  
       
-      console.log(ichart)
-      
+  
       //STATIC Prince tick
       g1.selectAll("text")
         .data(filtered_data_complete)

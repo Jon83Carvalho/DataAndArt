@@ -1,5 +1,5 @@
 import React from 'react'; 
-import {range} from 'd3';
+import {filter, range} from 'd3';
 import useSWR from 'swr';
 import { useRef } from 'react';
 import {csvParse} from 'd3';
@@ -10,6 +10,7 @@ import {Viz4} from './Viz4';
 
 
 import axios from 'axios';
+
 
 
 /////////////////////////
@@ -180,16 +181,39 @@ if(!data){
       
       
   //Collecting trade data
-      respdata.current=data.trade_data
-      
+respdata.current=data.trade_data
+
 
   //FINISH - reading data===============================
 
-const sequence=data.count
+const sequence=[3,2,1]
 
-    
-   
-    return (
+//Create Count data for each coin
+const count_data_map=data.count.map(d=>
+    {
+    return {
+      "coin":Object.keys(d)[0],
+      "count":JSON.parse(Object.values(d)[0])['Count']
+    }
+    }
+
+  ).filter(d=>d.count!=undefined)
+      .sort((a,b)=>b.count-a.count)
+
+  //Creating ranking data
+  const data_count_rank=data.count.map(
+      d=>{
+        d['rank']=count_data_map
+                    .map(k=>k.coin)
+                    .indexOf(Object.keys(d)[0])+1
+        return d
+      }
+    )
+//displaying rank data
+// console.log(data_count_rank)   
+
+
+return (
 
 <View style={styles.container}>
       <Text>This is top filler</Text>
@@ -207,7 +231,8 @@ const sequence=data.count
     xAxislabelOffset={xAxislabelOffset}
     yAxislabelOffset={yAxislabelOffset}
     data={respdata.current}
-    ichart={sequence[0]}
+    datacount={count_data_map}
+    ichart={0}
     iterate_plot={0}
     opac={1}
     gradType="barsGrad"
@@ -232,7 +257,8 @@ const sequence=data.count
     xAxislabelOffset={xAxislabelOffset}
     yAxislabelOffset={yAxislabelOffset}
     data={respdata.current}
-    ichart={sequence[1]}
+    datacount={count_data_map}
+    ichart={1}
     iterate_plot={0}
     opac={1}
     gradType="barsGrad"
@@ -256,7 +282,8 @@ const sequence=data.count
     xAxislabelOffset={xAxislabelOffset}
     yAxislabelOffset={yAxislabelOffset}
     data={respdata.current}
-    ichart={sequence[2]}
+    datacount={count_data_map}
+    ichart={2}
     iterate_plot={0}
     opac={1}
     gradType="barsGrad"
@@ -280,7 +307,8 @@ const sequence=data.count
     xAxislabelOffset={xAxislabelOffset}
     yAxislabelOffset={yAxislabelOffset}
     data={respdata.current}
-    ichart={sequence[2]}
+    datacount={count_data_map}
+    ichart={3}
     iterate_plot={0}
     opac={1}
     gradType="barsGrad"
@@ -304,7 +332,8 @@ const sequence=data.count
     xAxislabelOffset={xAxislabelOffset}
     yAxislabelOffset={yAxislabelOffset}
     data={respdata.current}
-    ichart={sequence[2]}
+    datacount={count_data_map}
+    ichart={4}
     iterate_plot={0}
     opac={1}
     gradType="barsGrad"

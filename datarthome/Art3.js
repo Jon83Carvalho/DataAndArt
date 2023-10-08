@@ -23,7 +23,8 @@ localStorage.removeItem('firstdisplay');
 const screenwidth=+select("#root").style("width").slice(0,-2)
 const screenheight=+select("#root").style("height").slice(0,-2)
 
-console.log("width:",screenwidth,"height:",screenheight)
+//checking display size
+//console.log("width:",screenwidth,"height:",screenheight)
 
 const size_unit_w=screenwidth/20
 const size_unit_h=screenheight/20
