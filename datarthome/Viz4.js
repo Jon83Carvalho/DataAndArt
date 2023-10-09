@@ -174,7 +174,7 @@ sGrad(barsGradient,svgDefs)
       // }
       
       const data_coin=datacount[ichart].coin
-
+      console.log(data_coin)
     
       const filtered_data_complete=data_complete.filter(d=>coinfilter(d,data_coin))
       const data_string=filtered_data_complete.map(d=>(d.price).toString()).sort((a,b)=>b-a)
@@ -230,7 +230,7 @@ sGrad(barsGradient,svgDefs)
         .append("text")
         .attr('text-anchor','middle')
         .attr('x', adjmarginLeft+innerWidth/2)
-        .attr('y', (d,i)=>sizey(d.price.toString()))
+        .attr('y', (d,i)=>d.price.toString())
         .style('font-size',`${min([minf,sizey.bandwidth()])}px`)
         .attr('id', "price")
         .attr("fill-opacity",0)

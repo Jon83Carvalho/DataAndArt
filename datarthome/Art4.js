@@ -232,7 +232,7 @@ return (
     yAxislabelOffset={yAxislabelOffset}
     data={respdata.current}
     datacount={count_data_map}
-    ichart={0}
+    ichart={4}
     iterate_plot={0}
     opac={1}
     gradType="barsGrad"
@@ -258,7 +258,7 @@ return (
     yAxislabelOffset={yAxislabelOffset}
     data={respdata.current}
     datacount={count_data_map}
-    ichart={1}
+    ichart={3}
     iterate_plot={0}
     opac={1}
     gradType="barsGrad"
@@ -308,7 +308,7 @@ return (
     yAxislabelOffset={yAxislabelOffset}
     data={respdata.current}
     datacount={count_data_map}
-    ichart={3}
+    ichart={1}
     iterate_plot={0}
     opac={1}
     gradType="barsGrad"
@@ -333,7 +333,7 @@ return (
     yAxislabelOffset={yAxislabelOffset}
     data={respdata.current}
     datacount={count_data_map}
-    ichart={4}
+    ichart={0}
     iterate_plot={0}
     opac={1}
     gradType="barsGrad"
