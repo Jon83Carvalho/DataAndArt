@@ -63,20 +63,26 @@ useEffect(
 
 const main_root=select(`#root_svg_${root_div}`)
 
-if(iterate_plot==0){
+try {
+ let test_svg=select(`#main_svg_${root_div}`).style("height")
+}
+catch {
+  main_root.append("svg") 
   
-  main_root.append("svg")
     .attr("id",`main_svg_${root_div}`)  
     .attr("width",width)
     .attr("height",height)
-
+}
   main_root.select(`#main_svg_${root_div}`)
     .append('g')
     .attr("id",`main_g_${root_div}`)
   
 
- 
-}
+
+const screenheight=select(`#main_svg_${root_div}`).style("height").slice(0,-2)
+const screenwidth=select(`#main_svg_${root_div}`).style("width").slice(0,-2)
+
+//console.log("altura dabarra",select(`#main_svg_${root_div}`).style("height"),root_div)
 
 
 const main_g=select(`#main_g_${root_div}`)
@@ -103,9 +109,7 @@ sGrad(barsGradient,svgDefs)
 //////////////////////////////////////
 
 
-      const screenheight=+select(`#root_svg_${root_div}`).style("height").slice(0,-2)
-      const screenwidth=+select(`#root_svg_${root_div}`).style("width").slice(0,-2)
-     
+   
       //Creating addustable margins according to screen size
       let adjmarginTop;
       let adjmarginBottom;
@@ -162,20 +166,9 @@ sGrad(barsGradient,svgDefs)
         return cointext.coin==coinverify
       }
       
-      let coin = ""
-
-      // if (ichart==1) {
-      //   coin="BTC/USDT"
-      // }
-      // else if (ichart==2) {
-      //   coin="ETH/USDT"
-      // } else {
-      //   coin="MATIC/USDT"
-      // }
-      
       const data_coin=datacount[ichart].coin
-      console.log(data_coin)
     
+      console.log("coin", ichart, data_coin)
       const filtered_data_complete=data_complete.filter(d=>coinfilter(d,data_coin))
       const data_string=filtered_data_complete.map(d=>(d.price).toString()).sort((a,b)=>b-a)
       
@@ -221,7 +214,7 @@ sGrad(barsGradient,svgDefs)
       const f=format(".2f")  
       
   
-      //STATIC Prince tick
+      //STATIC Price tick
       g1.selectAll("text")
         .data(filtered_data_complete)
         .join(
@@ -230,10 +223,10 @@ sGrad(barsGradient,svgDefs)
         .append("text")
         .attr('text-anchor','middle')
         .attr('x', adjmarginLeft+innerWidth/2)
-        .attr('y', (d,i)=>d.price.toString())
+        .attr('y', (d,i)=>sizey(d.price.toString()))
         .style('font-size',`${min([minf,sizey.bandwidth()])}px`)
         .attr('id', "price")
-        .attr("fill-opacity",0)
+        .attr("fill-opacity",1)
         .style('fill',"black")
         .style('font-family', `${styles.baseText.fontFamily}`)
         .text(d=>d.price.toString())
@@ -244,7 +237,7 @@ sGrad(barsGradient,svgDefs)
         update=>
         update
         .transition()
-        .text(d=>d.price.toString())
+        .text(d=>sizey(d.price.toString()))
          .duration(5000)
          .attr("fill-opacity",opac)
          .attr('y', (d,i)=>sizey(d.price.toString()))
