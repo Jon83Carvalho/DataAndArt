@@ -72,10 +72,13 @@ catch {
     .attr("id",`main_svg_${root_div}`)  
     .attr("width",width)
     .attr("height",height)
-}
+  
   main_root.select(`#main_svg_${root_div}`)
     .append('g')
     .attr("id",`main_g_${root_div}`)
+
+}
+  
   
 
 
@@ -156,7 +159,7 @@ sGrad(barsGradient,svgDefs)
         "previous":JSON.parse(Object.values(d)[0]).Previous
         }
       }).sort((a,b)=>a.order-b.order)
-
+      
       //END PARSING DATA==============================
 
       
@@ -168,7 +171,7 @@ sGrad(barsGradient,svgDefs)
       
       const data_coin=datacount[ichart].coin
     
-      console.log("coin", ichart, data_coin)
+      console.log("coin", ichart, data_coin,datacount[ichart].count,ichart)
       const filtered_data_complete=data_complete.filter(d=>coinfilter(d,data_coin))
       const data_string=filtered_data_complete.map(d=>(d.price).toString()).sort((a,b)=>b-a)
       
@@ -185,8 +188,12 @@ sGrad(barsGradient,svgDefs)
 
   
       //appeding once the g groups used for the animation
-      if(iterate_plot==0){
-      
+      try {
+        let test_g=maib_g.select(`#bars${ichart}`)
+        let test_a=maib_g.select(`#animation${ichart}`)
+        let test_s=maib_g.select(`#static${ichart}`)
+      }
+      catch {
         main_g.append('g')
         .attr('key',`g2${ichart}`)
         .attr("id",`bars${ichart}`)
@@ -198,8 +205,6 @@ sGrad(barsGradient,svgDefs)
         main_g.append('g')
         .attr('key',`g1${ichart}`)
         .attr("id",`static${ichart}`)
-
-  
       }
 
       
@@ -213,6 +218,7 @@ sGrad(barsGradient,svgDefs)
       
       const f=format(".2f")  
       
+      console.log(data_string)
   
       //STATIC Price tick
       g1.selectAll("text")
@@ -237,7 +243,7 @@ sGrad(barsGradient,svgDefs)
         update=>
         update
         .transition()
-        .text(d=>sizey(d.price.toString()))
+        .text(d=>d.price.toString())
          .duration(5000)
          .attr("fill-opacity",opac)
          .attr('y', (d,i)=>sizey(d.price.toString()))
@@ -327,7 +333,7 @@ sGrad(barsGradient,svgDefs)
       )
       
   
-      },[data]);
+      },[data,datacount]);
  
 
   
