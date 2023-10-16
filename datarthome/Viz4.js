@@ -31,7 +31,7 @@ const styles = {
     position:"relative",
     top:0,
     left:-200,
-    backgroundColor:"#6667AB",
+    backgroundColor:"#28272d",
     opacity:"50%"
   },
   text: {
@@ -95,7 +95,10 @@ const main_g=select(`#main_g_${root_div}`)
 const svg=main_root.select(`#main_svg_${root_div}`)
 
 
-if (iterate_plot==0 && ichart==3){
+try {
+  let test_svg=svg.append("defs")
+}
+catch {
   svg.append("defs")
 }
 
@@ -233,7 +236,7 @@ sGrad(barsGradient,svgDefs)
         .style('font-size',`${min([minf,sizey.bandwidth()])}px`)
         .attr('id', "price")
         .attr("fill-opacity",1)
-        .style('fill',"black")
+        .style('fill',"#00c7c7")
         .style('font-family', `${styles.baseText.fontFamily}`)
         .text(d=>d.price.toString())
         .transition()
@@ -265,18 +268,18 @@ sGrad(barsGradient,svgDefs)
       .style('font-size',`${min([minf,sizey.bandwidth()])}px`)
       .attr('id', "value")
       .attr("fill-opacity",0)
-      .style('fill',"black")
+      .style('fill',"#08faff")
       .style('font-family', `${styles.baseText.fontFamily}`)
       .text(f(0))
           .transition()
           .duration(5000)
-          .attr("fill-opacity",opac)
+          .attr("fill-opacity",0)
           .attr('x', (d,i)=>sizex(d.volume)/2+adjmarginLeft+innerWidth/2+widthgap)
           .attr('y', (d,i)=>sizey(d.price.toString()))
            .textTween((d) => (t) =>{
             
             const i=interpolateNumber(0,d.volume) 
-            return `${f(i(t)*1000)}`
+            return `${f(i(t))}`
           })
           ,
       update=>
@@ -289,7 +292,7 @@ sGrad(barsGradient,svgDefs)
         .textTween((d,k) => t =>{
           const volume_i=g.selectAll('text').nodes()[k].textContent/1000
           const i=interpolateNumber(volume_i,d.volume) 
-          return `${f(i(t)*1000)}`
+          return `${f(i(t))}`
         })
         .attr("fill-opacity",opac)
              
@@ -300,16 +303,19 @@ sGrad(barsGradient,svgDefs)
       g2.selectAll("rect")
       .data(filtered_data_complete)
       .join(
-      enter=>
+      enter=>{
       enter
       .append("rect")
       .attr('x', adjmarginLeft+innerWidth/2)
       .attr('y', (d,i)=>sizey(d.price.toString())-min([minf,sizey.bandwidth()])*3/4)
-      .attr('rx',5)
-      .attr('ry',5)
+      .attr('rx',0)
+      .attr('ry',0)
       .attr('width',0)
       .attr('height',min([minf,sizey.bandwidth()]))
       .attr('fill',"black")
+      .attr("stroke","#08faff")
+      .attr("stroke-width","0")
+      .attr('stroke-dasharray',0)
       .attr("fill-opacity",opac)
           .transition()
           .duration(5000)
@@ -317,7 +323,16 @@ sGrad(barsGradient,svgDefs)
           .attr('y', (d,i)=>sizey(d.price.toString())-min([minf,sizey.bandwidth()])*3/4)
           .attr('x', (d,i)=>adjmarginLeft+innerWidth/2-sizex(d.volume)/2)
           .attr('width',(d,i)=>sizex(d.volume))
-          .attr('height',min([minf,sizey.bandwidth()])),
+          .attr('height',min([minf,sizey.bandwidth()]))
+          .attr('stroke-dasharray',(d,i)=>`0 ${sizex(d.volume)} ${min([minf,sizey.bandwidth()])} ${sizex(d.volume)} ${min([minf,sizey.bandwidth()])}`)
+          .attr("stroke-width","3")
+      enter.selectAll("rect")
+      .append("title")
+      .text((d) => `Preço: ${d.price}, Volume: ${d.volume} `)
+      
+        
+        },
+      
           
       update=>
       update
@@ -328,7 +343,9 @@ sGrad(barsGradient,svgDefs)
         .attr('x', (d,i)=>adjmarginLeft+innerWidth/2-sizex(d.volume)/2)
         .attr('fill',`url(#${gradType})`)
         .attr('width',(d,i)=>sizex(d.volume))
-        .attr('height',min([minf,sizey.bandwidth()])),
+        .attr('height',min([minf,sizey.bandwidth()]))
+        .attr('stroke-dasharray',(d,i)=>`0 ${sizex(d.volume)} ${min([minf,sizey.bandwidth()])} ${sizex(d.volume)} ${min([minf,sizey.bandwidth()])}`)
+        ,
               
       )
       

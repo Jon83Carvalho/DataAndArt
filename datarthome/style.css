@@ -1,0 +1,17 @@
+rect {
+ }
+ 
+ .top {
+  }
+ 
+ .left {
+    stroke-dasharray:151,51
+ }
+ 
+ .bottom {
+    stroke-dasharray:100,51
+ }
+ 
+ .right {
+    stroke-dasharray:51,51,100
+ }

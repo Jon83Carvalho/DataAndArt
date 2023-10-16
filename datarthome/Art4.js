@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   container_card: {
     paddingTop: Constants.statusBarHeight,
     flex: 1,
-    backgroundColor: "darkgrey",
+    backgroundColor: "#28272d",
     height:"100%",
   },
   row: {
@@ -50,31 +50,31 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   card1: {
-    backgroundColor: "#7ca1b4",
+    backgroundColor: "#fabcbf00",
     flex: 4,
     margin: 5,
     
   },
   card2: {
-    backgroundColor: "#7ca1b4",
+    backgroundColor: "#fabcbf00",
     flex: 2.4,
     margin: 5,
     
   },
   card3: {
-    backgroundColor: "#7ca1b4",
+    backgroundColor: "#fabcbf00",
     flex: 1.2,
     margin: 5,
     
   },
   card4: {
-    backgroundColor: "#7ca1b4",
+    backgroundColor: "#fabcbf00",
     flex: 1.1,
     margin: 5,
     
   },
   card5: {
-    backgroundColor: "#7ca1b4",
+    backgroundColor: "#fabcbf00",
     flex: 1,
     margin: 5,
     

@@ -15,50 +15,77 @@ bar = def.append('linearGradient')
 bar.append('stop')
 .attr("class", "start")
 .attr("offset", "0%")
-.attr("stop-color", "red")
+.attr("stop-color", "#08faff")
+.attr("stop-opacity", 0.5);
+
+bar.append('stop')
+.attr("class", "start")
+.attr("offset", "1%")
+.attr("stop-color", "#08faff")
+.attr("stop-opacity", 0.5);
+
+bar.append('stop')
+.attr("class", "midle")
+.attr("offset", "1.5%")
+.attr("stop-color", "#006a6c")
 .attr("stop-opacity", 1);
+
 
 bar.append('stop')
 .attr("class", "midle")
 .attr("offset", "5%")
-.attr("stop-color", "red")
+.attr("stop-color", "#006a6c")
 .attr("stop-opacity", 1);
 
 
 bar.append('stop')
 .attr("class", "midle")
 .attr("offset", "30%")
-.attr("stop-color", "blue")
-.attr("stop-opacity", 1);
+.attr("stop-color", "#006a6c")
+.attr("stop-opacity", 0.75);
 
 
 bar.append('stop')
 .attr("class", "midle")
 .attr("offset", "50%")
-.attr("stop-color", "white")
-.attr("stop-opacity", 1);
+.attr("stop-color", "#006a6c")
+.attr("stop-opacity", 0.2);
 
 
 bar.append('stop')
 .attr("class", "midle")
 .attr("offset", "70%")
-.attr("stop-color", "blue")
-.attr("stop-opacity", 1);
+.attr("stop-color", "#006a6c")
+.attr("stop-opacity", 0.75);
 
 
 bar.append('stop')
 .attr("class", "midle")
 .attr("offset", "95%")
-.attr("stop-color", "red")
+.attr("stop-color", "#006a6c")
 .attr("stop-opacity", 1);
+
+bar.append('stop')
+.attr("class", "midle")
+.attr("offset", "98%")
+.attr("stop-color", "#006a6c")
+.attr("stop-opacity", 1);
+
+
+bar.append('stop')
+.attr("class", "midle")
+.attr("offset", "99.5%")
+.attr("stop-color", "#08faff")
+.attr("stop-opacity", 0.5);
+
 
 
 
 bar.append('stop')
 .attr("class", "midle")
 .attr("offset", "100%")
-.attr("stop-color", "red")
-.attr("stop-opacity", 1);
+.attr("stop-color", "#08faff")
+.attr("stop-opacity", 0.5);
 
 
 
