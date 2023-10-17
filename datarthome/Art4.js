@@ -10,6 +10,7 @@ import {Viz4} from './Viz4';
 
 
 import axios from 'axios';
+import { Viz4_top } from './Viz4_top';
 
 
 
@@ -236,7 +237,17 @@ return (
         <Card style={styles.card1}>
         <Card.Content style={styles.container_card}>
         <div id="top_list"style={{"flex":"1"}}>
-          
+        <Viz4_top
+    width={width}
+    height={height}
+    marginTop={0}
+    marginRight={0}
+    marginBottom={0}
+    marginLeft={0}
+    datacount={count_data_map}
+    opac={1}
+    
+    />
         </div>
       </Card.Content>
       

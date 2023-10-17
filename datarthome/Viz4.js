@@ -194,12 +194,8 @@ sGrad(barsGradient,svgDefs)
 
   
       //appeding once the g groups used for the animation
-      try {
-        let test_g=maib_g.select(`#bars${ichart}`)
-        let test_a=maib_g.select(`#animation${ichart}`)
-        let test_s=maib_g.select(`#static${ichart}`)
-      }
-      catch {
+     
+     
         main_g.append('g')
         .attr('key',`g2${ichart}`)
         .attr("id",`bars${ichart}`)
@@ -211,7 +207,7 @@ sGrad(barsGradient,svgDefs)
         main_g.append('g')
         .attr('key',`g1${ichart}`)
         .attr("id",`static${ichart}`)
-      }
+      
 
       
 
