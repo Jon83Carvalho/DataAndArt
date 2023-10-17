@@ -41,13 +41,28 @@ const styles = StyleSheet.create({
     paddingTop: Constants.statusBarHeight,
     flex: 1,
     backgroundColor: "#28272d",
-    height:"100%",
+    height:"80%",
+  },
+  container_top: {
+    paddingTop: Constants.statusBarHeight,
+    flex: 1,
+    backgroundColor: "#28272d",
+    height:"100px",
+    flexDirection: "column"
   },
   row: {
     flex: 1,
     backgroundColor: "white",
     marginVertical: 0,
     flexDirection: "row",
+    height: "80%",
+  },
+  row_top: {
+    flex: .1,
+    backgroundColor: "white",
+    marginVertical: 0,
+    flexDirection: "row",
+    height: "80%",
   },
   card1: {
     backgroundColor: "#fabcbf00",
@@ -215,8 +230,18 @@ const count_data_map=data.count.map(d=>
 
 return (
 
-<View style={styles.container}>
-      <Text>This is top filler</Text>
+<View style={styles.container_top}>
+      
+      <View style={styles.row_top}>
+        <Card style={styles.card1}>
+        <Card.Content style={styles.container_card}>
+        <div id="top_list"style={{"flex":"1"}}>
+          
+        </div>
+      </Card.Content>
+      
+      </Card>
+      </View>
       <View style={styles.row}>
         <Card style={styles.card1}>
         <Card.Content style={styles.container_card}>
