@@ -124,7 +124,7 @@ const svg=main_root.select('#main_svg')
       
       
       const posx=scaleBand()
-      .domain(datacount.slice(0,10).map(d=>d.coin))
+      .domain([1,2,3,4,5,6,7,8,9,10])
       .range([0,innerWidth])
 
 
@@ -143,35 +143,55 @@ const svg=main_root.select('#main_svg')
 
       const g=svg.select('#coins')
 
-     console.log(`${parseInt(select(`#main_svg`).style("height").slice(0,-2))/2}px`)
-     //STATIC Price tick
+   //  console.log(datacount) 
+   //  console.log(`${parseInt(select(`#main_svg`).style("height").slice(0,-2))/2}px`)
+     //STATIC coin name
       g.selectAll("text")
-        .data(datacount.slice(0,10))
+        .data(datacount)
         .join(
         enter=>
         enter
         .append("text")
         .attr('text-anchor','left')
-        .attr('x', d=>posx(d.coin))
+        .attr('x', (d,i)=>posx(d.rank))
         .attr('y', `${parseInt(select(`#main_svg`).style("height").slice(0,-2))/5}px`)
         
         .style('font-size','1em')
         .attr('id', "coin")
-        .attr("fill-opacity",1)
+        .attr("fill-opacity",(d,i)=>{
+          let res = 1;
+          if (d.rank>10){
+            res =0
+          }
+          return res 
+        })
         .style('fill',"#00c7c7")
         .style('font-family', `${styles.baseText.fontFamily}`)
-        .text(d=>d.coin)
+        .text(d=>Object.keys(d)[0])
         .transition()
           .duration(5000)
-          .attr("fill-opacity",opac)
+          .attr("fill-opacity",(d,i)=>{
+            let res = opac;
+            if (d.rank>10){
+              res =0
+            }
+            return res 
+          })
+          .attr('x', (d,i)=>posx(d.rank))
         ,
         update=>
         update
         .transition()
-        .text(d=>d.coin)
+        .text(d=>Object.keys(d)[0])
          .duration(5000)
-         .attr("fill-opacity",opac)
-         .attr('x', d=>posx(d.coin))
+         .attr("fill-opacity",(d,i)=>{
+          let res = opac;
+          if (d.rank>10){
+            res =0
+          }
+          return res 
+        })
+         .attr('x', (d,i)=>posx(d.rank))
          
         ) 
       

@@ -224,7 +224,7 @@ const count_data_map=data.count.map(d=>
                     .indexOf(Object.keys(d)[0])+1
         return d
       }
-    )
+    ).sort((a,b)=>b.coin-a.coin)
 //displaying rank data
 // console.log(data_count_rank)   
 
@@ -244,7 +244,7 @@ return (
     marginRight={0}
     marginBottom={0}
     marginLeft={0}
-    datacount={count_data_map}
+    datacount={data_count_rank}
     opac={1}
     
     />

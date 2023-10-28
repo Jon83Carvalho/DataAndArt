@@ -174,7 +174,7 @@ sGrad(barsGradient,svgDefs)
       
       const data_coin=datacount[ichart].coin
     
-      console.log("coin", ichart, data_coin,datacount[ichart].count,ichart)
+      
       const filtered_data_complete=data_complete.filter(d=>coinfilter(d,data_coin))
       const data_string=filtered_data_complete.map(d=>(d.price).toString()).sort((a,b)=>b-a)
       
@@ -220,8 +220,7 @@ sGrad(barsGradient,svgDefs)
       
       const f=format(".2f")  
       
-      console.log(data_string)
-  
+      
       //STATIC Price tick
       g1.selectAll("text")
         .data(filtered_data_complete)
