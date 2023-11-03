@@ -249,6 +249,7 @@ sGrad(barsGradient,svgDefs)
       .style('font-family', `${styles.baseText.fontFamily}`)
       .text(d=>d)
       .transition()
+      .text(d=>d)
         .duration(5000)
         .attr("fill-opacity",1
       ,
@@ -257,15 +258,25 @@ sGrad(barsGradient,svgDefs)
       .attr("fill-opacity",0)
       .text(d=>d)
       .transition()
-      
+      .text(d=>d)
        .duration(5000)
        .attr("fill-opacity",1)
-       .text(d=>d)
-   
+       .attr('x', adjmarginLeft+innerWidth/2)
+       .style('font-size',`${min([minf,sizey.bandwidth()])}px`)
+      ),
+      exit=>
+      exit
+      .attr("fill-opacity",1)
+      .text(d=>d)
+      .transition()
+      .text(d=>d)
+       .duration(5000)
+       .attr("fill-opacity",0)
        .attr('x', adjmarginLeft+innerWidth/2)
        .style('font-size',`${min([minf,sizey.bandwidth()])}px`)
       )
-      ) 
+
+      
 
       //STATIC Price tick
       g1.selectAll("text")
