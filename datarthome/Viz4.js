@@ -255,10 +255,12 @@ sGrad(barsGradient,svgDefs)
       update=>
       update
       .attr("fill-opacity",0)
-      .transition()
       .text(d=>d)
+      .transition()
+      
        .duration(5000)
        .attr("fill-opacity",1)
+       .text(d=>d)
    
        .attr('x', adjmarginLeft+innerWidth/2)
        .style('font-size',`${min([minf,sizey.bandwidth()])}px`)
