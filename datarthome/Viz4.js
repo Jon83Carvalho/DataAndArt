@@ -204,7 +204,7 @@ sGrad(barsGradient,svgDefs)
      
       tick_g.append('g')
       .attr('key',`tick_g${ichart}`)
-      .attr("id",`tick${ichart}`)
+      .attr("id",`tick_g${ichart}`)
 
         main_g.append('g')
         .attr('key',`g2${ichart}`)
@@ -233,7 +233,7 @@ sGrad(barsGradient,svgDefs)
       
       //coin tick
       console.log("datacoin", data_coin)
-      tick_g.selectAll("text")
+      g_tick.selectAll("text")
       .data([data_coin])
       .join(
       enter=>
