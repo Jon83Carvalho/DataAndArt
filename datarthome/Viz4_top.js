@@ -59,58 +59,36 @@ useEffect(
 const main_root=select('#top_list')
 
 try {
- let test_svg=select('#main_svg').style("width")
+ let test_svg=select('#main_svg_top').style("width")
 }
 catch {
   main_root.append("svg") 
   
-    .attr("id",'main_svg')  
+    .attr("id",'main_svg_top')  
     .attr("width",width)
     .attr("height",height)
   
-  main_root.select('#main_svg')
+  main_root.select('#main_svg_top')
     .append('g')
-    .attr("id",'main_g')
+    .attr("id",'main_g_top')
 
 }
   
   
 
 
-const screenheight=select('#main_svg').style("height").slice(0,-2)
-const screenwidth=select('#main_svg').style("width").slice(0,-2)
+const screenheight=select('#main_svg_top').style("height").slice(0,-2)
+const screenwidth=select('#main_svg_top').style("width").slice(0,-2)
 
 //console.log("altura dabarra",select(`#main_svg_${root_div}`).style("height"),root_div)
 
 
-const main_g=select('#main_g')
+const main_g=select('#main_g_top')
       .attr("transform",`translate(${marginLeft},${marginTop})`)
       
 
-const svg=main_root.select('#main_svg')
+const svg=main_root.select('#main_svg_top')
 
-
-    //  //Creating addustable margins according to screen size
-    //   let adjmarginTop;
-    //   let adjmarginBottom;
-    //   let adjmarginLeft;
-    //   let adjmarginRight;
-      
-    //   if(screenheight<=screenwidth) {
-        
-    //     adjmarginTop=marginTop;
-    //     adjmarginBottom=marginBottom;
-    //     adjmarginLeft=marginLeft;
-    //     adjmarginRight=marginRight;
-        
-    //   } else {
-    //     adjmarginTop=marginTop;
-    //     adjmarginBottom=marginBottom;
-    //     adjmarginLeft=marginLeft;
-    //     adjmarginRight=marginRight;
-        
-
-    //   }
 
       const innerHeight=screenheight-marginTop-marginBottom;
       const innerWidth=screenwidth-marginLeft-marginRight;
@@ -143,28 +121,47 @@ const svg=main_root.select('#main_svg')
 
       const g=svg.select('#coins')
 
-   //  console.log(datacount) 
-   //  console.log(`${parseInt(select(`#main_svg`).style("height").slice(0,-2))/2}px`)
+     console.log(datacount
+      .map(d=>d)
+        .sort((a,b)=>
+          JSON.parse(
+            a[Object.keys(a)[0]]
+            ).order-
+          JSON.parse(
+            b[Object.keys(b)[0]]
+            ).order).slice(0,10)
+            )
+  
+    const datacount_order=datacount
+    .map(d=>d)
+      .sort((a,b)=>
+        JSON.parse(
+          a[Object.keys(a)[0]]
+          ).order-
+        JSON.parse(
+          b[Object.keys(b)[0]]
+          ).order)
+ 
      //STATIC coin name
       g.selectAll("text")
-        .data(datacount)
+        .data(datacount_order)
         .join(
         enter=>
         enter
         .append("text")
         .attr('text-anchor','left')
-        .attr('x', (d,i)=>posx(d.rank))
-        .attr('y', `${parseInt(select(`#main_svg`).style("height").slice(0,-2))/5}px`)
-        
-        .style('font-size','1em')
-        .attr('id', "coin")
-        .attr("fill-opacity",(d,i)=>{
-          let res = 1;
+        .attr('x', (d,i)=>{
+          let res = posx(d.rank);
           if (d.rank>10){
-            res =0
+            res =screenwidth*1.5
           }
           return res 
         })
+        .attr('y', `${parseInt(select(`#main_svg_top`).style("height").slice(0,-2))/10}px`)
+        
+        .style('font-size','1.5em')
+        .attr('id', "coin")
+        .attr("fill-opacity",0)
         .style('fill',"#00c7c7")
         .style('font-family', `${styles.baseText.fontFamily}`)
         .text(d=>Object.keys(d)[0])
@@ -177,12 +174,20 @@ const svg=main_root.select('#main_svg')
             }
             return res 
           })
-          .attr('x', (d,i)=>posx(d.rank))
+          .attr('x', (d,i)=>{
+            let res = posx(d.rank);
+            if (d.rank>10){
+              res =screenwidth*1.5
+            }
+            return res 
+          })
+          .attr('y', `${parseInt(select(`#main_svg_top`).style("height").slice(0,-2))/5}px`)
+        
         ,
         update=>
         update
+        
         .transition()
-        .text(d=>Object.keys(d)[0])
          .duration(5000)
          .attr("fill-opacity",(d,i)=>{
           let res = opac;
@@ -191,8 +196,13 @@ const svg=main_root.select('#main_svg')
           }
           return res 
         })
-         .attr('x', (d,i)=>posx(d.rank))
-         
+               .attr('x', (d,i)=>{
+            let res = posx(d.rank);
+            if (d.rank>10){
+              res =screenwidth*1.5
+            }
+            return res 
+          })
         ) 
       
   

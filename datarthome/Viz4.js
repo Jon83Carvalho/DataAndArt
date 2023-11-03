@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react';
 
 
-import {min,interpolateNumber,extent,scaleBand,scaleLog,scaleLinear,select,selectAll,format} from 'd3';
+import {min,max,interpolateNumber,extent,scaleBand,scaleLog,scaleLinear,select,selectAll,format} from 'd3';
 import { firstGradient, secondGradient } from './Gradient';
 
 
@@ -76,6 +76,9 @@ catch {
   main_root.select(`#main_svg_${root_div}`)
     .append('g')
     .attr("id",`main_g_${root_div}`)
+  main_root.select(`#main_svg_${root_div}`)
+    .append('g')
+    .attr("id",`tick_g_${root_div}`)
 
 }
   
@@ -86,11 +89,15 @@ const screenheight=select(`#main_svg_${root_div}`).style("height").slice(0,-2)
 const screenwidth=select(`#main_svg_${root_div}`).style("width").slice(0,-2)
 
 //console.log("altura dabarra",select(`#main_svg_${root_div}`).style("height"),root_div)
-
+marginTop=screenheight/15
 
 const main_g=select(`#main_g_${root_div}`)
       .attr("transform",`translate(${marginLeft},${marginTop})`)
       .attr("key",`g${iterate_plot}`)
+
+const tick_g=select(`#tick_g_${root_div}`)
+      .attr("transform",`translate(${marginLeft},0)`)
+      .attr("key",`tick_g${iterate_plot}`)
 
 const svg=main_root.select(`#main_svg_${root_div}`)
 
@@ -180,7 +187,7 @@ sGrad(barsGradient,svgDefs)
       
       const sizey=scaleBand()
       .domain(data_string)
-      .range([10,innerHeight])
+      .range([innerHeight/15,innerHeight])
 
 
 
@@ -190,12 +197,15 @@ sGrad(barsGradient,svgDefs)
       // .range([10,innerWidth])
       const sizex=scaleLog()
       .domain(extent(filtered_data_complete,d=>(d.volume)))
-      .range([10,innerWidth])
+      .range([0,innerWidth])
 
   
       //appeding once the g groups used for the animation
      
-     
+      tick_g.append('g')
+      .attr('key',`tick_g${ichart}`)
+      .attr("id",`tick${ichart}`)
+
         main_g.append('g')
         .attr('key',`g2${ichart}`)
         .attr("id",`bars${ichart}`)
@@ -209,7 +219,8 @@ sGrad(barsGradient,svgDefs)
         .attr("id",`static${ichart}`)
       
 
-      
+      const g_tick=svg.select(`#tick_g${ichart}`)
+
 
       const g=svg.select(`#animation${ichart}`)
 
@@ -220,7 +231,40 @@ sGrad(barsGradient,svgDefs)
       
       const f=format(".2f")  
       
-      
+      //coin tick
+      console.log("datacoin", data_coin)
+      tick_g.selectAll("text")
+      .data([data_coin])
+      .join(
+      enter=>
+      enter
+      .append("text")
+      .attr('text-anchor','middle')
+      .attr('x', adjmarginLeft+innerWidth/2)
+      .attr('y', innerHeight/15)
+      .style('font-size',"1em")
+      .attr('id', "price")
+      .attr("fill-opacity",0)
+      .style('fill',"#ffffff")
+      .style('font-family', `${styles.baseText.fontFamily}`)
+      .text(d=>d)
+      .transition()
+        .duration(5000)
+        .attr("fill-opacity",1
+      ,
+      update=>
+      update
+      .attr("fill-opacity",0)
+      .transition()
+      .text(d=>d)
+       .duration(5000)
+       .attr("fill-opacity",1)
+   
+       .attr('x', adjmarginLeft+innerWidth/2)
+       .style('font-size',`${min([minf,sizey.bandwidth()])}px`)
+      )
+      ) 
+
       //STATIC Price tick
       g1.selectAll("text")
         .data(filtered_data_complete)
@@ -332,7 +376,7 @@ sGrad(barsGradient,svgDefs)
         },
       
           
-      update=>
+      update=>{
       update
         .transition()
         .duration(5000)
@@ -343,6 +387,10 @@ sGrad(barsGradient,svgDefs)
         .attr('width',(d,i)=>sizex(d.volume))
         .attr('height',min([minf,sizey.bandwidth()]))
         .attr('stroke-dasharray',(d,i)=>`0 ${sizex(d.volume)} ${min([minf,sizey.bandwidth()])} ${sizex(d.volume)} ${min([minf,sizey.bandwidth()])}`)
+        update.selectAll("rect")
+        .append("title")
+        .text((d) => `Preço: ${d.price}, Volume: ${d.volume} `)
+      }
         ,
               
       )

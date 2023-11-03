@@ -53,14 +53,14 @@ const styles = StyleSheet.create({
   },
   row: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: "#fabcbf00",
     marginVertical: 0,
     flexDirection: "row",
     height: "80%",
   },
   row_top: {
     flex: .1,
-    backgroundColor: "white",
+    backgroundColor: "#fabcbf00",
     marginVertical: 0,
     flexDirection: "row",
     height: "80%",
