@@ -12,7 +12,7 @@ const styles = {
     },
     titText: {
       fill: "#DD7788",
-      fontFamily:"YanoneKaffeesatz_400Regular",
+      fontFamily:"YanoneKaffeesatz_700Bold",
       fontSize:"4.5vw"
     },
     innerText: {
@@ -162,31 +162,71 @@ const svg=main_root.select('#main_svg_top')
         .style('font-size','1.5em')
         .attr('id', "coin")
         .attr("fill-opacity",0)
-        .style('fill',"#00c7c7")
-        .style('font-family', `${styles.baseText.fontFamily}`)
+        .style('fill',(d,i)=>{
+          let res = "#ffffff";
+          if (d.rank>5){
+            res ="#00c7c7"
+          }
+          return res 
+        }))
+        .style('font-family', (d,i)=>{
+          let res = `${styles.titText.fontFamily}`;
+          if (d.rank>5){
+            res =`${styles.baseText.fontFamily}`
+          }
+          return res 
+        })
         .text(d=>Object.keys(d)[0])
+       
         .transition()
-          .duration(5000)
-          .attr("fill-opacity",(d,i)=>{
-            let res = opac;
-            if (d.rank>10){
-              res =0
-            }
-            return res 
-          })
-          .attr('x', (d,i)=>{
-            let res = posx(d.rank);
-            if (d.rank>10){
-              res =screenwidth*1.5
-            }
-            return res 
-          })
-          .attr('y', `${parseInt(select(`#main_svg_top`).style("height").slice(0,-2))/5}px`)
+              .style('fill',(d,i)=>{
+                let res = "#ffffff";
+                if (d.rank>5){
+                  res ="#00c7c7"
+                }
+                return res 
+              })
+              .style('font-family', (d,i)=>{
+                let res = `${styles.titText.fontFamily}`;
+                if (d.rank>5){
+                  res =`${styles.baseText.fontFamily}`
+                }
+                return res 
+                 })
+                .duration(5000)
+                .attr("fill-opacity",(d,i)=>{
+                  let res = opac;
+                  if (d.rank>10){
+                    res =0
+                  }
+                  return res 
+                })
+                .attr('x', (d,i)=>{
+                  let res = posx(d.rank);
+                  if (d.rank>10){
+                    res =screenwidth*1.5
+                  }
+                  return res 
+                })
+                .attr('y', `${parseInt(select(`#main_svg_top`).style("height").slice(0,-2))/5}px`)
         
         ,
         update=>
         update
-        
+        .style('font-family', (d,i)=>{
+          let res = `${styles.titText.fontFamily}`;
+          if (d.rank>5){
+            res =`${styles.baseText.fontFamily}`
+          }
+          return res 
+        })
+        .style('fill',(d,i)=>{
+          let res = "#ffffff";
+          if (d.rank>5){
+            res ="#00c7c7"
+          }
+          return res 
+        })
         .transition()
          .duration(5000)
          .attr("fill-opacity",(d,i)=>{
@@ -203,7 +243,8 @@ const svg=main_root.select('#main_svg_top')
             }
             return res 
           })
-        ) 
+        
+        
       
   
       },[datacount]);

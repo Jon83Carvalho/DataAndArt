@@ -13,7 +13,7 @@ const styles = {
   },
   titText: {
     fill: "#DD7788",
-    fontFamily:"YanoneKaffeesatz_400Regular",
+    fontFamily:"YanoneKaffeesatz_700Bold",
     fontSize:"4.5vw"
   },
   innerText: {
@@ -242,39 +242,24 @@ sGrad(barsGradient,svgDefs)
       .attr('text-anchor','middle')
       .attr('x', adjmarginLeft+innerWidth/2)
       .attr('y', innerHeight/15)
-      .style('font-size',"1em")
+      .style('font-size',"1.2em")
       .attr('id', "price")
-      .attr("fill-opacity",0)
+      .attr("fill-opacity",1)
       .style('fill',"#ffffff")
       .style('font-family', `${styles.baseText.fontFamily}`)
       .text(d=>d)
-      .transition()
-      .text(d=>d)
-        .duration(5000)
-        .attr("fill-opacity",1
       ,
       update=>
       update
-      .attr("fill-opacity",0)
-      .text(d=>d)
-      .transition()
-      .text(d=>d)
-       .duration(5000)
-       .attr("fill-opacity",1)
-       .attr('x', adjmarginLeft+innerWidth/2)
-       .style('font-size',`${min([minf,sizey.bandwidth()])}px`)
-      ),
-      exit=>
-      exit
       .attr("fill-opacity",1)
       .text(d=>d)
       .transition()
+      
       .text(d=>d)
-       .duration(5000)
-       .attr("fill-opacity",0)
-       .attr('x', adjmarginLeft+innerWidth/2)
-       .style('font-size',`${min([minf,sizey.bandwidth()])}px`)
+  
       )
+     
+      
 
       
 
