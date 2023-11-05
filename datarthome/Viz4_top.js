@@ -114,12 +114,17 @@ const svg=main_root.select('#main_svg_top')
         main_g.append('g')
         .attr('key','g_coin')
         .attr("id",'coins')
+        main_g.append('g')
+        .attr('key','g_coin_count')
+        .attr("id",'coins_count')
 
      
 
       
 
       const g=svg.select('#coins')
+      const g_count=svg.select('#coins_count')
+      const f=format(".0f") 
 
      console.log(datacount
       .map(d=>d)
@@ -142,7 +147,7 @@ const svg=main_root.select('#main_svg_top')
           b[Object.keys(b)[0]]
           ).order)
  
-     //STATIC coin name
+     //coin name
       g.selectAll("text")
         .data(datacount_order)
         .join(
@@ -244,7 +249,116 @@ const svg=main_root.select('#main_svg_top')
             return res 
           })
         
-        
+     ///Coin count
+  
+     g_count.selectAll("text")
+     .data(datacount_order)
+     .join(
+     enter=>
+     enter
+     .append("text")
+     .attr('text-anchor','left')
+     .attr('x', (d,i)=>{
+       let res = posx(d.rank);
+       if (d.rank>10){
+         res =screenwidth*1.5
+       }
+       return res 
+     })
+     .attr('y', `${parseInt(select(`#main_svg_top`).style("height").slice(0,-2))/10}px`)
+     
+     .style('font-size','0.8em')
+     .attr('id', "coin")
+     .attr("fill-opacity",0)
+     .style('fill',(d,i)=>{
+       let res = "#ffffff";
+       if (d.rank>5){
+         res ="#00c7c7"
+       }
+       return res 
+     })
+
+     .style('font-family', (d,i)=>{
+       let res = `${styles.titText.fontFamily}`;
+       if (d.rank>5){
+         res =`${styles.baseText.fontFamily}`
+       }
+       return res 
+     })
+     .text(d=>JSON.parse(d[Object.keys(d)[0]]).Count)
+    
+     .transition()
+           .style('fill',(d,i)=>{
+             let res = "#ffffff";
+             if (d.rank>5){
+               res ="#00c7c7"
+             }
+             return res 
+           })
+           .style('font-family', (d,i)=>{
+             let res = `${styles.titText.fontFamily}`;
+             if (d.rank>5){
+               res =`${styles.baseText.fontFamily}`
+             }
+             return res 
+              })
+             .duration(5000)
+             .attr("fill-opacity",(d,i)=>{
+               let res = opac;
+               if (d.rank>10){
+                 res =0
+               }
+               return res 
+             })
+             .attr('x', (d,i)=>{
+               let res = posx(d.rank);
+               if (d.rank>10){
+                 res =screenwidth*1.5
+               }
+               return res 
+             })
+             .attr('y', `${parseInt(select(`#main_svg_top`).style("height").slice(0,-2))*1.5/5}px`)
+
+             
+     
+     ,
+     update=>
+    
+     update
+     .style('font-family', (d,i)=>{
+       let res = `${styles.titText.fontFamily}`;
+       if (d.rank>5){
+         res =`${styles.baseText.fontFamily}`
+       }
+       return res 
+     })
+     .style('fill',(d,i)=>{
+       let res = "#ffffff";
+       if (d.rank>5){
+         res ="#00c7c7"
+       }
+       return res 
+     })
+     .text(d=>JSON.parse(d[Object.keys(d)[0]]).Count)
+     .transition()
+      .duration(5000)
+      .attr("fill-opacity",(d,i)=>{
+       let res = opac;
+       if (d.rank>10){
+         res =0
+       }
+       return res 
+     })
+            .attr('x', (d,i)=>{
+         let res = posx(d.rank);
+         if (d.rank>10){
+           res =screenwidth*1.5
+         }
+         return res 
+       })
+     
+     )
+    
       
   
       },[datacount]);
