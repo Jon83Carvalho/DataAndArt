@@ -376,7 +376,7 @@ sGrad(barsGradient,svgDefs)
           
       update=>{
       update
-      .text((d) => `Preço: ${d.price}, Volume: ${d.volume} `)
+      
         .transition()
         .duration(5000)
         .attr("fill-opacity",opac)
@@ -386,8 +386,16 @@ sGrad(barsGradient,svgDefs)
         .attr('width',(d,i)=>sizex(d.volume))
         .attr('height',min([minf,sizey.bandwidth()]))
         .attr('stroke-dasharray',(d,i)=>`0 ${sizex(d.volume)} ${min([minf,sizey.bandwidth()])} ${sizex(d.volume)} ${min([minf,sizey.bandwidth()])}`)
-
-      }
+        .text((d) => `Preço: ${d.price}, Volume: ${d.volume} `)
+      
+        update
+        .selectAll("rect")
+        .append("title")
+        .text((d) => `Preço: ${d.price}, Volume: ${d.volume} `)
+      } 
+      
+       
+      
         ,
               
       )
