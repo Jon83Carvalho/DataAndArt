@@ -126,16 +126,7 @@ const svg=main_root.select('#main_svg_top')
       const g_count=svg.select('#coins_count')
       const f=format(".0f") 
 
-     console.log(datacount
-      .map(d=>d)
-        .sort((a,b)=>
-          JSON.parse(
-            a[Object.keys(a)[0]]
-            ).order-
-          JSON.parse(
-            b[Object.keys(b)[0]]
-            ).order).slice(0,10)
-            )
+   
   
     const datacount_order=datacount
     .map(d=>d)

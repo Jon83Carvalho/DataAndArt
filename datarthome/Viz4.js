@@ -232,7 +232,7 @@ sGrad(barsGradient,svgDefs)
       const f=format(".2f")  
       
       //coin tick
-      console.log("datacoin", data_coin)
+      
       g_tick.selectAll("text")
       .data([data_coin])
       .join(
