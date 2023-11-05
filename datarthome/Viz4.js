@@ -345,7 +345,12 @@ sGrad(barsGradient,svgDefs)
       .join(
       enter=>{
       enter
-      .append("rect")
+        .append("rect")
+        .append("title")
+        .text((d) => `Preço: ${d.price}, Volume: ${d.volume} `)
+      
+      enter
+      .selectAll("rect")
       .attr('x', adjmarginLeft+innerWidth/2)
       .attr('y', (d,i)=>sizey(d.price.toString())-min([minf,sizey.bandwidth()])*3/4)
       .attr('rx',0)
@@ -357,6 +362,7 @@ sGrad(barsGradient,svgDefs)
       .attr("stroke-width","0")
       .attr('stroke-dasharray',0)
       .attr("fill-opacity",opac)
+      
           .transition()
           .duration(5000)
           .attr('fill',`url(#${gradType})`)
@@ -366,9 +372,7 @@ sGrad(barsGradient,svgDefs)
           .attr('height',min([minf,sizey.bandwidth()]))
           .attr('stroke-dasharray',(d,i)=>`0 ${sizex(d.volume)} ${min([minf,sizey.bandwidth()])} ${sizex(d.volume)} ${min([minf,sizey.bandwidth()])}`)
           .attr("stroke-width","3")
-      enter.selectAll("rect")
-      .append("title")
-      .text((d) => `Preço: ${d.price}, Volume: ${d.volume} `)
+          
       
         
         },
