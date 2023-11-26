@@ -88,7 +88,7 @@ catch {
 const screenheight=select(`#main_svg_${root_div}`).style("height").slice(0,-2)
 const screenwidth=select(`#main_svg_${root_div}`).style("width").slice(0,-2)
 
-//console.log("altura dabarra",select(`#main_svg_${root_div}`).style("height"),root_div)
+
 marginTop=screenheight/15
 
 const main_g=select(`#main_g_${root_div}`)
@@ -166,12 +166,14 @@ sGrad(barsGradient,svgDefs)
         "price":JSON.parse(Object.keys(d)[0]).price,
         "coin":JSON.parse(Object.keys(d)[0]).coin,
         "volume":JSON.parse(Object.values(d)[0]).Volume, 
-        "previous":JSON.parse(Object.values(d)[0]).Previous
+        "previous":JSON.parse(Object.values(d)[0]).Previous,
+        "updatetime":JSON.parse(Object.values(d)[0]).updatetime
         }
       }).sort((a,b)=>a.order-b.order)
       
-      //END PARSING DATA==============================
 
+      
+      //END PARSING DATA==============================
       
       //escala Y
       function coinfilter(cointext,coinverify){
@@ -182,7 +184,63 @@ sGrad(barsGradient,svgDefs)
       const data_coin=datacount[ichart].coin
     
       
-      const filtered_data_complete=data_complete.filter(d=>coinfilter(d,data_coin))
+      let filtered_data_complete=data_complete.filter(d=>coinfilter(d,data_coin))
+      
+       //Defining latest update ==================================
+      if (filtered_data_complete.length>50){                                
+      
+      
+      const latestd=Math.max.apply(null,filtered_data_complete.map(d=>Date.parse(d.updatetime)))
+      const maxprice=Math.max.apply(null,filtered_data_complete.map(d=>d.price))
+      const minprice=Math.min.apply(null,filtered_data_complete.map(d=>d.price))
+      const arraylength=filtered_data_complete.length
+      const datet= latestd
+      
+      const latestprice=filtered_data_complete.filter(d=>{
+        
+        return Date.parse(d.updatetime)==datet
+      })
+
+      const priceorder_data=filtered_data_complete.map(d=>d).sort((a,b)=>a.price-b.price)
+      const upper_data=priceorder_data.filter(d=>{
+        
+        return d.price>latestprice[0].price
+      })
+      const lower_data=priceorder_data.filter(d=>{
+        
+        return d.price<latestprice[0].price
+      })
+
+      const upper_length=upper_data.length
+      const lower_length=lower_data.length
+      let cutoff=25
+      if(upper_length<25 || lower_length<25){
+        cutoff=Math.min(upper_length,lower_length)
+      }
+      let final_upper=upper_data
+      let final_lower=lower_data
+      if (upper_length>=25){
+        final_upper=upper_data.slice(0,50-cutoff)
+      }
+
+      if (lower_length>=25){
+        final_lower=lower_data.slice(lower_length-50+cutoff,lower_length)
+      }
+      
+      let final_data=[]
+      
+      final_data.push(...final_lower)
+      final_data.push(...latestprice)
+      final_data.push(...final_upper)
+      final_data=final_data.map(d=>d).sort((a,b)=>a.order-b.order)
+
+      console.log("data lower",final_lower,"data upper",final_upper,"lower length",lower_length,"upper_length",upper_length,"cutoff",cutoff, final_data)
+      filtered_data_complete=final_data
+    }
+     
+      //==========================================================
+      
+     
       const data_string=filtered_data_complete.map(d=>(d.price).toString()).sort((a,b)=>b-a)
       
       const sizey=scaleBand()
@@ -344,17 +402,14 @@ sGrad(barsGradient,svgDefs)
       .data(filtered_data_complete)
       .join(
       enter=>{
-      enter
-        .append("rect")
-        .append("title")
-        .text((d) => `Preço: ${d.price}, Volume: ${d.volume} `)
       
       enter
-      .selectAll("rect")
+      .append("rect")
       .attr('x', adjmarginLeft+innerWidth/2)
       .attr('y', (d,i)=>sizey(d.price.toString())-min([minf,sizey.bandwidth()])*3/4)
       .attr('rx',0)
       .attr('ry',0)
+      .attr("id", (d,k)=>`rect_${k}_${ichart}`)
       .attr('width',0)
       .attr('height',min([minf,sizey.bandwidth()]))
       .attr('fill',"black")
@@ -362,6 +417,7 @@ sGrad(barsGradient,svgDefs)
       .attr("stroke-width","0")
       .attr('stroke-dasharray',0)
       .attr("fill-opacity",opac)
+      
       
           .transition()
           .duration(5000)
@@ -372,8 +428,15 @@ sGrad(barsGradient,svgDefs)
           .attr('height',min([minf,sizey.bandwidth()]))
           .attr('stroke-dasharray',(d,i)=>`0 ${sizex(d.volume)} ${min([minf,sizey.bandwidth()])} ${sizex(d.volume)} ${min([minf,sizey.bandwidth()])}`)
           .attr("stroke-width","3")
-          
       
+        
+      enter._groups[0].map((d,k)=>{
+        select(`#rect_${k}_${ichart}`)
+        .append("title")
+        .text((d) => `Preço: ${d.price}, Volume: ${d.volume} `)
+      }
+      
+      )
         
         },
       
@@ -390,10 +453,12 @@ sGrad(barsGradient,svgDefs)
         .attr('height',min([minf,sizey.bandwidth()]))
         .attr('stroke-dasharray',(d,i)=>`0 ${sizex(d.volume)} ${min([minf,sizey.bandwidth()])} ${sizex(d.volume)} ${min([minf,sizey.bandwidth()])}`)
       
-        update
-        .selectAll("title")
-        .text((d) => `Preço: ${d.price}, Volume: ${d.volume} `)
-      } 
+        update._groups[0].map((d,k)=>{
+          select(`#rect_${k}_${ichart}`)
+          .select("title")
+          .text((d) => `Preço: ${d.price}, Volume: ${d.volume} `)
+      })
+    } 
       
 
               

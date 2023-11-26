@@ -241,6 +241,7 @@ const svg=main_root.select('#main_svg_top')
           })
         
      ///Coin count
+     const fo=format(".0f") 
   
      g_count.selectAll("text")
      .data(datacount_order)
@@ -249,6 +250,7 @@ const svg=main_root.select('#main_svg_top')
      enter
      .append("text")
      .attr('text-anchor','left')
+     .attr("id", (d,k)=>`count_${k}`)
      .attr('x', (d,i)=>{
        let res = posx(d.rank);
        if (d.rank>10){
@@ -259,7 +261,7 @@ const svg=main_root.select('#main_svg_top')
      .attr('y', `${parseInt(select(`#main_svg_top`).style("height").slice(0,-2))/10}px`)
      
      .style('font-size','0.8em')
-     .attr('id', "coin")
+     
      .attr("fill-opacity",0)
      .style('fill',(d,i)=>{
        let res = "#ffffff";
@@ -293,7 +295,7 @@ const svg=main_root.select('#main_svg_top')
              }
              return res 
               })
-             .duration(5000)
+             .duration(2000)
              .attr("fill-opacity",(d,i)=>{
                let res = opac;
                if (d.rank>10){
@@ -309,11 +311,16 @@ const svg=main_root.select('#main_svg_top')
                return res 
              })
              .attr('y', `${parseInt(select(`#main_svg_top`).style("height").slice(0,-2))*1.5/5}px`)
+             
 
              
      
      ,
-     update=>
+     update=>{
+
+     const count_value=update._groups[0].map((d,k)=>{
+        return select(`#count_${k}`).text()
+     })
     
      update
      .style('font-family', (d,i)=>{
@@ -324,15 +331,19 @@ const svg=main_root.select('#main_svg_top')
        return res 
      })
      .style('fill',(d,i)=>{
-       let res = "#ffffff";
-       if (d.rank>5){
-         res ="#00c7c7"
-       }
-       return res 
+      let res = "#ffffff";
+      if (d.rank>5){
+        res ="#00c7c7"
+      }
+      if (count_value[i]!=JSON.parse(d[Object.keys(d)[0]]).Count){
+        res="#ff0000"
+      }
+      return res 
+     
      })
-     .text(d=>JSON.parse(d[Object.keys(d)[0]]).Count)
+     //.text(d=>JSON.parse(d[Object.keys(d)[0]]).Count)
      .transition()
-      .duration(5000)
+      .duration(2000)
       .attr("fill-opacity",(d,i)=>{
        let res = opac;
        if (d.rank>10){
@@ -347,6 +358,19 @@ const svg=main_root.select('#main_svg_top')
          }
          return res 
        })
+       .style('fill',(d,i)=>{
+        let res = "#ffffff";
+        if (d.rank>5){
+          res ="#00c7c7"
+        }
+        return res 
+      })
+      .textTween((d,k) => t =>{
+        const count_i=count_value[k]
+        const i=interpolateNumber(count_i,JSON.parse(d[Object.keys(d)[0]]).Count) 
+        return `${fo(i(t))}`
+      })
+    }
      
      )
     
