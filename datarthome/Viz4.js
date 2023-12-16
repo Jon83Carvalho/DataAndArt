@@ -187,19 +187,21 @@ sGrad(barsGradient,svgDefs)
       let filtered_data_complete=data_complete.filter(d=>coinfilter(d,data_coin))
       
        //Defining latest update ==================================
-      if (filtered_data_complete.length>50){                                
-      
-      
-      const latestd=Math.max.apply(null,filtered_data_complete.map(d=>Date.parse(d.updatetime)))
-      const maxprice=Math.max.apply(null,filtered_data_complete.map(d=>d.price))
-      const minprice=Math.min.apply(null,filtered_data_complete.map(d=>d.price))
-      const arraylength=filtered_data_complete.length
-      const datet= latestd
-      
-      const latestprice=filtered_data_complete.filter(d=>{
+       const latestd=Math.max.apply(null,filtered_data_complete.map(d=>Date.parse(d.updatetime)))
+       const datet= latestd
+       const latestprice=filtered_data_complete.filter(d=>{
         
         return Date.parse(d.updatetime)==datet
       })
+       if (filtered_data_complete.length>50){                                
+      
+      
+      
+      const maxprice=Math.max.apply(null,filtered_data_complete.map(d=>d.price))
+      const minprice=Math.min.apply(null,filtered_data_complete.map(d=>d.price))
+      const arraylength=filtered_data_complete.length
+      
+      
 
       const priceorder_data=filtered_data_complete.map(d=>d).sort((a,b)=>a.price-b.price)
       const upper_data=priceorder_data.filter(d=>{
@@ -234,12 +236,11 @@ sGrad(barsGradient,svgDefs)
       final_data.push(...final_upper)
       final_data=final_data.map(d=>d).sort((a,b)=>a.order-b.order)
 
-      console.log("data lower",final_lower,"data upper",final_upper,"lower length",lower_length,"upper_length",upper_length,"cutoff",cutoff, final_data)
       filtered_data_complete=final_data
+
     }
      
-      //==========================================================
-      
+      //=========================================================
      
       const data_string=filtered_data_complete.map(d=>(d.price).toString()).sort((a,b)=>b-a)
       
@@ -247,12 +248,6 @@ sGrad(barsGradient,svgDefs)
       .domain(data_string)
       .range([innerHeight/15,innerHeight])
 
-
-
-      //escala X  
-      // const sizex=scaleLinear()
-      // .domain(extent(filtered_data_complete,d=>(d.volume)))
-      // .range([10,innerWidth])
       const sizex=scaleLog()
       .domain(extent(filtered_data_complete,d=>(d.volume)))
       .range([0,innerWidth])
@@ -334,7 +329,13 @@ sGrad(barsGradient,svgDefs)
         .style('font-size',`${min([minf,sizey.bandwidth()])}px`)
         .attr('id', "price")
         .attr("fill-opacity",1)
-        .style('fill',"#00c7c7")
+        .style('fill',d=>{
+          let color="#00c7c7"
+          if(d.price==latestprice[0].price){
+            color="#ffffff"
+          }
+          return color
+        })
         .style('font-family', `${styles.baseText.fontFamily}`)
         .text(d=>d.price.toString())
         .transition()
@@ -347,6 +348,14 @@ sGrad(barsGradient,svgDefs)
         .text(d=>d.price.toString())
          .duration(5000)
          .attr("fill-opacity",opac)
+         .style('fill',d=>{
+          let color="#00c7c7"
+          if(d.price==latestprice[0].price){
+            color="#ffffff"
+          }
+          
+          return color
+        })
          .attr('y', (d,i)=>sizey(d.price.toString()))
          
          .attr('x', adjmarginLeft+innerWidth/2)

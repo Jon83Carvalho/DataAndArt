@@ -175,6 +175,7 @@ const svg=main_root.select('#main_svg_top')
         .text(d=>Object.keys(d)[0])
        
         .transition()
+        .duration(5000)
               .style('fill',(d,i)=>{
                 let res = "#ffffff";
                 if (d.rank>5){
@@ -189,7 +190,7 @@ const svg=main_root.select('#main_svg_top')
                 }
                 return res 
                  })
-                .duration(5000)
+              
                 .attr("fill-opacity",(d,i)=>{
                   let res = opac;
                   if (d.rank>10){
@@ -295,7 +296,7 @@ const svg=main_root.select('#main_svg_top')
              }
              return res 
               })
-             .duration(2000)
+             .duration(5000)
              .attr("fill-opacity",(d,i)=>{
                let res = opac;
                if (d.rank>10){
@@ -343,7 +344,7 @@ const svg=main_root.select('#main_svg_top')
      })
      //.text(d=>JSON.parse(d[Object.keys(d)[0]]).Count)
      .transition()
-      .duration(2000)
+      .duration(5000)
       .attr("fill-opacity",(d,i)=>{
        let res = opac;
        if (d.rank>10){
