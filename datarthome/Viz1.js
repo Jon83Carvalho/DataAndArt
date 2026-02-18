@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
 
 
-import {scaleOrdinal,extent,scaleLinear} from 'd3';
+import {scaleOrdinal,extent,scaleLinear,format} from 'd3';
 import {useData} from './useData'
 import {randArray} from './randArray'
 
@@ -88,6 +88,7 @@ export const Viz1=({yAxislabelOffset,xAxislabelOffset,width,height,marginTop,mar
   rand.map((d,i)=>larr.push(Math.PI*rand[i].number))
   
 
+  const siFormat=format(".2s");
   const xAxistickFormat=tickvalue=>siFormat(tickvalue).replace('G','Bi');
   
  

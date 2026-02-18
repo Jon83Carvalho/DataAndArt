@@ -1,5 +1,6 @@
 import React from 'react'; 
 import {range} from 'd3';
+import { TouchableOpacity, Text } from 'react-native';
 
 
 import {Viz1} from './Viz1';
@@ -25,10 +26,23 @@ const yAxislabelOffset=50;
 
 
 
-export function Art1() {
+export function Art1({navigation}) {
     return (
       <View width={width} style={{ justifyContent: 'center', alignItems: 'left' ,marginHorizontal: 20}}>
-      
+        <TouchableOpacity 
+          onPress={() => navigation.openDrawer()}
+          style={{
+            position: 'absolute',
+            top: 20,
+            left: 20,
+            backgroundColor: '#6667AB',
+            padding: 10,
+            borderRadius: 5,
+            zIndex: 1000
+          }}
+        >
+          <Text style={{ color: 'white', fontSize: 16 }}>☰ Menu</Text>
+        </TouchableOpacity>
        <>
   <Viz1
     width={width}

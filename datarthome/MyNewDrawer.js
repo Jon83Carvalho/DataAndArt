@@ -1,8 +1,8 @@
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import { Platform } from 'react-native';
 import { Art2 } from './Art2'
 import { Art1 } from './Art1';
 import { Art3 } from './Art3';
-import { Art4 } from './Art4';
 import { Dimensions } from 'react-native';
 import {
   useFonts,
@@ -31,9 +31,7 @@ const styles = {
   }
 };
 
-
-
-export function MyDrawer() {
+export function MyNewDrawer() {
 
   let [fontsLoaded] = useFonts({
     YanoneKaffeesatz_200ExtraLight,
@@ -45,14 +43,20 @@ export function MyDrawer() {
   })
 
   return (
-    
-    <Drawer.Navigator initialRouteName="Feed"
+    <Drawer.Navigator 
+      initialRouteName="Feed"
+      useLegacyImplementation={false}
       screenOptions={{
         drawerStyle: {
           backgroundColor:"#6667AB",
           opacity:"95%",
         },
-        headerShown: false,
+        headerShown: true,
+        swipeEnabled: false,
+        gestureEnabled: false,
+        drawerPosition: 'left',
+        drawerType: 'front',
+        keyboardHandlingEnabled: false,
         headerStyle: {
           backgroundColor:"#6667AB",
           opacity: "100%",
@@ -64,27 +68,7 @@ export function MyDrawer() {
           fontSize:styles.baseText.fontSize
         }
       }}
-
-         
-     
     >
-      <Drawer.Screen
-        name="Art 4 - Coin Volume"
-        component={Art4}
-        options={{ drawerLabel: 'Art 4 - Coin Volume',
-        drawerActiveBackgroundColor:"#444589",
-        drawerInactiveBackgroundColor:"#9999BF",
-        drawerLabelStyle: {
-          color:styles.innerText.color,
-          fontFamily:styles.innerText.fontFamily,
-          fontSize:styles.innerText.fontSize
-
-        }
-
-
-      }}
-        
-      />
       <Drawer.Screen
         name="Art 3 - Trade War"
         component={Art3}
@@ -95,12 +79,8 @@ export function MyDrawer() {
           color:styles.innerText.color,
           fontFamily:styles.innerText.fontFamily,
           fontSize:styles.innerText.fontSize
-
         }
-
-
       }}
-        
       />
       <Drawer.Screen
         name="Art 2- LoveWord"
@@ -113,12 +93,10 @@ export function MyDrawer() {
           fontFamily:styles.innerText.fontFamily,
           fontSize:styles.innerText.fontSize        
         }
-
       }}
       />
       
       <Drawer.Screen
-        
         name="Art 1 - Internet Gap"
         component={Art1}
         options={{ drawerLabel: 'Art 1 - Internet Gap',
@@ -133,13 +111,9 @@ export function MyDrawer() {
         sceneContainerStyle: {
           backgroundColor:"#222367",
           innerWidth:"960px",
-          
       } 
        }}
-        
       />
     </Drawer.Navigator>
-    
   );
 }
-

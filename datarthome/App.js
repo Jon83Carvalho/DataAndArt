@@ -1,6 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import {MyDrawer} from './MyDrawer';
+import {MyNewDrawer} from './MyNewDrawer';
 import StartScreen from './StartScreen';
 
 
@@ -19,7 +19,7 @@ export default function App() {
           />
           <RootStack.Screen
             name="Content" 
-            component={MyDrawer}
+            component={MyNewDrawer}
           />
         </RootStack.Navigator> 
       </NavigationContainer>

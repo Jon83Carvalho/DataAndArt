@@ -1,7 +1,7 @@
 import {Viz} from './Viz'
 import React, {useState,useRef} from 'react'
 import {csvParse} from 'd3';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import {
   useFonts,
   YanoneKaffeesatz_200ExtraLight,
@@ -22,7 +22,7 @@ import useSWR from 'swr';
 import { laggy } from './laggy';
 import axios from 'axios';
 
-export function Art2() {
+export function Art2({navigation}) {
     const rawdata=[{"count":5000,"max":0},{"count":5000,"max":100}];
   
     var csvUrl
@@ -92,6 +92,20 @@ export function Art2() {
    
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <TouchableOpacity 
+          onPress={() => navigation.openDrawer()}
+          style={{
+            position: 'absolute',
+            top: 20,
+            left: 20,
+            backgroundColor: '#6667AB',
+            padding: 10,
+            borderRadius: 5,
+            zIndex: 1000
+          }}
+        >
+          <Text style={{ color: 'white', fontSize: 16 }}>☰ Menu</Text>
+        </TouchableOpacity>
        <>
       <Viz x={respdata.current} svgRef={svgRef} previousx={previousdata.current[0].max}/>
         

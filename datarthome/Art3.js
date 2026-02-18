@@ -42,7 +42,7 @@ const margin={
 
 
 
-export function Art3() {
+export function Art3({navigation}) {
     
   const [start, setStart] = useState(false);
  
@@ -85,8 +85,20 @@ export function Art3() {
         <React.Fragment>
       
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-       
-        
+        <TouchableOpacity 
+          onPress={() => navigation.openDrawer()}
+          style={{
+            position: 'absolute',
+            top: 20,
+            left: 20,
+            backgroundColor: '#6667AB',
+            padding: 10,
+            borderRadius: 5,
+            zIndex: 1000
+          }}
+        >
+          <Text style={{ color: 'white', fontSize: 16 }}>☰ Menu</Text>
+        </TouchableOpacity>
       
       <Viz2
       data={start ? dataUsed : data}
