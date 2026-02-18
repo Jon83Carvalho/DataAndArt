@@ -1,8 +1,11 @@
 import {useState,useEffect} from 'react';
 import {csv} from 'd3';
 
-const data_stock_d1=require('./assets/day1_g_2.csv')
-const data_stock_d2=require('./assets/day2_g_2.csv')
+// const data_stock_d1=require('./assets/day1_g_2.csv')
+// const data_stock_d2=require('./assets/day2_g_2.csv')
+
+const data_stock_d1='/assets/day1_g_2.csv'
+const data_stock_d2='/assets/day2_g_2.csv'
 
 window.mobileCheck = function() {
   let check = false;

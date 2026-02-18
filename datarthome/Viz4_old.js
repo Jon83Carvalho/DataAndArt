@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react';
 
 
-import {min,interpolateNumber,extent,scaleBand,scaleLinear,select,selectAll,format} from 'd3';
+import {min,interpolateNumber,extent,scaleBand,scaleLinear,select,format} from 'd3';
 import { firstGradient, secondGradient } from './Gradient';
 
 

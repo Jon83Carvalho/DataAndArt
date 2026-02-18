@@ -1,8 +1,7 @@
 import React,{useState,useEffect} from 'react';
 
 
-import {min,interpolateNumber,extent,scaleBand,select,selectAll,format} from 'd3';
-import { firstGradient, secondGradient } from './Gradient';
+import {interpolateNumber,scaleBand,select,format} from 'd3';
 
 const styles = {
     baseText: {

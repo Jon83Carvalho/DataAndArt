@@ -1,10 +1,9 @@
 import React, { useRef, useEffect } from "react";
-import ReactDOM from 'react-dom';
-import {selectAll,select,xml,scaleLinear,extent,range,max,min} from "d3";
+
+import {selectAll,select,xml,scaleLinear,extent,range} from "d3";
 
 
 const heart=  require('./assets/heart.svg')
-const webfont=require('./assets/fonts/yane-font.woff2')
 export const Viz=({x,svgRef,previousx})=>{
   
   const firstdisp = useRef();

@@ -1,7 +1,7 @@
-import React,{memo,useState,useCallback,useEffect} from 'react';
+import React,{useState} from 'react';
 
 
-import {scaleOrdinal,extent,format,csv,scaleBand,scaleLinear,max,ascending,descending,cos,sin,min} from 'd3';
+import {scaleOrdinal,extent,scaleLinear} from 'd3';
 import {useData} from './useData'
 import {randArray} from './randArray'
 

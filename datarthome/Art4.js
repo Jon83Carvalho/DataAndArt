@@ -1,5 +1,5 @@
 import React from 'react'; 
-import {filter, range} from 'd3';
+import {range} from 'd3';
 import useSWR from 'swr';
 import { useRef } from 'react';
 import {csvParse} from 'd3';

@@ -45,6 +45,7 @@ export function MyDrawer() {
   })
 
   return (
+    
     <Drawer.Navigator useLegacyImplementation initialRouteName="Feed"
       screenOptions={{
         drawerStyle: {
@@ -143,6 +144,7 @@ export function MyDrawer() {
         
       />
     </Drawer.Navigator>
+    
   );
 }
 
