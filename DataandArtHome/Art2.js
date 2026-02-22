@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet, Dimensions } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet, Dimensions, ScrollView } from 'react-native';
 import * as d3 from 'd3';
 import { Image } from 'react-native';
 import { useEscapeKey } from './useEscapeKey';
@@ -56,6 +56,9 @@ export default function Art2({ navigation }) {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [tooltipData, setTooltipData] = useState(null);
+  const [hoveredCountry, setHoveredCountry] = useState(null);
+  const [maxRadius, setMaxRadius] = useState(0);
+  const [selectedCountry, setSelectedCountry] = useState(null);
   
   // Add escape key functionality for web
   useEscapeKey(() => navigation.goBack());
@@ -126,6 +129,9 @@ export default function Art2({ navigation }) {
     const radiusScale = d3.scaleLinear()
       .domain(d3.extent(data, d => d.Corrup))
       .range([50, Math.min(width, height) / 2 - 50]);
+
+    // Set max radius for country list positioning
+    setMaxRadius(radiusScale.range()[1]);
 
     const gapScale = d3.scaleLinear()
       .domain(d3.extent(data, d => Math.abs(d.Gap)))
@@ -354,6 +360,87 @@ export default function Art2({ navigation }) {
       )}
      
       <View style={styles.svgContainer}>
+        {/* Country List on the left */}
+        {data && (
+          <View style={{
+            position: 'absolute',
+            left: dimensions.width / 2 - maxRadius - 120, // Close to largest radius
+            top: 100,
+            width: 100,
+            height: dimensions.height - 200,
+            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+            borderRadius: 10,
+            borderWidth: 1,
+            borderColor: '#fff',
+            zIndex: 5,
+          }}>
+            <Text style={{
+              color: '#fff',
+              fontSize: 12,
+              fontWeight: 'bold',
+              textAlign: 'center',
+              padding: 10,
+              borderBottomWidth: 1,
+              borderBottomColor: '#fff',
+            }}>
+              Countries
+            </Text>
+            <ScrollView
+              style={{ flex: 1 }}
+              showsVerticalScrollIndicator={true}
+              indicatorStyle="white"
+            >
+              {[...data].sort((a, b) => a.Country.localeCompare(b.Country)).map((country, index) => {
+                const isSelected = selectedCountry === country.Country;
+                return (
+                  <TouchableOpacity
+                    key={index}
+                    style={{
+                      padding: isSelected ? 12 : 8,
+                      borderBottomWidth: 0.5,
+                      borderBottomColor: '#444',
+                      backgroundColor: isSelected ? 'rgba(255, 255, 255, 0.3)' : 'transparent',
+                      borderWidth: isSelected ? 2 : 0,
+                      borderColor: isSelected ? '#fff' : 'transparent',
+                      borderRadius: isSelected ? 5 : 0,
+                    }}
+                    onPress={() => {
+                      setSelectedCountry(country.Country);
+                      setTooltipData(country);
+                      // Highlight the corresponding sector
+                      const sectors = document.querySelectorAll('.sector');
+                      sectors.forEach(sector => {
+                        if (sector.__data__ && sector.__data__.Country === country.Country) {
+                          d3.select(sector)
+                            .transition()
+                            .duration(200)
+                            .attr('opacity', 1)
+                            .attr('stroke-width', 2);
+                        } else {
+                          d3.select(sector)
+                            .transition()
+                            .duration(200)
+                            .attr('opacity', 0.8)
+                            .attr('stroke-width', 0.5);
+                        }
+                      });
+                    }}
+                  >
+                    <Text style={{
+                      color: '#fff',
+                      fontSize: isSelected ? 12 : 10, // Larger font for selected country
+                      fontWeight: isSelected ? 'bold' : 'normal',
+                      textAlign: 'center',
+                    }}>
+                      {country.Country}
+                    </Text>
+                  </TouchableOpacity>
+                );
+              })}
+            </ScrollView>
+          </View>
+        )}
+
         {tooltipData && (
           <View style={{
             position: 'absolute',
