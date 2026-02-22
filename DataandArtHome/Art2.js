@@ -239,7 +239,7 @@ export default function Art2({ navigation }) {
       .attr('fill', '#fff')
       .style('font-size', '16px')
       .style('font-weight', 'bold')
-      .text('Sunburst: Internet Gender Gap vs Corruption Perception');
+      .text('Internet Gender Gap vs Corruption Perception');
 
     // Add legend
     const legendX = width / 2 + radiusScale.range()[1] + 20; // Just outside outer radius
@@ -276,7 +276,7 @@ export default function Art2({ navigation }) {
 
     svg.append('text')
       .attr('x', legendX)
-      .attr('y', legendY + 180)
+      .attr('y', legendY + 200)
       .attr('fill', '#fff')
       .style('font-size', '12px')
       .style('font-weight', 'bold')
@@ -284,7 +284,7 @@ export default function Art2({ navigation }) {
 
     svg.append('text')
       .attr('x', legendX)
-      .attr('y', legendY + 195)
+      .attr('y', legendY + 215)
       .attr('fill', '#fff')
       .style('font-size', '10px')
       .text('(Sector width)');
@@ -292,14 +292,14 @@ export default function Art2({ navigation }) {
     // Add explanatory text
     svg.append('text')
       .attr('x', legendX)
-      .attr('y', legendY + 215)
+      .attr('y', legendY + 230)
       .attr('fill', '#aaa')
       .style('font-size', '9px')
       .text('Wider sectors =');
     
     svg.append('text')
       .attr('x', legendX)
-      .attr('y', legendY + 227)
+      .attr('y', legendY + 242)
       .attr('fill', '#aaa')
       .style('font-size', '9px')
       .text('larger gap');
