@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { StyleSheet, View, Text, TouchableOpacity, Image, Dimensions } from 'react-native';
 import * as d3 from 'd3';
 import { useEscapeKey } from './useEscapeKey';
 import { Platform } from 'react-native';
@@ -14,6 +14,8 @@ const styles = StyleSheet.create({
   svgContainer: {
     flex: 1,
     width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   title: {
     color: '#fff',
@@ -22,7 +24,7 @@ const styles = StyleSheet.create({
   },
   backButton: {
     position: 'absolute',
-    top: 50,
+    top: 20,
     left: 20,
     backgroundColor: 'rgba(255, 255, 255, 0.2)',
     paddingHorizontal: 15,
@@ -35,13 +37,42 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
+  icon: {
+    position: 'absolute',
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    opacity: 0.7,
+    zIndex: 5,
+    top: 20,
+    right: 20,
+  },
 });
 
 export default function Art2({ navigation }) {
   const svgRef = useRef(null);
+  const [dimensions, setDimensions] = useState({ width: 800, height: 600 });
   
   // Add escape key functionality for web
   useEscapeKey(() => navigation.goBack());
+
+  // Update dimensions on mount and resize
+  useEffect(() => {
+    const updateDimensions = () => {
+      const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
+      setDimensions({
+        width: screenWidth - 40, // Account for padding
+        height: screenHeight - 200 // Account for header, title, and navigation hints
+      });
+    };
+
+    updateDimensions();
+    
+    if (Platform.OS === 'web') {
+      window.addEventListener('resize', updateDimensions);
+      return () => window.removeEventListener('resize', updateDimensions);
+    }
+  }, []);
 
   useEffect(() => {
     if (!svgRef.current) return;
@@ -49,8 +80,7 @@ export default function Art2({ navigation }) {
     const svg = d3.select(svgRef.current);
     svg.selectAll('*').remove();
 
-    const width = 800;
-    const height = 600;
+    const { width, height } = dimensions;
     
     svg.attr('width', width).attr('height', height);
 
@@ -124,7 +154,12 @@ export default function Art2({ navigation }) {
         </Text>
       )}
       <View style={styles.svgContainer}>
-        <svg ref={svgRef}></svg>
+        <svg width={dimensions.width} height={dimensions.height} ref={svgRef}></svg>
+        <Image
+          style={styles.icon}
+          source={require("./assets/StartScreen.jpg")}
+          resizeMode="cover"
+        />
       </View>
     </View>
   );

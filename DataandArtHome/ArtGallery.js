@@ -43,6 +43,14 @@ const styles = StyleSheet.create({
     fontSize: 14,
     opacity: 0.7,
   },
+  topIndicator: {
+    position: 'absolute',
+    top: 50,
+    left: 0,
+    right: 0,
+    alignItems: 'center',
+    zIndex: 10,
+  },
 });
 
 export default function ArtGallery({ navigation }) {
@@ -90,6 +98,9 @@ export default function ArtGallery({ navigation }) {
 
   return (
     <View style={styles.container}>
+      <View style={styles.topIndicator}>
+        <PageIndicator currentPage={currentPage} totalPages={3} />
+      </View>
       <ScrollView 
         ref={scrollViewRef}
         horizontal={true}
@@ -112,7 +123,6 @@ export default function ArtGallery({ navigation }) {
         ))}
       </ScrollView>
       <View>
-        <PageIndicator currentPage={currentPage} totalPages={3} />
         <Text style={styles.navigationHint}>
           {Platform.OS === 'web' 
             ? 'Click and drag to swipe between artworks' 
