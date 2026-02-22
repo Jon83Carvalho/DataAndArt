@@ -52,6 +52,8 @@ const styles = StyleSheet.create({
 export default function Art2({ navigation }) {
   const svgRef = useRef(null);
   const [dimensions, setDimensions] = useState({ width: 800, height: 600 });
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
   
   // Add escape key functionality for web
   useEscapeKey(() => navigation.goBack());
@@ -74,8 +76,39 @@ export default function Art2({ navigation }) {
     }
   }, []);
 
+  // Fetch CSV data
   useEffect(() => {
-    if (!svgRef.current) return;
+    const fetchData = async () => {
+      try {
+        const response = await fetch('https://raw.githubusercontent.com/Jon83Carvalho/DataAndArt/main/int_index.csv');
+        const csvText = await response.text();
+        
+        // Parse CSV data
+        const lines = csvText.trim().split('\n');
+        const headers = lines[0].split(',');
+        const parsedData = lines.slice(1).map(line => {
+          const values = line.split(',');
+          return {
+            Country: values[0],
+            Corrup: parseFloat(values[1]),
+            Gap: parseFloat(values[2])
+          };
+        });
+        
+        setData(parsedData);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  // Create visualization
+  useEffect(() => {
+    if (!svgRef.current || !data || loading) return;
 
     const svg = d3.select(svgRef.current);
     svg.selectAll('*').remove();
@@ -84,60 +117,241 @@ export default function Art2({ navigation }) {
     
     svg.attr('width', width).attr('height', height);
 
-    const nodes = Array.from({ length: 30 }, (_, i) => ({
-      id: i,
-      x: Math.random() * width,
-      y: Math.random() * height,
-      group: Math.floor(Math.random() * 3)
-    }));
+    // Sort data alphabetically by country name
+    const sortedData = [...data].sort((a, b) => a.Country.localeCompare(b.Country));
+    
+    // Create scales
+    const radiusScale = d3.scaleLinear()
+      .domain(d3.extent(data, d => d.Corrup))
+      .range([50, Math.min(width, height) / 2 - 50]);
 
-    const links = Array.from({ length: 40 }, () => ({
-      source: Math.floor(Math.random() * nodes.length),
-      target: Math.floor(Math.random() * nodes.length)
-    })).filter(d => d.source !== d.target);
+    const gapScale = d3.scaleLinear()
+      .domain(d3.extent(data, d => Math.abs(d.Gap)))
+      .range([5, 45]); // Angle span in degrees (much larger range)
 
-    const colorScale = d3.scaleOrdinal(d3.schemeSet2);
+    const colorScale = d3.scaleSequential(d3.interpolateViridis)
+      .domain(d3.extent(data, d => d.Corrup));
 
-    const simulation = d3.forceSimulation(nodes)
-      .force('link', d3.forceLink(links).id(d => d.id).distance(50))
-      .force('charge', d3.forceManyBody().strength(-100))
-      .force('center', d3.forceCenter(width / 2, height / 2));
+    // Center coordinates
+    const centerX = width / 2;
+    const centerY = height / 2;
 
-    const link = svg.append('g')
-      .selectAll('line')
-      .data(links)
+    // Add circular grid lines
+    const gridLevels = 5;
+    for (let i = 1; i <= gridLevels; i++) {
+      const radius = (radiusScale.range()[1] / gridLevels) * i;
+      svg.append('circle')
+        .attr('cx', centerX)
+        .attr('cy', centerY)
+        .attr('r', radius)
+        .attr('fill', 'none')
+        .attr('stroke', '#444')
+        .attr('stroke-width', 0.5)
+        .attr('opacity', 0.5);
+    }
+
+    // Add radial lines
+    const radialLines = 12;
+    for (let i = 0; i < radialLines; i++) {
+      const angle = (i / radialLines) * 2 * Math.PI;
+      const x = centerX + Math.cos(angle) * radiusScale.range()[1];
+      const y = centerY + Math.sin(angle) * radiusScale.range()[1];
+      
+      svg.append('line')
+        .attr('x1', centerX)
+        .attr('y1', centerY)
+        .attr('x2', x)
+        .attr('y2', y)
+        .attr('stroke', '#444')
+        .attr('stroke-width', 0.5)
+        .attr('opacity', 0.5);
+    }
+
+    // Create tooltip
+    const tooltip = d3.select('body').append('div')
+      .attr('class', 'tooltip')
+      .style('opacity', 0)
+      .style('position', 'absolute')
+      .style('background', 'rgba(0, 0, 0, 0.8)')
+      .style('color', '#fff')
+      .style('padding', '8px')
+      .style('border-radius', '4px')
+      .style('font-size', '12px')
+      .style('pointer-events', 'none');
+
+    // Create polar sectors for each country
+    let currentAngle = 0;
+    const sectors = svg.selectAll('path.sector')
+      .data(sortedData)
       .enter()
-      .append('line')
-      .attr('stroke', '#666')
-      .attr('stroke-opacity', 0.6)
-      .attr('stroke-width', 2);
-
-    const node = svg.append('g')
-      .selectAll('circle')
-      .data(nodes)
-      .enter()
-      .append('circle')
-      .attr('r', 8)
-      .attr('fill', d => colorScale(d.group))
+      .append('path')
+      .attr('class', 'sector')
+      .attr('transform', `translate(${centerX}, ${centerY})`)
+      .attr('d', (d, i) => {
+        // Calculate angle span proportional to gender gap
+        const angleSpan = gapScale(Math.abs(d.Gap)) * (Math.PI / 180); // Convert to radians
+        const startAngle = currentAngle;
+        const endAngle = currentAngle + angleSpan;
+        
+        // Radius based on corruption perception (radial translation)
+        const innerRadius = radiusScale(d.Corrup) * 0.8; // Inner radius based on corruption (increased spread)
+        const outerRadius = innerRadius + 40; // Fixed thickness (40px)
+        
+        // Create arc path
+        const arc = d3.arc()
+          .innerRadius(innerRadius)
+          .outerRadius(outerRadius)
+          .startAngle(startAngle)
+          .endAngle(endAngle);
+        
+        currentAngle += angleSpan;
+        return arc();
+      })
+      .attr('fill', d => colorScale(d.Corrup))
       .attr('stroke', '#fff')
-      .attr('stroke-width', 2);
+      .attr('stroke-width', 0.5)
+      .attr('opacity', 0.8)
+      .style('cursor', 'pointer')
+      .on('mouseover', function(event, d) {
+        d3.select(this)
+          .attr('opacity', 1)
+          .attr('stroke-width', 1);
+        
+        tooltip.transition()
+          .duration(200)
+          .style('opacity', .9);
+        tooltip.html(`
+          <strong>${d.Country}</strong><br/>
+          Corruption: ${d.Corrup}<br/>
+          Gender Gap: ${d.Gap}%
+        `)
+          .style('left', (event.pageX + 10) + 'px')
+          .style('top', (event.pageY - 28) + 'px');
+      })
+      .on('mouseout', function() {
+        d3.select(this)
+          .attr('opacity', 0.8)
+          .attr('stroke-width', 0.5);
+        
+        tooltip.transition()
+          .duration(500)
+          .style('opacity', 0);
+      });
 
-    simulation.on('tick', () => {
-      link
-        .attr('x1', d => d.source.x)
-        .attr('y1', d => d.source.y)
-        .attr('x2', d => d.target.x)
-        .attr('y2', d => d.target.y);
+    // Add center circle
+    svg.append('circle')
+      .attr('cx', centerX)
+      .attr('cy', centerY)
+      .attr('r', 5)
+      .attr('fill', '#fff')
+      .attr('opacity', 0.8);
 
-      node
-        .attr('cx', d => d.x)
-        .attr('cy', d => d.y);
-    });
+    // Add title
+    svg.append('text')
+      .attr('x', width / 2)
+      .attr('y', 30)
+      .attr('text-anchor', 'middle')
+      .attr('fill', '#fff')
+      .style('font-size', '16px')
+      .style('font-weight', 'bold')
+      .text('Sunburst: Internet Gender Gap vs Corruption Perception');
+
+    // Add legend
+    const legendX = width - 150;
+    const legendY = 50;
+    
+    svg.append('text')
+      .attr('x', legendX)
+      .attr('y', legendY)
+      .attr('fill', '#fff')
+      .style('font-size', '12px')
+      .style('font-weight', 'bold')
+      .text('Corruption Level');
+
+    // Color legend
+    const legendColorScale = d3.scaleSequential(d3.interpolateViridis)
+      .domain([0, 100]);
+    
+    for (let i = 0; i <= 10; i++) {
+      const value = i * 10;
+      svg.append('rect')
+        .attr('x', legendX)
+        .attr('y', legendY + 10 + i * 15)
+        .attr('width', 15)
+        .attr('height', 12)
+        .attr('fill', legendColorScale(value));
+      
+      svg.append('text')
+        .attr('x', legendX + 20)
+        .attr('y', legendY + 20 + i * 15)
+        .attr('fill', '#fff')
+        .style('font-size', '10px')
+        .text(value);
+    }
+
+    svg.append('text')
+      .attr('x', legendX)
+      .attr('y', legendY + 180)
+      .attr('fill', '#fff')
+      .style('font-size', '12px')
+      .style('font-weight', 'bold')
+      .text('Gender Gap');
+
+    svg.append('text')
+      .attr('x', legendX)
+      .attr('y', legendY + 200)
+      .attr('fill', '#fff')
+      .style('font-size', '10px')
+      .text('(Sector width)');
+
+    // Add explanatory text
+    svg.append('text')
+      .attr('x', legendX)
+      .attr('y', legendY + 220)
+      .attr('fill', '#aaa')
+      .style('font-size', '9px')
+      .text('Wider sectors =');
+    
+    svg.append('text')
+      .attr('x', legendX)
+      .attr('y', legendY + 232)
+      .attr('fill', '#aaa')
+      .style('font-size', '9px')
+      .text('larger gap');
+
+    svg.append('text')
+      .attr('x', legendX)
+      .attr('y', legendY + 248)
+      .attr('fill', '#aaa')
+      .style('font-size', '9px')
+      .text('Distance from');
+
+    svg.append('text')
+      .attr('x', legendX)
+      .attr('y', legendY + 260)
+      .attr('fill', '#aaa')
+      .style('font-size', '9px')
+      .text('center = corruption');
 
     return () => {
-      simulation.stop();
+      tooltip.remove();
     };
-  }, []);
+  }, [data, dimensions, loading]);
+
+  if (loading) {
+    return (
+      <View style={styles.container}>
+        <TouchableOpacity 
+          style={styles.backButton}
+          onPress={() => navigation.goBack()}
+        >
+          <Text style={styles.backButtonText}>← Back to Gallery</Text>
+        </TouchableOpacity>
+        <Text style={styles.title}>Network Connections</Text>
+        <Text style={{color: '#fff', fontSize: 16}}>Loading data...</Text>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
@@ -147,7 +361,7 @@ export default function Art2({ navigation }) {
       >
         <Text style={styles.backButtonText}>← Back to Gallery</Text>
       </TouchableOpacity>
-      <Text style={styles.title}>Network Connections</Text>
+      <Text style={styles.title}>Internet Gender Gap Analysis</Text>
       {Platform.OS === 'web' && (
         <Text style={{color: '#666', fontSize: 12, position: 'absolute', bottom: 20}}>
           Press ESC to return to gallery
