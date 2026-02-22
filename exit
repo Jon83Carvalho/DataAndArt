@@ -1,0 +1,1166 @@
+[33mcommit 06cd64b8ad38b42e305c28995575b5edcd76ad6e[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m
+Merge: 08388d61 b7597697
+Author: Jon83Carvalho <jonas.carvalho@gmail.com>
+Date:   Mon Jun 27 19:18:29 2022 -0300
+
+    Merge branch 'main' of https://github.com/Jon83Carvalho/DataAndArt into main
+
+[33mcommit b7597697c96961f2b93e68c0946ccfe576f875ac[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Jonas Carvalho <jonas.carvalho@gmail.com>
+Date:   Mon Jun 27 19:18:05 2022 -0300
+
+    novovalor
+
+[33mcommit f062550f176f6ecc639ec60140e8dc5fc759c716[m
+Author: Jonas Carvalho <jonas.carvalho@gmail.com>
+Date:   Mon Jun 27 19:17:05 2022 -0300
+
+    novovalor
+
+[1mdiff --git a/LoveWord.csv b/LoveWord.csv[m
+[1mindex c6e19759..6f18e943 100644[m
+[1m--- a/LoveWord.csv[m
+[1m+++ b/LoveWord.csv[m
+[36m@@ -1 +1 @@[m
+[31m-{"count": 500, "max": 41.167768610516035}[m
+\ No newline at end of file[m
+[32m+[m[32m{"count": 500, "max": 29.100697069004333}[m
+\ No newline at end of file[m
+
+[33mcommit 08388d615f27ac87fdf410dd00b2cb19d13bd242[m
+Author: Jon83Carvalho <jonas.carvalho@gmail.com>
+Date:   Mon Jun 27 19:16:16 2022 -0300
+
+    update
+
+[1mdiff --git a/datarthome/.gitignore b/datarthome/.gitignore[m
+[1mnew file mode 100644[m
+[1mindex 00000000..c3a5b413[m
+[1m--- /dev/null[m
+[1m+++ b/datarthome/.gitignore[m
+[36m@@ -0,0 +1,2 @@[m
+[32m+[m[32m/.expo/[m
+[32m+[m[32m/node_modules/*[m
+\ No newline at end of file[m
+[1mdiff --git a/datarthome/Art1.js b/datarthome/Art1.js[m
+[1mindex aaa49ecc..5e545961 100644[m
+[1m--- a/datarthome/Art1.js[m
+[1m+++ b/datarthome/Art1.js[m
+[36m@@ -1,9 +1,48 @@[m
+[31m-import { View, Text } from 'react-native';[m
+[32m+[m[32mimport { View, Text,ImageBackground, StyleSheet} from 'react-native';[m
+[32m+[m[32mimport React from 'react';[m[41m [m
+[32m+[m[32mimport {range} from 'd3';[m
+[32m+[m
+[32m+[m
+[32m+[m[32mimport {Viz1} from './Viz1';[m
+[32m+[m
+[32m+[m[32mconst image={uri:"https://github.com/Jon83Carvalho/DataAndArt/blob/main/eye.jpg?raw=true"};[m
+[32m+[m
+[32m+[m[32mconst circleRadius=30;[m
+[32m+[m
+[32m+[m[32mconst array=range(1);[m
+[32m+[m
+[32m+[m[32mconst width=960;[m[41m [m
+[32m+[m[32mconst height=500;[m
+[32m+[m[32mconst margin={[m
+[32m+[m[32m  top:0,[m
+[32m+[m[32m  right:0,[m
+[32m+[m[32m  bottom:0,[m
+[32m+[m[32m  left:0[m
+[32m+[m[32m};[m
+[32m+[m[32mconst xAxislabelOffset=70;[m
+[32m+[m[32mconst yAxislabelOffset=50;[m
+[32m+[m
+[32m+[m
+[32m+[m
+ [m
+ export function Art1() {[m
+     return ([m
+[31m-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>[m
+[31m-        <Text>Feed Screen</Text>[m
+[32m+[m[32m      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'left' }}>[m
+[32m+[m[41m      [m
+[32m+[m[32m       <>[m
+[32m+[m[32m  <Viz1[m
+[32m+[m[32m    width={width}[m
+[32m+[m[32m    height={height}[m
+[32m+[m[32m    marginTop={margin.top}[m
+[32m+[m[32m    marginRight={margin.right}[m
+[32m+[m[32m    marginBottom={margin.bottom}[m
+[32m+[m[32m    marginLeft={margin.left}[m
+[32m+[m[32m    xAxislabelOffset={xAxislabelOffset}[m
+[32m+[m[32m    yAxislabelOffset={yAxislabelOffset}[m
+[32m+[m[41m    [m
+[32m+[m[32m    />[m
+[32m+[m[32m </>[m
+[32m+[m
+       </View>[m
+     );[m
+   }[m
+[1mdiff --git a/datarthome/Art2.js b/datarthome/Art2.js[m
+[1mindex 5c2430ed..57e0dd22 100644[m
+[1m--- a/datarthome/Art2.js[m
+[1m+++ b/datarthome/Art2.js[m
+[36m@@ -2,9 +2,17 @@[m [mimport {Viz} from './Viz'[m
+ import React, {useState,useRef} from 'react'[m
+ import {csvParse} from 'd3';[m
+ import { View, Text } from 'react-native';[m
+[31m-import { useFonts } from 'expo-font';[m
+[32m+[m[32mimport {[m
+[32m+[m[32m  useFonts,[m
+[32m+[m[32m  YanoneKaffeesatz_200ExtraLight,[m
+[32m+[m[32m  YanoneKaffeesatz_300Light,[m
+[32m+[m[32m  YanoneKaffeesatz_400Regular,[m
+[32m+[m[32m  YanoneKaffeesatz_500Medium,[m
+[32m+[m[32m  YanoneKaffeesatz_600SemiBold,[m
+[32m+[m[32m  YanoneKaffeesatz_700Bold,[m
+[32m+[m[32m} from '@expo-google-fonts/yanone-kaffeesatz';[m
+[32m+[m
+ [m
+[31m-const dataj =require('./assets/data.json')[m
+ localStorage.removeItem('pdata');[m
+ localStorage.removeItem('firstdisplay');[m
+ [m
+[36m@@ -21,7 +29,12 @@[m [mexport function Art2() {[m
+     csvUrl='https://raw.githubusercontent.com/Jon83Carvalho/DataAndArt/main/LoveWord.csv'[m
+     [m
+     let [fontsLoaded] = useFonts({[m
+[31m-      'Inter-Black': require('./assets/fonts/yane-font.woff2'),[m
+[32m+[m[32m      YanoneKaffeesatz_200ExtraLight,[m
+[32m+[m[32m      YanoneKaffeesatz_300Light,[m
+[32m+[m[32m      YanoneKaffeesatz_400Regular,[m
+[32m+[m[32m      YanoneKaffeesatz_500Medium,[m
+[32m+[m[32m      YanoneKaffeesatz_600SemiBold,[m
+[32m+[m[32m      YanoneKaffeesatz_700Bold,[m
+     })[m
+   [m
+     const fetcher = (url) => {[m
+[1mdiff --git a/datarthome/ColorLegend.js b/datarthome/ColorLegend.js[m
+[1mnew file mode 100644[m
+[1mindex 00000000..86afe0a2[m
+[1m--- /dev/null[m
+[1m+++ b/datarthome/ColorLegend.js[m
+[36m@@ -0,0 +1,39 @@[m
+[32m+[m
+[32m+[m[32mimport {range,extent} from 'd3';[m
+[32m+[m[32mconst styles = {[m
+[32m+[m[32m  baseText: {[m
+[32m+[m[32m    fill: "#fff",[m
+[32m+[m[32m    fontFamily:"YanoneKaffeesatz_400Regular",[m
+[32m+[m[32m    fontSize:"20"[m
+[32m+[m[32m  }[m
+[32m+[m[32m}[m
+[32m+[m[32mexport const ColorLegend=({data,innerWidth,tickTextOffset=30,colorScale,tickSpace=10,tickSize=10})=>{[m
+[32m+[m[32m  var k=0;[m
+[32m+[m[41m  [m
+[32m+[m[41m  [m
+[32m+[m[41m  [m
+[32m+[m[32m  return (colorScale.domain().map(function(domainValue,i){[m
+[32m+[m[41m  		[m
+[32m+[m
+[32m+[m[32m    if (i % 8 == 0) {[m
+[32m+[m[32m      k=k+1[m
+[32m+[m[32m      console.log(domainValue)[m
+[32m+[m[32m      return ([m
+[32m+[m[41m      [m
+[32m+[m[32m      <g transform={`translate(${5-130*Math.cos(Math.PI/1.7+Math.PI/17*k)-100},${(i)*tickSpace/8.3})`}>[m
+[32m+[m[32m      <circle fill={colorScale((domainValue)*1.0)} r={tickSize}/>[m
+[32m+[m[32m        <text[m[41m [m
+[32m+[m[32m           style={{fontSize:styles.baseText.fontSize,fontFamily: styles.baseText.fontFamily}}[m
+[32m+[m[32m          fill="white"[m[41m [m
+[32m+[m[32m          x={tickTextOffset}[m[41m [m
+[32m+[m[32m          dy=".32em">{Math.floor(domainValue)}</text>[m
+[32m+[m[32m      </g>[m
+[32m+[m[41m      [m
+[32m+[m[32m    );[m
+[32m+[m[41m    [m
+[32m+[m[41m    [m
+[32m+[m[32m    };[m
+[32m+[m
+[32m+[m[32m  })[m
+[32m+[m[32m  );[m
+[32m+[m[32m}[m
+\ No newline at end of file[m
+[1mdiff --git a/datarthome/Marks.js b/datarthome/Marks.js[m
+[1mnew file mode 100644[m
+[1mindex 00000000..bed24c6c[m
+[1m--- /dev/null[m
+[1m+++ b/datarthome/Marks.js[m
+[36m@@ -0,0 +1,115 @@[m
+[32m+[m[32mimport React,{memo,useState,useCallback} from 'react';[m
+[32m+[m[32mimport {format} from 'd3';[m
+[32m+[m
+[32m+[m[32mconst f = format(".1f");[m
+[32m+[m[32mconst styles = {[m
+[32m+[m[32m  baseText: {[m
+[32m+[m[32m    fill: "black",[m
+[32m+[m[32m    fontFamily:"YanoneKaffeesatz_400Regular",[m
+[32m+[m[32m    fontSize:"20"[m
+[32m+[m[32m  }[m
+[32m+[m[32m}[m
+[32m+[m[32mexport const Marks=({[m
+[32m+[m[32m  colorScale,[m
+[32m+[m[32m  colorValue,[m
+[32m+[m[32m  tooltipFormat,[m
+[32m+[m[32m  data,[m
+[32m+[m[32m  yScale,[m
+[32m+[m[32m  xScale,[m
+[32m+[m[32m  yValue,[m
+[32m+[m[32m  xValue,[m
+[32m+[m[32m  circleRadius,[m
+[32m+[m[32m  rScale,[m
+[32m+[m[32m  radialScale,[m
+[32m+[m[32m  centerX,[m
+[32m+[m[32m  centerY,[m
+[32m+[m[32m  onHover,[m
+[32m+[m[32m  hoveredValue,[m
+[32m+[m[32m  fadeOpacity,[m
+[32m+[m[32m  larr,[m
+[32m+[m[32m  rcircle,[m
+[32m+[m[32m  countryLegend,[m
+[32m+[m[32m  rfactor[m
+[32m+[m[32m})=>{[m
+[32m+[m	[32mconst tempo = new Date();[m
+[32m+[m[32m  let seconds = tempo.getSeconds();[m[41m	[m
+[32m+[m[32m  const maxc=Math.max.apply(Math, data.map(function(d) { return d.Corrup; }))[m
+[32m+[m[32m  const ming=Math.min.apply(Math, data.map(function(d) { return d.Gap; }))[m
+[32m+[m
+[32m+[m
+[32m+[m[41m  [m
+[32m+[m[41m  [m
+[32m+[m[32m  return ([m
+[32m+[m[32m        data.map(function(d,i){[m
+[32m+[m[41m           				  [m
+[32m+[m[41m  [m								[32mconst rad=((radialScale((maxc-xValue(d)+30)))/2.7)[m
+[32m+[m[41m              [m
+[32m+[m[41m          [m				[32mreturn ([m
+[32m+[m[32m              <>[m
+[32m+[m[32m               <g[m[41m [m
+[32m+[m[41m        [m				[32mopacity={hoveredValue&&d!=hoveredValue?fadeOpacity:1}[m
+[32m+[m[41m        [m				[32monMouseEnter={()=>{onHover(d)}}[m
+[32m+[m[41m        [m				[32monMouseOut={()=>{onHover(null)}}[m
+[32m+[m[41m        [m				[32m>[m
+[32m+[m[41m                [m	[32m<circle[m[41m [m
+[32m+[m[32m                   className="mark"[m
+[32m+[m[32m                   cx={rad*Math.sin(Math.floor(100*larr[i+43]*360/180)/100)+centerX}[m[41m [m
+[32m+[m[32m                   cy={rad*Math.cos(Math.floor(100*larr[i+43]*360/180)/100)+centerY}[m[41m [m
+[32m+[m[32m                   r={rScale((yValue(d)-ming))/100*rfactor}[m
+[32m+[m[32m                   opacity="0.8"[m
+[32m+[m[32m                   fill={colorScale(colorValue(d))}[m
+[32m+[m[41m                     [m
+[32m+[m[32m                  >[m
+[32m+[m[41m                   [m
+[32m+[m[32m                </circle>[m
+[32m+[m
+[32m+[m[32m                   </g>[m
+[32m+[m
+[32m+[m[32m                <g opacity={hoveredValue&&d==hoveredValue?1:0}>[m
+[32m+[m								[32m <rect rx="20" ry="20" width="240" height="120"[m
+[32m+[m[32m                  opacity={0.5}[m
+[32m+[m[32m                  x={50}[m
+[32m+[m[32m                  y={180}[m
+[32m+[m[32m                  color="black"[m
+[32m+[m[32m                  fill="white"[m
+[32m+[m[41m                  [m
+[32m+[m[32m                  >[m
+[32m+[m[41m              		[m
+[32m+[m[32m                  </rect><text[m
+[32m+[m[41m                  [m
+[32m+[m[32m                  fill="black"[m[41m [m
+[32m+[m[32m                  x={70}[m
+[32m+[m[32m                  y={240}[m
+[32m+[m[32m                  dy=".32em"[m
+[32m+[m[32m                  style={{[m
+[32m+[m[32m                    fontSize:styles.baseText.fontSize,[m
+[32m+[m[32m                    fill:styles.baseText.fill,[m
+[32m+[m[32m                    fontFamily: styles.baseText.fontFamily}}[m
+[32m+[m[41m [m							[32m   >Internet Gender Gap: {f(d.Gap)}</text>[m
+[32m+[m[32m                 <text[m
+[32m+[m[32m                  style={{[m
+[32m+[m[32m                    fontSize:styles.baseText.fontSize,[m
+[32m+[m[32m                    fill:styles.baseText.fill,[m
+[32m+[m[32m                    fontFamily: styles.baseText.fontFamily}}[m
+[32m+[m[32m                  x={70}[m
+[32m+[m[32m                  y={270}[m
+[32m+[m[32m                  dy=".32em"[m
+[32m+[m[41m [m							[32m   >Corruption Perception: {d.Corrup}</text>[m
+[32m+[m[32m                <text[m
+[32m+[m[32m                  style={{[m
+[32m+[m[32m                    fontSize:styles.baseText.fontSize,[m
+[32m+[m[32m                    fill:styles.baseText.fill,[m
+[32m+[m[32m                    fontFamily: styles.baseText.fontFamily}}[m
+[32m+[m[32m                  fill="black"[m[41m [m
+[32m+[m[32m                  x={70}[m
+[32m+[m[32m                  y={210}[m
+[32m+[m[32m                  dy=".32em"[m
+[32m+[m[41m [m							[32m   >Country: {d.Country}</text>[m
+[32m+[m[32m                 </g>[m
+[32m+[m[41m [m
+[32m+[m[32m              </>[m
+[32m+[m[32m                      );[m
+[32m+[m[32m                 })[m
+[32m+[m[32m          )[m
+[32m+[m
+[32m+[m[32m}[m
+[1mdiff --git a/datarthome/MyDrawer.js b/datarthome/MyDrawer.js[m
+[1mindex 1542dbaa..22b8b19f 100644[m
+[1m--- a/datarthome/MyDrawer.js[m
+[1m+++ b/datarthome/MyDrawer.js[m
+[36m@@ -2,28 +2,119 @@[m [mimport { createDrawerNavigator } from '@react-navigation/drawer';[m
+ import { Art2 } from './Art2'[m
+ import { Art1 } from './Art1';[m
+ import { Art3 } from './Art3';[m
+[32m+[m[32mimport { StyleSheet } from 'react-native';[m
+[32m+[m[32mimport {[m
+[32m+[m[32m  useFonts,[m
+[32m+[m[32m  YanoneKaffeesatz_200ExtraLight,[m
+[32m+[m[32m  YanoneKaffeesatz_300Light,[m
+[32m+[m[32m  YanoneKaffeesatz_400Regular,[m
+[32m+[m[32m  YanoneKaffeesatz_500Medium,[m
+[32m+[m[32m  YanoneKaffeesatz_600SemiBold,[m
+[32m+[m[32m  YanoneKaffeesatz_700Bold,[m
+[32m+[m[32m} from '@expo-google-fonts/yanone-kaffeesatz';[m
+[32m+[m
+ [m
+ [m
+ const Drawer = createDrawerNavigator();[m
+ [m
+[32m+[m[32mconst styles = {[m
+[32m+[m[32m  baseText: {[m
+[32m+[m[32m    color:"#fff",[m
+[32m+[m[32m    fontFamily:"YanoneKaffeesatz_400Regular",[m
+[32m+[m[32m    fontSize:"1.7rem"[m
+[32m+[m[32m  },[m
+[32m+[m[32m  innerText: {[m
+[32m+[m[32m    color:"#fff",[m
+[32m+[m[32m    fontFamily:"YanoneKaffeesatz_400Regular",[m
+[32m+[m[32m    fontSize:"1.7rem"[m
+[32m+[m[32m  }[m
+[32m+[m[32m};[m
+[32m+[m
+[32m+[m
+[32m+[m
+ export function MyDrawer() {[m
+[32m+[m
+[32m+[m[32m  let [fontsLoaded] = useFonts({[m
+[32m+[m[32m    YanoneKaffeesatz_200ExtraLight,[m
+[32m+[m[32m    YanoneKaffeesatz_300Light,[m
+[32m+[m[32m    YanoneKaffeesatz_400Regular,[m
+[32m+[m[32m    YanoneKaffeesatz_500Medium,[m
+[32m+[m[32m    YanoneKaffeesatz_600SemiBold,[m
+[32m+[m[32m    YanoneKaffeesatz_700Bold,[m
+[32m+[m[32m  })[m
+[32m+[m
+   return ([m
+[31m-    <Drawer.Navigator useLegacyImplementation initialRouteName="Feed">[m
+[32m+[m[32m    <Drawer.Navigator useLegacyImplementation initialRouteName="Feed"[m
+[32m+[m[32m      screenOptions={{[m
+[32m+[m[32m        drawerStyle: {[m
+[32m+[m[32m          backgroundColor:"#6667AB",[m
+[32m+[m[32m          opacity:"95%",[m
+[32m+[m
+[32m+[m[32m        },[m
+[32m+[m[32m        headerStyle: {[m
+[32m+[m[32m          backgroundColor:"#6667AB",[m
+[32m+[m[32m          opacity: "100%"[m
+[32m+[m[41m          [m
+[32m+[m[32m        },[m
+[32m+[m[32m        headerTitleStyle: {[m
+[32m+[m[32m          fontFamily:styles.baseText.fontFamily,[m
+[32m+[m[32m          fontSize:styles.baseText.fontSize[m
+[32m+[m[32m        },[m
+[32m+[m[32m        sceneContainerStyle: {[m
+[32m+[m[32m          backgroundColor:"#999AFG"[m
+[32m+[m[32m      }[m[41m [m
+[32m+[m[32m      }}[m
+[32m+[m
+[32m+[m[41m         [m
+[32m+[m[41m     [m
+[32m+[m[32m    >[m
+       <Drawer.Screen[m
+         name="Art 1 - Female internet"[m
+         component={Art1}[m
+[31m-        options={{ drawerLabel: 'Home' }}[m
+[32m+[m[32m        options={{ drawerLabel: 'Art 1 - ',[m
+[32m+[m[32m        drawerActiveBackgroundColor:"#444589",[m
+[32m+[m[32m        drawerInactiveBackgroundColor:"#999BHF",[m
+[32m+[m[32m        drawerActiveTintColor:"#ggg",[m
+[32m+[m[32m        drawerLabelStyle: {[m
+[32m+[m[32m          color:styles.innerText.color,[m
+[32m+[m[32m          fontFamily:styles.innerText.fontFamily,[m
+[32m+[m[32m          fontSize:styles.innerText.fontSize[m[41m        [m
+[32m+[m[32m        }[m
+[32m+[m[32m       }}[m
+[32m+[m[41m        [m
+       />[m
+       <Drawer.Screen[m
+         name="Art 2- LoveWord"[m
+         component={Art2}[m
+[31m-        options={{ drawerLabel: 'Updates' }}[m
+[32m+[m[32m        options={{ drawerLabel: 'Updates' ,[m
+[32m+[m[32m        drawerActiveBackgroundColor:"#444589",[m
+[32m+[m[32m        drawerInactiveBackgroundColor:"#999BHF",[m
+[32m+[m[32m        drawerLabelStyle: {[m
+[32m+[m[32m          color:styles.innerText.color,[m
+[32m+[m[32m          fontFamily:styles.innerText.fontFamily,[m
+[32m+[m[32m          fontSize:styles.innerText.fontSize[m[41m        [m
+[32m+[m[32m        }[m
+[32m+[m
+[32m+[m[32m      }}[m
+       />[m
+       <Drawer.Screen[m
+         name="Profile"[m
+         component={Art3}[m
+[31m-        options={{ drawerLabel: 'Profile' }}[m
+[32m+[m[32m        options={{ drawerLabel: 'Profile',[m
+[32m+[m[32m        drawerActiveBackgroundColor:"#444589",[m
+[32m+[m[32m        drawerInactiveBackgroundColor:"#999BHF",[m
+[32m+[m[32m        drawerLabelStyle: {[m
+[32m+[m[32m          color:styles.innerText.color,[m
+[32m+[m[32m          fontFamily:styles.innerText.fontFamily,[m
+[32m+[m[32m          fontSize:styles.innerText.fontSize[m
+[32m+[m
+[32m+[m[32m        }[m
+[32m+[m
+[32m+[m
+[32m+[m[32m      }}[m
+[32m+[m[41m        [m
+       />[m
+     </Drawer.Navigator>[m
+   );[m
+[31m-}[m
+\ No newline at end of file[m
+[32m+[m[32m}[m
+[41m+[m
+[1mdiff --git a/datarthome/SizeLegend.js b/datarthome/SizeLegend.js[m
+[1mnew file mode 100644[m
+[1mindex 00000000..eac10cc1[m
+[1m--- /dev/null[m
+[1m+++ b/datarthome/SizeLegend.js[m
+[36m@@ -0,0 +1,42 @@[m
+[32m+[m[32mimport {range,extent} from 'd3';[m
+[32m+[m
+[32m+[m[32mconst styles = {[m
+[32m+[m[32m  baseText: {[m
+[32m+[m[32m    color: "#fff",[m
+[32m+[m[32m    fontFamily:"YanoneKaffeesatz_400Regular",[m
+[32m+[m[32m    fontSize:"20"[m
+[32m+[m[32m  }[m
+[32m+[m[32m}[m
+[32m+[m[32mexport const SizeLegend=({rfactor,rScale,data,yValue,innerWidth,tickTextOffset=30,tickSpace=10,tickSize=10})=>{[m
+[32m+[m[32m var k=0;[m
+[32m+[m[32m  const ming=Math.min.apply(Math, data.map(function(d) { return d.Gap; }))[m
+[32m+[m[41m	[m
+[32m+[m[32m  const arrayn=range(Math.floor(extent(data.map(d=>+d.Gap))[0]),Math.floor(extent(data.map(d=>+d.Gap))[1])+2.)[m
+[32m+[m
+[32m+[m[32m  return arrayn.map((domainValue,i)=>{[m
+[32m+[m[41m  		[m
+[32m+[m[41m      [m
+[32m+[m[32m if (i%3==0 && domainValue>0) {[m
+[32m+[m[32m     k=k+1[m
+[32m+[m[32m      return ([m
+[32m+[m[41m      [m
+[32m+[m[32m     <g transform={`translate(${10-300*Math.cos(Math.PI/1.17+Math.PI/32*k)-290},${(tickSpace+50)*i*i/409.5*rfactor-10})`}>[m
+[32m+[m[32m      <circle fill="white" r={rScale((domainValue-ming))/100*rfactor}/>[m
+[32m+[m[32m        <text[m[41m [m
+[32m+[m[32m          style={{[m
+[32m+[m[32m            fill:styles.baseText.fill,[m
+[32m+[m[32m            fontFamily: styles.baseText.fontFamily,[m
+[32m+[m[32m            fontSize:styles.baseText.fontSize[m
+[32m+[m[32m          }}[m
+[32m+[m[32m          fill="white"[m[41m [m
+[32m+[m[32m          x={tickTextOffset}[m[41m [m
+[32m+[m[32m          dy=".32em">{domainValue}</text>[m
+[32m+[m[32m      </g>[m
+[32m+[m[41m      [m
+[32m+[m[32m   );[m
+[32m+[m[41m    [m
+[32m+[m[41m    [m
+[32m+[m[32m   };[m
+[32m+[m
+[32m+[m[32m  });[m
+[32m+[m[32m}[m
+\ No newline at end of file[m
+[1mdiff --git a/datarthome/Viz.js b/datarthome/Viz.js[m
+[1mindex 5c276c06..0b57058d 100644[m
+[1m--- a/datarthome/Viz.js[m
+[1m+++ b/datarthome/Viz.js[m
+[36m@@ -4,7 +4,7 @@[m [mimport {selectAll,select,xml,scaleLinear,extent,range,max,min} from "d3";[m
+ [m
+ [m
+ const heart=  require('./assets/heart.svg')[m
+[31m-[m
+[32m+[m[32mconst webfont=require('./assets/fonts/yane-font.woff2')[m
+ export const Viz=({x,svgRef,previousx})=>{[m
+   [m
+   const wrapperRef = useRef();[m
+[36m@@ -39,11 +39,14 @@[m [mexport const Viz=({x,svgRef,previousx})=>{[m
+       var gapy[m
+       const gap=0.7[m
+       const del=0.05[m
+[32m+[m[41m      [m
+       const g=svg.append("g")  [m
+       var k=0[m
+ [m
+       firstdisp.current=localStorage.getItem('firstdisplay')[m
+       if (firstdisp.current==='0'){[m
+[32m+[m[41m       [m
+[32m+[m
+         array.map((d,i)=>{[m
+   [m
+ [m
+[36m@@ -76,22 +79,16 @@[m [mexport const Viz=({x,svgRef,previousx})=>{[m
+             k=k+1[m
+           [m
+             if(k==len){[m
+[31m-              svg[m
+[31m-              .append("defs")[m
+[31m-              .append("font-face")[m
+[31m-              .append("font-face-uri")[m
+[31m-              .attr("href","https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@300&display=swap")[m
+[31m-[m
+[32m+[m[41m              [m
+               g[m
+               .append("text") [m
+               .text("Developed by Jonas Carvalho 03/04/2022")[m
+[31m-              .attr("x",`${screenwidth/2-100}`)[m
+[32m+[m[32m              .attr("x",`${screenwidth/2}`)[m
+               .attr("y",`${screenheight-100}`)[m
+               .attr("text-anchor","middle")[m
+               .attr("id","author")[m
+               .attr("fill","#997788")[m
+[31m-              .attr("style","font-family: 'Yanone Kaffeesatz', sans-serif;")[m
+[31m-              .attr("style","font-size: 1vw;")[m
+[32m+[m[32m              .attr("style","font-family:YanoneKaffeesatz_400Regular")[m
+               [m
+               }[m
+           });[m
+[1mdiff --git a/datarthome/Viz1.js b/datarthome/Viz1.js[m
+[1mnew file mode 100644[m
+[1mindex 00000000..0349cc27[m
+[1m--- /dev/null[m
+[1m+++ b/datarthome/Viz1.js[m
+[36m@@ -0,0 +1,293 @@[m
+[32m+[m[32mimport React,{memo,useState,useCallback,useEffect} from 'react';[m
+[32m+[m
+[32m+[m
+[32m+[m[32mimport {scaleOrdinal,extent,format,csv,scaleBand,scaleLinear,max,ascending,descending,cos,sin,min} from 'd3';[m
+[32m+[m[32mimport {useData} from './useData'[m
+[32m+[m[32mimport {randArray} from './randArray'[m
+[32m+[m
+[32m+[m
+[32m+[m[32mimport {Marks} from './Marks'[m
+[32m+[m[32mimport {ColorLegend} from './ColorLegend'[m
+[32m+[m[32mimport {SizeLegend} from './SizeLegend'[m
+[32m+[m
+[32m+[m
+[32m+[m
+[32m+[m[32mconst image={uri:"https://raw.githubusercontent.com/Jon83Carvalho/DataAndArt/main/eye.png"};[m
+[32m+[m
+[32m+[m
+[32m+[m[32mconst styles = {[m
+[32m+[m[32m  baseText: {[m
+[32m+[m[32m    fill: "darkgrey",[m
+[32m+[m[32m    fontFamily:"YanoneKaffeesatz_400Regular",[m
+[32m+[m[32m    fontSize:"12"[m
+[32m+[m[32m  },[m
+[32m+[m[32m  titText: {[m
+[32m+[m[32m    fill: "#DD7788",[m
+[32m+[m[32m    fontFamily:"YanoneKaffeesatz_400Regular",[m
+[32m+[m[32m    fontSize:"2.3em"[m
+[32m+[m[32m  },[m
+[32m+[m[32m  innerText: {[m
+[32m+[m[32m    color:"#fff",[m
+[32m+[m[32m    fontFamily:"YanoneKaffeesatz_400Regular",[m
+[32m+[m[32m    fontSize:"1.7rem"[m
+[32m+[m[32m  },[m
+[32m+[m[32m  container: {[m
+[32m+[m[32m    flex: 1,[m
+[32m+[m[32m  },[m
+[32m+[m[32m  image: {[m
+[32m+[m[32m    flex:1,[m
+[32m+[m[32m    resizeMode:"cover",[m
+[32m+[m[32m    width:"1450px",[m
+[32m+[m[32m    position:"relative",[m
+[32m+[m[32m    top:0,[m
+[32m+[m[32m    left:-200,[m
+[32m+[m[32m    backgroundColor:"#6667AB",[m
+[32m+[m[32m    opacity:"50%"[m
+[32m+[m[32m  },[m
+[32m+[m[32m  text: {[m
+[32m+[m[32m    color: "white",[m
+[32m+[m[32m    fontSize: 42,[m
+[32m+[m[32m    lineHeight: 84,[m
+[32m+[m[32m    fontWeight: "bold",[m
+[32m+[m[32m    textAlign: "center",[m
+[32m+[m[32m    backgroundColor: "#000000c0"[m
+[32m+[m[32m  }[m
+[32m+[m[32m};[m
+[32m+[m
+[32m+[m
+[32m+[m[32mexport const Viz1=({yAxislabelOffset,xAxislabelOffset,width,height,marginTop,marginRight,marginBottom,marginLeft})=>{[m
+[32m+[m[32m  const data=useData();[m
+[32m+[m[32m  const rand=randArray();[m
+[32m+[m[32m  const [hoveredValue,setHoveredValue]=useState(null)[m
+[32m+[m
+[32m+[m[41m  [m
+[32m+[m[32m   if(!data){[m
+[32m+[m[41m   [m
+[32m+[m[41m  [m	[32mreturn <pre>...loading</pre>;[m
+[32m+[m[32m  };[m
+[32m+[m[41m  [m
+[32m+[m[32m    if(!rand){[m
+[32m+[m[41m   [m
+[32m+[m[41m  [m	[32mreturn <pre>...loading</pre>;[m
+[32m+[m[32m  };[m
+[32m+[m[41m  [m
+[32m+[m[41m  [m
+[32m+[m[32m  const innerHeight=height-marginTop-marginBottom;[m
+[32m+[m[32m  const innerWidth=width-marginLeft-marginRight;[m
+[32m+[m[32m  const centerX=innerWidth/2;[m
+[32m+[m[32m  const centerY=innerHeight/2;[m
+[32m+[m[41m  [m
+[32m+[m[41m  [m
+[32m+[m[32m  const xValue=d=>d.Corrup;[m
+[32m+[m
+[32m+[m[41m [m
+[32m+[m[32m  const yValue=d=>d.Gap;[m
+[32m+[m[32m  const fadeOpacity=0.2;[m
+[32m+[m[32m  const larr=[];[m
+[32m+[m
+[32m+[m[32m  rand.map((d,i)=>larr.push(Math.PI*rand[i].number))[m
+[32m+[m[41m  [m
+[32m+[m
+[32m+[m[32m  const xAxistickFormat=tickvalue=>siFormat(tickvalue).replace('G','Bi');[m
+[32m+[m[41m  [m
+[32m+[m[41m [m
+[32m+[m[32m  const rScale = scaleLinear()[m
+[32m+[m		[32m.domain(extent(data,yValue))[m
+[32m+[m[41m  [m	[32m.range([0, innerHeight]);[m
+[32m+[m[41m  [m
+[32m+[m[41m  [m
+[32m+[m[41m  [m
+[32m+[m[32m const radialScale = scaleLinear()[m
+[32m+[m		[32m.domain(extent(data,xValue))[m
+[32m+[m[41m  [m	[32m.range([0, innerHeight]);[m
+[32m+[m
+[32m+[m[41m  [m
+[32m+[m[32m  const xScale=scaleLinear()[m
+[32m+[m[41m  [m	[32m.domain(extent(data,xValue))[m
+[32m+[m[41m  [m	[32m.range([0,innerWidth]);[m
+[32m+[m[41m  [m
+[32m+[m	[32mconst yScale=scaleLinear()[m
+[32m+[m[32m  .domain(extent(data,yValue))[m
+[32m+[m[32m  .range([0, innerHeight])[m
+[32m+[m[41m  [m
+[32m+[m[32m  const colorValue=d=>d.Corrup;[m
+[32m+[m[41m  [m
+[32m+[m[32m   const colorScale=scaleOrdinal()[m
+[32m+[m[41m  [m	[32m.domain(data.sort(function(a, b){return a.Corrup-b.Corrup}).map(d=>d.Corrup))[m
+[32m+[m[41m  [m	[32m.range(["#23171b","#271a28","#2b1c33","#2f1e3f","#32204a","#362354","#39255f","#3b2768","#3e2a72","#402c7b","#422f83","#44318b","#453493","#46369b","#4839a2","#493ca8","#493eaf","#4a41b5","#4a44bb","#4b46c0","#4b49c5","#4b4cca","#4b4ecf","#4b51d3","#4a54d7","#4a56db","#4959de","#495ce2","#485fe5","#4761e7","#4664ea","#4567ec","#446aee","#446df0","#426ff2","#4172f3","#4075f5","#3f78f6","#3e7af7","#3d7df7","#3c80f8","#3a83f9","#3985f9","#3888f9","#378bf9","#368df9","#3590f8","#3393f8","#3295f7","#3198f7","#309bf6","#2f9df5","#2ea0f4","#2da2f3","#2ca5f1","#2ba7f0","#2aaaef","#2aaced","#29afec","#28b1ea","#28b4e8","#27b6e6","#27b8e5","#26bbe3","#26bde1","#26bfdf","#25c1dc","#25c3da","#25c6d8","#25c8d6","#25cad3","#25ccd1","#25cecf","#26d0cc","#26d2ca","#26d4c8","#27d6c5","#27d8c3","#28d9c0","#29dbbe","#29ddbb","#2adfb8","#2be0b6","#2ce2b3","#2de3b1","#2ee5ae","#30e6ac","#31e8a9","#32e9a6","#34eba4","#35eca1","#37ed9f","#39ef9c","#3af09a","#3cf197","#3ef295","#40f392","#42f490","#44f58d","#46f68b","#48f788","#4af786","#4df884","#4ff981","#51fa7f","#54fa7d","#56fb7a","#59fb78","#5cfc76","#5efc74","#61fd71","#64fd6f","#66fd6d","#69fd6b","#6cfd69","#6ffe67","#72fe65","#75fe63","#78fe61","#7bfe5f","#7efd5d","#81fd5c","#84fd5a","#87fd58","#8afc56","#8dfc55","#90fb53","#93fb51","#96fa50","#99fa4e","#9cf94d","#9ff84b","#a2f84a","#a6f748","#a9f647","#acf546","#aff444","#b2f343","#b5f242","#b8f141","#bbf03f","#beef3e","#c1ed3d","#c3ec3c","#c6eb3b","#c9e93a","#cce839","#cfe738","#d1e537","#d4e336","#d7e235","#d9e034","#dcdf33","#dedd32","#e0db32","#e3d931","#e5d730","#e7d52f","#e9d42f","#ecd22e","#eed02d","#f0ce2c","#f1cb2c","#f3c92b","#f5c72b","#f7c52a","#f8c329","#fac029","#fbbe28","#fdbc28","#feb927","#ffb727","#ffb526","#ffb226","#ffb025","#ffad25","#ffab24","#ffa824","#ffa623","#ffa323","#ffa022","#ff9e22","#ff9b21","#ff9921","#ff9621","#ff9320","#ff9020","#ff8e1f","#ff8b1f","#ff881e","#ff851e","#ff831d","#ff801d","#ff7d1d","#ff7a1c","#ff781c","#ff751b","#ff721b","#ff6f1a","#fd6c1a","#fc6a19","#fa6719","#f96418","#f76118","#f65f18","#f45c17","#f25916","#f05716","#ee5415","#ec5115","#ea4f14","#e84c14","#e64913","#e44713","#e24412","#df4212","#dd3f11","#da3d10","#d83a10","#d5380f","#d3360f","#d0330e","#ce310d","#cb2f0d","#c92d0c","#c62a0b","#c3280b","#c1260a","#be2409","#bb2309","#b92108","#b61f07","#b41d07","#b11b06","#af1a05","#ac1805","#aa1704","#a81604","#a51403","#a31302","#a11202","#9f1101","#9d1000","#9b0f00","#9a0e00","#980e00","#960d00","#950c00","#940c00","#930c00","#920c00","#910b00","#910c00","#900c00","#900c00","#900c00"]);[m
+[32m+[m[41m  [m
+[32m+[m[32m  const rfactor=1.7[m
+[32m+[m[41m  [m
+[32m+[m[41m [m
+[32m+[m[41m  [m
+[32m+[m[32m  return ([m
+[32m+[m
+[32m+[m
+[32m+[m[32m  <svg width={width+200} height={height+100} style={{backgroundColor:"#222367"}}>[m
+[32m+[m[41m    [m
+[32m+[m[32m      <g transform={`translate(${marginLeft},${marginTop})`}>[m
+[32m+[m[41m      [m
+[32m+[m[41m      [m
+[32m+[m[41m        [m
+[32m+[m
+[32m+[m[32m        <g transform={`translate(${innerWidth-250},70)`}>[m
+[32m+[m
+[32m+[m
+[32m+[m
+[32m+[m[32m          <text[m[41m [m
+[32m+[m[32m            x={-650}[m
+[32m+[m[32m            y={-20}[m
+[32m+[m[32m            style={{[m
+[32m+[m[32m              fill:styles.titText.fill,[m
+[32m+[m[32m              fontFamily: styles.titText.fontFamily,[m
+[32m+[m[32m              fontSize:styles.titText.fontSize[m
+[32m+[m[32m            }}[m
+[32m+[m[41m            [m
+[32m+[m[32m            >[m
+[32m+[m[32m          Internet Gender Gap Vs[m[41m [m
+[32m+[m[32m            <tspan x="-650" y="15">Corruption Perception</tspan>[m
+[32m+[m[32m          </text>[m
+[32m+[m[32m          <text[m[41m [m
+[32m+[m[32m            x={-650}[m
+[32m+[m[32m            y={5}[m
+[32m+[m[32m            style={{[m
+[32m+[m[32m              fill:styles.baseText.fill,[m
+[32m+[m[32m              fontFamily: styles.baseText.fontFamily,[m
+[32m+[m[32m              fontSize:"15"[m
+[32m+[m[32m            }}[m
+[32m+[m[41m            [m
+[32m+[m[32m            >[m
+[32m+[m[32m            <tspan x="-650" y="40" style={{fontSize:"25"}}>Roll over or click on the circles </tspan>[m
+[32m+[m[32m            <tspan x="-650" y="65" style={{fontSize:"25"}}>to see countries details</tspan>[m
+[32m+[m[32m            <tspan x="-650" y="80" >Source:</tspan>[m
+[32m+[m[32m            <tspan x="-650" y="93" >[m
+[32m+[m[32m              <a[m[41m [m
+[32m+[m[32m                href="https://research.facebook.com/data/#data-for-good"[m
+[32m+[m[32m                target="_blank">[m
+[32m+[m[32m                https://research.facebook.com/data/#data-for-good[m
+[32m+[m[32m              </a></tspan>[m
+[32m+[m[41m            [m
+[32m+[m[32m          </text>[m
+[32m+[m[32m          <text[m[41m [m
+[32m+[m[32m            x={-650}[m
+[32m+[m[32m            y={300}[m
+[32m+[m[32m            style={{[m
+[32m+[m[32m              fill:styles.baseText.fill,[m
+[32m+[m[32m              fontFamily: styles.baseText.fontFamily,[m
+[32m+[m[32m              fontSize:styles.baseText.fontSize[m
+[32m+[m[32m            }}[m
+[32m+[m[32m            >[m
+[32m+[m[32m            <tspan x="-650" y="260" style={{fontSize:"20"}}>Internet Gender Gap</tspan>[m
+[32m+[m[32m            <tspan x="-650" y="280" >This measures the gap between male</tspan>[m
+[32m+[m[32m            <tspan x="-650" y="290" >and female access to the Internet</tspan>[m
+[32m+[m[32m            <tspan x="-650" y="300" >(% male access - % female access / % male access). </tspan>[m
+[32m+[m[32m            <tspan x="-650" y="310" >Positive values indicate that male access</tspan>[m
+[32m+[m[32m            <tspan x="-650" y="320" >exceeds female access. </tspan>[m
+[32m+[m[32m            <tspan x="-650" y="330" >A smaller or negative gap indicates</tspan>[m
+[32m+[m[32m            <tspan x="-650" y="340" >greater female connectivity. </tspan>[m
+[32m+[m[32m                        </text>[m
+[32m+[m
+[32m+[m[32m          <text[m[41m [m
+[32m+[m[32m            x={-650}[m
+[32m+[m[32m            y={300}[m
+[32m+[m[32m            style={{[m
+[32m+[m[32m              fill:styles.baseText.fill,[m
+[32m+[m[32m              fontFamily: styles.baseText.fontFamily,[m
+[32m+[m[32m              fontSize:styles.baseText.fontSize[m
+[32m+[m[32m            }}[m
+[32m+[m[41m            [m
+[32m+[m[32m            >[m
+[32m+[m[32m            <tspan x="-650" y="360" style={{fontSize:"20"}}>Corruption Perception</tspan>[m
+[32m+[m[32m            <tspan x="-650" y="375" >Compiled by Transparency International, measures the perceived</tspan>[m
+[32m+[m[32m            <tspan x="-650" y="385" >levels of public-sector corruption worldwide.</tspan>[m
+[32m+[m[32m            </text>[m
+[32m+[m[41m          [m
+[32m+[m[32m          <text[m[41m [m
+[32m+[m[32m            x={-35}[m
+[32m+[m[32m            y={-20}[m
+[32m+[m[32m            style={{[m
+[32m+[m[32m              fill:styles.baseText.fill,[m
+[32m+[m[32m              fontFamily: styles.baseText.fontFamily,[m
+[32m+[m[32m              fontSize:"20"[m
+[32m+[m[32m            }}[m
+[32m+[m[32m            >Corruption Perception[m
+[32m+[m[32m          </text>[m
+[32m+[m[41m          [m
+[32m+[m[32m          <text[m[41m [m
+[32m+[m[32m            x={-200}[m
+[32m+[m[32m            y={410}[m
+[32m+[m[32m            style={{[m
+[32m+[m[32m              fill:styles.baseText.fill,[m
+[32m+[m[32m              fontFamily: styles.baseText.fontFamily,[m
+[32m+[m[32m              fontSize:"15",[m
+[32m+[m[32m              textAnchor:"middle"[m
+[32m+[m[32m            }} >[m
+[32m+[m[32m            <tspan >Created by Jonas Carvalho Feb. 19th 2022</tspan>[m
+[32m+[m[32m          </text>[m
+[32m+[m[32m          <text[m[41m [m
+[32m+[m[32m            x={0}[m
+[32m+[m[32m            y={5}[m
+[32m+[m[32m            style={{fill:styles.baseText.fill,fontFamily: styles.baseText.fontFamily}}[m
+[32m+[m[32m          >- More Corrupt[m
+[32m+[m[32m          </text>[m
+[32m+[m[32m          <text[m[41m [m
+[32m+[m[32m            x={-0}[m
+[32m+[m[32m            y={355}[m
+[32m+[m[32m            style={{fill:styles.baseText.fill,fontFamily: styles.baseText.fontFamily}}[m
+[32m+[m[32m          >- Less Corrupt[m
+[32m+[m[32m          </text>[m
+[32m+[m
+[32m+[m
+[32m+[m[32m          <ColorLegend[m
+[32m+[m[32m          colorScale={colorScale}[m
+[32m+[m[32m          tickTextOffset={20}[m
+[32m+[m[32m          tickSpace={30}[m
+[32m+[m[32m          tickSize={10}[m
+[32m+[m[32m          innerWidth={innerWidth}[m
+[32m+[m[32m          data={data}[m
+[32m+[m[32m          /></g>[m
+[32m+[m[32m        <g transform={`translate(${innerWidth-150},130)`}>[m
+[32m+[m[32m          <text[m[41m [m
+[32m+[m[32m            x={-35}[m
+[32m+[m[32m            y={-20}[m
+[32m+[m[32m            style={{fontSize:"20",fill:styles.baseText.fill,fontFamily: styles.baseText.fontFamily}}[m
+[32m+[m[32m            >Internet Gender Gap</text>[m
+[32m+[m[32m          <SizeLegend[m
+[32m+[m[41m      [m
+[32m+[m[32m          tickTextOffset={30}[m
+[32m+[m[32m          tickSpace={30}[m
+[32m+[m[32m          tickSize={10}[m
+[32m+[m[32m          innerWidth={innerWidth}[m
+[32m+[m[32m            data={data}[m
+[32m+[m[32m            rScale={rScale}[m
+[32m+[m[32m            yValue={yValue}[m
+[32m+[m[32m            rfactor={rfactor}[m
+[32m+[m[32m          /></g>[m
+[32m+[m[32m         <Marks[m[41m [m
+[32m+[m[32m          data={data}[m[41m [m
+[32m+[m[32m          xScale={xScale}[m[41m [m
+[32m+[m[32m          yScale={yScale}[m
+[32m+[m[32m          rScale={rScale}[m
+[32m+[m[32m          radialScale={radialScale}[m
+[32m+[m[32m          xValue={xValue}[m
+[32m+[m[32m          yValue={yValue}[m
+[32m+[m[32m          tooltipFormat={xAxistickFormat}[m
+[32m+[m[32m          centerX={centerX}[m
+[32m+[m[32m          centerY={centerY}[m
+[32m+[m[32m          colorValue={colorValue}[m
+[32m+[m[32m          colorScale={colorScale}[m
+[32m+[m[32m          onHover={setHoveredValue}[m
+[32m+[m[32m          hoveredValue={hoveredValue}[m
+[32m+[m[32m          fadeOpacity={fadeOpacity}[m
+[32m+[m[32m           larr={larr}[m
+[32m+[m[32m           rfactor={rfactor}[m
+[32m+[m[32m        />[m
+[32m+[m
+[32m+[m
+[32m+[m
+[32m+[m[32m       </g>[m
+[32m+[m[41m      [m
+[32m+[m[41m        [m
+[32m+[m[41m [m	[32m</svg>[m
+[32m+[m[32m);[m
+[32m+[m[32m};[m[41m  [m
+[1mdiff --git a/datarthome/bundle.js b/datarthome/bundle.js[m
+[1mnew file mode 100644[m
+[1mindex 00000000..eb2c4667[m
+[1m--- /dev/null[m
+[1m+++ b/datarthome/bundle.js[m
+[36m@@ -0,0 +1,323 @@[m
+[32m+[m[32m(function (React$1, ReactDOM, d3) {[m
+[32m+[m[32m  'use strict';[m
+[32m+[m
+[32m+[m[32m  var React$1__default = 'default' in React$1 ? React$1['default'] : React$1;[m
+[32m+[m[32m  ReactDOM = ReactDOM && Object.prototype.hasOwnProperty.call(ReactDOM, 'default') ? ReactDOM['default'] : ReactDOM;[m
+[32m+[m
+[32m+[m[32m  const csvUrl='https://raw.githubusercontent.com/Jon83Carvalho/DataAndArt/main/int_index.csv';[m
+[32m+[m
+[32m+[m[32m  const useData=()=>{[m
+[32m+[m[32m    const [data,setData]=React$1.useState(null);[m
+[32m+[m[32m     React$1.useEffect(()=>{[m
+[32m+[m[41m      [m
+[32m+[m[32m      const row=d=>{[m
+[32m+[m[32m         return d;[m
+[32m+[m[32m      };[m
+[32m+[m[32m      d3.csv(csvUrl,row).then(setData);[m
+[32m+[m[41m      [m
+[32m+[m[32m    },[]);[m
+[32m+[m
+[32m+[m[41m   [m
+[32m+[m[41m  [m	[32mreturn data[m
+[32m+[m[32m  };[m
+[32m+[m
+[32m+[m[32m  const csvUrl$1='https://raw.githubusercontent.com/Jon83Carvalho/DataAndArt/main/randarray.csv';[m
+[32m+[m
+[32m+[m[32m  const randArray=()=>{[m
+[32m+[m[32m    const [data,setData]=React$1.useState(null);[m
+[32m+[m[32m     React$1.useEffect(()=>{[m
+[32m+[m[41m      [m
+[32m+[m[32m      const row=d=>{[m
+[32m+[m[32m         return d;[m
+[32m+[m[32m      };[m
+[32m+[m[32m      d3.csv(csvUrl$1,row).then(setData);[m
+[32m+[m[41m      [m
+[32m+[m[32m    },[]);[m
+[32m+[m
+[32m+[m[41m   [m
+[32m+[m[41m  [m	[32mreturn data[m
+[32m+[m[32m  };[m
+[32m+[m
+[32m+[m[32m  const f = d3.format(".1f");[m
+[32m+[m[32m  const Marks=({[m
+[32m+[m[32m    colorScale,[m
+[32m+[m[32m    colorValue,[m
+[32m+[m[32m    tooltipFormat,[m
+[32m+[m[32m    data,[m
+[32m+[m[32m    yScale,[m
+[32m+[m[32m    xScale,[m
+[32m+[m[32m    yValue,[m
+[32m+[m[32m    xValue,[m
+[32m+[m[32m    circleRadius,[m
+[32m+[m[32m    rScale,[m
+[32m+[m[32m    radialScale,[m
+[32m+[m[32m    centerX,[m
+[32m+[m[32m    centerY,[m
+[32m+[m[32m    onHover,[m
+[32m+[m[32m    hoveredValue,[m
+[32m+[m[32m    fadeOpacity,[m
+[32m+[m[32m    larr,[m
+[32m+[m[32m    rcircle,[m
+[32m+[m[32m    countryLegend,[m
+[32m+[m[32m    rfactor[m
+[32m+[m[32m  })=>{[m
+[32m+[m[41m  [m	[32mconst tempo = new Date();[m
+[32m+[m[32m    let seconds = tempo.getSeconds();[m[41m	[m
+[32m+[m[32m    const maxc=Math.max.apply(Math, data.map(function(d) { return d.Corrup; }));[m
+[32m+[m[32m    const ming=Math.min.apply(Math, data.map(function(d) { return d.Gap; }));[m
+[32m+[m
+[32m+[m
+[32m+[m[41m    [m
+[32m+[m[41m    [m
+[32m+[m[32m    return ([m
+[32m+[m[32m          data.map(function(d,i){[m
+[32m+[m[41m             				  [m
+[32m+[m[41m    [m								[32mconst rad=((radialScale((maxc-xValue(d)+30)))/2.7);[m
+[32m+[m[41m                [m
+[32m+[m[41m            [m				[32mreturn ([m
+[32m+[m[32m                React$1__default.createElement( React$1__default.Fragment, null,[m
+[32m+[m[32m                 React$1__default.createElement( 'g', {[m[41m [m
+[32m+[m[41m          [m				[32mopacity: hoveredValue&&d!=hoveredValue?fadeOpacity:1, onMouseEnter: ()=>{onHover(d);}, onMouseOut: ()=>{onHover(null);} },[m
+[32m+[m[41m                  [m	[32mReact$1__default.createElement( 'circle', {[m[41m [m
+[32m+[m[32m                     className: "mark", cx: rad*Math.sin(Math.floor(100*larr[i+43]*360/180)/100)+centerX, cy: rad*Math.cos(Math.floor(100*larr[i+43]*360/180)/100)+centerY, r: rScale((yValue(d)-ming))/100*rfactor, opacity: "0.8", fill: colorScale(colorValue(d)) }[m
+[32m+[m[41m                     [m
+[32m+[m[32m                  )[m
+[32m+[m
+[32m+[m[32m                     ),[m
+[32m+[m
+[32m+[m[32m                  React$1__default.createElement( 'g', { opacity: hoveredValue&&d==hoveredValue?1:0 },[m
+[32m+[m[41m  [m								[32m React$1__default.createElement( 'rect', { rx: "20", ry: "20", width: "240", height: "120", opacity: 0.5, x: 50, y: 180, color: "black", fill: "white" }[m
+[32m+[m[41m                		[m
+[32m+[m[32m                    ), React$1__default.createElement( 'text', {[m
+[32m+[m[32m                   'font-size': "15", fill: "black", x: 70, y: 240, dy: ".32em" }, "Internet Gender Gap: ", f(d.Gap)),[m
+[32m+[m[32m                   React$1__default.createElement( 'text', {[m
+[32m+[m[32m                    'font-size': "15", fill: "black", x: 70, y: 270, dy: ".32em" }, "Corruption Perception: ", d.Corrup),[m
+[32m+[m[32m                  React$1__default.createElement( 'text', {[m
+[32m+[m[32m                    'font-size': "25", fill: "black", x: 70, y: 210, dy: ".32em" }, "Country: ", d.Country)[m
+[32m+[m[32m                   )[m
+[32m+[m[41m   [m
+[32m+[m[32m                )[m
+[32m+[m[32m                        );[m
+[32m+[m[32m                   })[m
+[32m+[m[32m            )[m
+[32m+[m
+[32m+[m[32m  };[m
+[32m+[m
+[32m+[m[32m  const ColorLegend=({data,innerWidth,tickTextOffset=30,colorScale,tickSpace=10,tickSize=10})=>{[m
+[32m+[m[32m    var k=0;[m
+[32m+[m[41m    [m
+[32m+[m[41m    [m
+[32m+[m[41m    [m
+[32m+[m[32m    return colorScale.domain().map((domainValue,i)=>{[m
+[32m+[m[41m    		[m
+[32m+[m
+[32m+[m[32m      if (i % 8 == 0) {[m
+[32m+[m[32m        k=k+1;[m
+[32m+[m[32m        return ([m
+[32m+[m[41m        [m
+[32m+[m[32m        React.createElement( 'g', { transform: `translate(${5-130*Math.cos(Math.PI/1.7+Math.PI/17*k)-100},${(i)*tickSpace/8.3})` },[m
+[32m+[m[32m        React.createElement( 'circle', { fill: colorScale((domainValue)*1.0), r: tickSize }),[m
+[32m+[m[32m          React.createElement( 'text', {[m[41m [m
+[32m+[m[32m            'font-size': "15", fill: "white", x: tickTextOffset, dy: ".32em" }, Math.floor(domainValue))[m
+[32m+[m[32m        )[m
+[32m+[m[41m        [m
+[32m+[m[32m      );[m
+[32m+[m[41m      [m
+[32m+[m[41m      [m
+[32m+[m[32m      }[m
+[32m+[m[32m    });[m
+[32m+[m[32m  };[m
+[32m+[m
+[32m+[m[32m  const SizeLegend=({rfactor,rScale,data,yValue,innerWidth,tickTextOffset=30,tickSpace=10,tickSize=10})=>{[m
+[32m+[m[32m   var k=0;[m
+[32m+[m[32m    const ming=Math.min.apply(Math, data.map(function(d) { return d.Gap; }));[m
+[32m+[m[41m  	[m
+[32m+[m[32m    const arrayn=d3.range(Math.floor(d3.extent(data.map(d=>+d.Gap))[0]),Math.floor(d3.extent(data.map(d=>+d.Gap))[1])+2.);[m
+[32m+[m
+[32m+[m[32m    return arrayn.map((domainValue,i)=>{[m
+[32m+[m[41m    		[m
+[32m+[m[41m        [m
+[32m+[m[32m   if (i%3==0 && domainValue>0) {[m
+[32m+[m[32m       k=k+1;[m
+[32m+[m[32m        return ([m
+[32m+[m[41m        [m
+[32m+[m[32m       React.createElement( 'g', { transform: `translate(${10-300*Math.cos(Math.PI/1.17+Math.PI/32*k)-290},${(tickSpace+50)*i*i/409.5*rfactor-10})` },[m
+[32m+[m[32m        React.createElement( 'circle', { fill: "white", r: rScale((domainValue-ming))/100*rfactor }),[m
+[32m+[m[32m          React.createElement( 'text', {[m[41m [m
+[32m+[m[32m            'font-size': "15", fill: "white", x: tickTextOffset, dy: ".32em" }, domainValue)[m
+[32m+[m[32m        )[m
+[32m+[m[41m        [m
+[32m+[m[32m     );[m
+[32m+[m[41m      [m
+[32m+[m[41m      [m
+[32m+[m[32m     }[m
+[32m+[m[32m    });[m
+[32m+[m[32m  };[m
+[32m+[m
+[32m+[m[32m  const Viz=({yAxislabelOffset,xAxislabelOffset,width,height,marginTop,marginRight,marginBottom,marginLeft})=>{[m
+[32m+[m[32m    const data=useData();[m
+[32m+[m[32m    const rand=randArray();[m
+[32m+[m[32m    const [hoveredValue,setHoveredValue]=React$1.useState(null);[m
+[32m+[m
+[32m+[m[41m    [m
+[32m+[m[32m     if(!data){[m
+[32m+[m[41m     [m
+[32m+[m[41m    [m	[32mreturn React$1__default.createElement( 'pre', null, "...loading" );[m
+[32m+[m[32m    }[m[41m  [m
+[32m+[m[32m      if(!rand){[m
+[32m+[m[41m     [m
+[32m+[m[41m    [m	[32mreturn React$1__default.createElement( 'pre', null, "...loading" );[m
+[32m+[m[32m    }[m[41m  [m
+[32m+[m[41m    [m
+[32m+[m[32m    const innerHeight=height-marginTop-marginBottom;[m
+[32m+[m[32m    const innerWidth=width-marginLeft-marginRight;[m
+[32m+[m[32m    const centerX=innerWidth/2;[m
+[32m+[m[32m    const centerY=innerHeight/2;[m
+[32m+[m[41m    [m
+[32m+[m[41m    [m
+[32m+[m[32m    const xValue=d=>d.Corrup;[m
+[32m+[m
+[32m+[m[41m   [m
+[32m+[m[32m    const yValue=d=>d.Gap;[m
+[32m+[m[32m    const fadeOpacity=0.2;[m
+[32m+[m[32m    const larr=[];[m
+[32m+[m
+[32m+[m[32m    rand.map((d,i)=>larr.push(Math.PI*rand[i].number));[m
+[32m+[m[41m    [m
+[32m+[m
+[32m+[m[32m    const xAxistickFormat=tickvalue=>siFormat(tickvalue).replace('G','Bi');[m
+[32m+[m[41m    [m
+[32m+[m[41m   [m
+[32m+[m[32m    const rScale = d3.scaleLinear()[m
+[32m+[m[41m  [m		[32m.domain(d3.extent(data,yValue))[m
+[32m+[m[41m    [m	[32m.range([0, innerHeight]);[m
+[32m+[m[41m    [m
+[32m+[m[41m    [m
+[32m+[m[41m    [m
+[32m+[m[32m   const radialScale = d3.scaleLinear()[m
+[32m+[m[41m  [m		[32m.domain(d3.extent(data,xValue))[m
+[32m+[m[41m    [m	[32m.range([0, innerHeight]);[m
+[32m+[m
+[32m+[m[41m    [m
+[32m+[m[32m    const xScale=d3.scaleLinear()[m
+[32m+[m[41m    [m	[32m.domain(d3.extent(data,xValue))[m
+[32m+[m[41m    [m	[32m.range([0,innerWidth]);[m
+[32m+[m[41m    [m
+[32m+[m[41m  [m	[32mconst yScale=d3.scaleLinear()[m
+[32m+[m[32m    .domain(d3.extent(data,yValue))[m
+[32m+[m[32m    .range([0, innerHeight]);[m
+[32m+[m[41m    [m
+[32m+[m[32m    const colorValue=d=>d.Corrup;[m
+[32m+[m[41m    [m
+[32m+[m[32m     const colorScale=d3.scaleOrdinal()[m
+[32m+[m[41m    [m	[32m.domain(data.sort(function(a, b){return a.Corrup-b.Corrup}).map(d=>d.Corrup))[m
+[32m+[m[41m    [m	[32m.range(["#23171b","#271a28","#2b1c33","#2f1e3f","#32204a","#362354","#39255f","#3b2768","#3e2a72","#402c7b","#422f83","#44318b","#453493","#46369b","#4839a2","#493ca8","#493eaf","#4a41b5","#4a44bb","#4b46c0","#4b49c5","#4b4cca","#4b4ecf","#4b51d3","#4a54d7","#4a56db","#4959de","#495ce2","#485fe5","#4761e7","#4664ea","#4567ec","#446aee","#446df0","#426ff2","#4172f3","#4075f5","#3f78f6","#3e7af7","#3d7df7","#3c80f8","#3a83f9","#3985f9","#3888f9","#378bf9","#368df9","#3590f8","#3393f8","#3295f7","#3198f7","#309bf6","#2f9df5","#2ea0f4","#2da2f3","#2ca5f1","#2ba7f0","#2aaaef","#2aaced","#29afec","#28b1ea","#28b4e8","#27b6e6","#27b8e5","#26bbe3","#26bde1","#26bfdf","#25c1dc","#25c3da","#25c6d8","#25c8d6","#25cad3","#25ccd1","#25cecf","#26d0cc","#26d2ca","#26d4c8","#27d6c5","#27d8c3","#28d9c0","#29dbbe","#29ddbb","#2adfb8","#2be0b6","#2ce2b3","#2de3b1","#2ee5ae","#30e6ac","#31e8a9","#32e9a6","#34eba4","#35eca1","#37ed9f","#39ef9c","#3af09a","#3cf197","#3ef295","#40f392","#42f490","#44f58d","#46f68b","#48f788","#4af786","#4df884","#4ff981","#51fa7f","#54fa7d","#56fb7a","#59fb78","#5cfc76","#5efc74","#61fd71","#64fd6f","#66fd6d","#69fd6b","#6cfd69","#6ffe67","#72fe65","#75fe63","#78fe61","#7bfe5f","#7efd5d","#81fd5c","#84fd5a","#87fd58","#8afc56","#8dfc55","#90fb53","#93fb51","#96fa50","#99fa4e","#9cf94d","#9ff84b","#a2f84a","#a6f748","#a9f647","#acf546","#aff444","#b2f343","#b5f242","#b8f141","#bbf03f","#beef3e","#c1ed3d","#c3ec3c","#c6eb3b","#c9e93a","#cce839","#cfe738","#d1e537","#d4e336","#d7e235","#d9e034","#dcdf33","#dedd32","#e0db32","#e3d931","#e5d730","#e7d52f","#e9d42f","#ecd22e","#eed02d","#f0ce2c","#f1cb2c","#f3c92b","#f5c72b","#f7c52a","#f8c329","#fac029","#fbbe28","#fdbc28","#feb927","#ffb727","#ffb526","#ffb226","#ffb025","#ffad25","#ffab24","#ffa824","#ffa623","#ffa323","#ffa022","#ff9e22","#ff9b21","#ff9921","#ff9621","#ff9320","#ff9020","#ff8e1f","#ff8b1f","#ff881e","#ff851e","#ff831d","#ff801d","#ff7d1d","#ff7a1c","#ff781c","#ff751b","#ff721b","#ff6f1a","#fd6c1a","#fc6a19","#fa6719","#f96418","#f76118","#f65f18","#f45c17","#f25916","#f05716","#ee5415","#ec5115","#ea4f14","#e84c14","#e64913","#e44713","#e24412","#df4212","#dd3f11","#da3d10","#d83a10","#d5380f","#d3360f","#d0330e","#ce310d","#cb2f0d","#c92d0c","#c62a0b","#c3280b","#c1260a","#be2409","#bb2309","#b92108","#b61f07","#b41d07","#b11b06","#af1a05","#ac1805","#aa1704","#a81604","#a51403","#a31302","#a11202","#9f1101","#9d1000","#9b0f00","#9a0e00","#980e00","#960d00","#950c00","#940c00","#930c00","#920c00","#910b00","#910c00","#900c00","#900c00","#900c00"]);[m
+[32m+[m[41m    [m
+[32m+[m[32m    const rfactor=1.7;[m
+[32m+[m[41m    [m
+[32m+[m[41m   [m
+[32m+[m[41m    [m
+[32m+[m[32m    return ([m
+[32m+[m[32m    React$1__default.createElement( 'svg', { width: width, height: height },[m
+[32m+[m
+[32m+[m[32m        React$1__default.createElement( 'g', { transform: `translate(${marginLeft},${marginTop})` },[m
+[32m+[m[32m          React$1__default.createElement( 'g', { transform: `translate(${innerWidth-250},70)` },[m
+[32m+[m[41m            [m
+[32m+[m[32m            React$1__default.createElement( 'text', {[m[41m [m
+[32m+[m[32m              x: -650, y: -20, className: "title" }, "Internet Gender Gap Vs ", React$1__default.createElement( 'tspan', { x: "-650", y: "15" }, "Corruption Perception")[m
+[32m+[m[32m            ),[m
+[32m+[m[32m            React$1__default.createElement( 'text', {[m[41m [m
+[32m+[m[32m              x: -650, y: 5, className: "axis-label-1" },[m
+[32m+[m[32m              React$1__default.createElement( 'tspan', { x: "-650", y: "40" }, "Roll over or click on the circles "),[m
+[32m+[m[32m              React$1__default.createElement( 'tspan', { x: "-650", y: "65" }, "to see countries details"),[m
+[32m+[m[32m              React$1__default.createElement( 'tspan', { x: "-650", y: "80", 'font-size': "10" }, "Source:"),[m
+[32m+[m[32m              React$1__default.createElement( 'tspan', { x: "-650", y: "93", 'font-size': "10" },[m
+[32m+[m[32m                React$1__default.createElement( 'a', {[m[41m [m
+[32m+[m[32m                  href: "https://research.facebook.com/data/#data-for-good", className: "axis-label-1", target: "_blank" }, "https://research.facebook.com/data/#data-for-good"))[m
+[32m+[m[41m              [m
+[32m+[m[32m            ),[m
+[32m+[m[32m            React$1__default.createElement( 'text', {[m[41m [m
+[32m+[m[32m              x: -650, y: 300, className: "axis-label-1" },[m
+[32m+[m[32m              React$1__default.createElement( 'tspan', { x: "-650", y: "260", 'font-size': "15" }, "Internet Gender Gap"),[m
+[32m+[m[32m              React$1__default.createElement( 'tspan', { x: "-650", y: "280", 'font-size': "10" }, "This measures the gap between male"),[m
+[32m+[m[32m              React$1__default.createElement( 'tspan', { x: "-650", y: "290", 'font-size': "10" }, "and female access to the Internet"),[m
+[32m+[m[32m              React$1__default.createElement( 'tspan', { x: "-650", y: "300", 'font-size': "10" }, "(% male access - % female access / % male access). "),[m
+[32m+[m[32m              React$1__default.createElement( 'tspan', { x: "-650", y: "310", 'font-size': "10" }, "Positive values indicate that male access"),[m
+[32m+[m[32m              React$1__default.createElement( 'tspan', { x: "-650", y: "320", 'font-size': "10" }, "exceeds female access. "),[m
+[32m+[m[32m              React$1__default.createElement( 'tspan', { x: "-650", y: "330", 'font-size': "10" }, "A smaller or negative gap indicates"),[m
+[32m+[m[32m              React$1__default.createElement( 'tspan', { x: "-650", y: "340", 'font-size': "10" }, "greater female connectivity. ")[m
+[32m+[m[32m                          ),[m
+[32m+[m
+[32m+[m[32m            React$1__default.createElement( 'text', {[m[41m [m
+[32m+[m[32m              x: -650, y: 300, className: "axis-label-1" },[m
+[32m+[m[32m              React$1__default.createElement( 'tspan', { x: "-650", y: "360", 'font-size': "15" }, "Corruption Perception"),[m
+[32m+[m[32m              React$1__default.createElement( 'tspan', { x: "-650", y: "375", 'font-size': "10" }, "Compiled by Transparency International, measures the perceived"),[m
+[32m+[m[32m              React$1__default.createElement( 'tspan', { x: "-650", y: "385", 'font-size': "10" }, "levels of public-sector corruption worldwide.")[m
+[32m+[m[32m              ),[m
+[32m+[m[41m            [m
+[32m+[m[32m            React$1__default.createElement( 'text', {[m[41m [m
+[32m+[m[32m              x: -35, y: -20, className: "axis-label" }, "Corruption Perception"),[m
+[32m+[m[41m            [m
+[32m+[m[32m            React$1__default.createElement( 'text', {[m[41m [m
+[32m+[m[32m              x: -290, y: 410, className: "axis-label" },[m
+[32m+[m[32m              React$1__default.createElement( 'tspan', { 'font-size': "12" }, "Created by Jonas Carvalho Feb. 19th 2022")[m
+[32m+[m[32m            ),[m
+[32m+[m[32m            React$1__default.createElement( 'text', {[m[41m [m
+[32m+[m[32m              x: 0, y: 5, className: "axis-label-1" }, "- More Corrupt"),[m
+[32m+[m[32m            React$1__default.createElement( 'text', {[m[41m [m
+[32m+[m[32m              x: -0, y: 355, className: "axis-label-1" }, "- Less Corrupt"),[m
+[32m+[m
+[32m+[m
+[32m+[m[32m            React$1__default.createElement( ColorLegend, {[m
+[32m+[m[32m            colorScale: colorScale, tickTextOffset: 20, tickSpace: 30, tickSize: 10, innerWidth: innerWidth, data: data })),[m
+[32m+[m[32m          React$1__default.createElement( 'g', { transform: `translate(${innerWidth-150},130)` },[m
+[32m+[m[32m            React$1__default.createElement( 'text', {[m[41m [m
+[32m+[m[32m              x: -35, y: -20, className: "axis-label" }, "Internet Gender Gap"),[m
+[32m+[m[32m            React$1__default.createElement( SizeLegend, {[m
+[32m+[m[41m        [m
+[32m+[m[32m            tickTextOffset: 30, tickSpace: 30, tickSize: 10, innerWidth: innerWidth, data: data, rScale: rScale, yValue: yValue, rfactor: rfactor })),[m
+[32m+[m[32m           React$1__default.createElement( Marks, {[m[41m [m
+[32m+[m[32m            data: data, xScale: xScale, yScale: yScale, rScale: rScale, radialScale: radialScale, xValue: xValue, yValue: yValue, tooltipFormat: xAxistickFormat, centerX: centerX, centerY: centerY, colorValue: colorValue, colorScale: colorScale, onHover: setHoveredValue, hoveredValue: hoveredValue, fadeOpacity: fadeOpacity, larr: larr, rfactor: rfactor })[m
+[32m+[m
+[32m+[m
+[32m+[m
+[32m+[m[32m         )[m
+[32m+[m[41m        [m
+[32m+[m[41m    [m
+[32m+[m[41m   [m	[32m)[m
+[32m+[m[32m    );[m
+[32m+[m[32m  };[m
+[32m+[m
+[32m+[m[32m  const array=d3.range(1);[m
+[32m+[m
+[32m+[m[32m  const width=960;[m[41m [m
+[32m+[m[32m  const height=500;[m
+[32m+[m[32m  const margin={[m
+[32m+[m[32m    top:0,[m
+[32m+[m[32m    right:0,[m
+[32m+[m[32m    bottom:0,[m
+[32m+[m[32m    left:0[m
+[32m+[m[32m  };[m
+[32m+[m[32m  const xAxislabelOffset=70;[m
+[32m+[m[32m  const yAxislabelOffset=50;[m
+[32m+[m
+[32m+[m
+[32m+[m
+[32m+[m[32m  const App=()=>array.map((i)=>{[m[41m [m
+[32m+[m[32m    console.log(i);[m
+[32m+[m[32m    return([m[41m [m
+[32m+[m[32m  React$1__default.createElement( React$1__default.Fragment, null,[m
+[32m+[m[32m    React$1__default.createElement( Viz, {[m
+[32m+[m[32m      width: width, height: height, marginTop: margin.top, marginRight: margin.right, marginBottom: margin.bottom, marginLeft: margin.left, xAxislabelOffset: xAxislabelOffset, yAxislabelOffset: yAxislabelOffset })[m
+[32m+[m[41m   [m
+[32m+[m[41m   [m
+[32m+[m
+[32m+[m[32m  )[m
+[32m+[m[32m  )});[m
+[32m+[m
+[32m+[m[32m  const rootElement = document.getElementById('root');[m
+[32m+[m[32m  ReactDOM.render(React$1__default.createElement( App, null ),rootElement);[m
+[32m+[m
+[32m+[m[32m}(React, ReactDOM, d3));[m
+[32m+[m
+[32m+[m[32m//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VzIjpbInVzZURhdGEuanMiLCJyYW5kQXJyYXkuanMiLCJNYXJrcy5qcyIsIkNvbG9yTGVnZW5kLmpzIiwiU2l6ZUxlZ2VuZC5qcyIsIlZpei5qcyIsImluZGV4LmpzIl0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBSZWFjdCx7dXNlU3RhdGUsdXNlQ2FsbGJhY2ssdXNlRWZmZWN0fSBmcm9tICdyZWFjdCc7XG5pbXBvcnQge2NzdixkZXNjZW5kaW5nLG1heCxtaW59IGZyb20gJ2QzJztcblxuY29uc3QgY3N2VXJsPSdodHRwczovL3Jhdy5naXRodWJ1c2VyY29udGVudC5jb20vSm9uODNDYXJ2YWxoby9EYXRhQW5kQXJ0L21haW4vaW50X2luZGV4LmNzdic7XG5cbmV4cG9ydCBjb25zdCB1c2VEYXRhPSgpPT57XG4gIGNvbnN0IFtkYXRhLHNldERhdGFdPXVzZVN0YXRlKG51bGwpO1xuICAgdXNlRWZmZWN0KCgpPT57XG4gICAgXG4gICAgY29uc3Qgcm93PWQ9PntcbiAgICAgICByZXR1cm4gZDtcbiAgICB9O1xuICAgIGNzdihjc3ZVcmwscm93KS50aGVuKHNldERhdGEpO1xuICAgIFxuICB9LFtdKTtcblxuIFxuXHRyZXR1cm4gZGF0YVxufVxuIiwiaW1wb3J0IFJlYWN0LHt1c2VTdGF0ZSx1c2VDYWxsYmFjayx1c2VFZmZlY3R9IGZyb20gJ3JlYWN0JztcbmltcG9ydCB7Y3N2LGRlc2NlbmRpbmcsbWF4LG1pbn0gZnJvbSAnZDMnO1xuXG5jb25zdCBjc3ZVcmw9J2h0dHBzOi8vcmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbS9Kb244M0NhcnZhbGhvL0RhdGFBbmRBcnQvbWFpbi9yYW5kYXJyYXkuY3N2JztcblxuZXhwb3J0IGNvbnN0IHJhbmRBcnJheT0oKT0+e1xuICBjb25zdCBbZGF0YSxzZXREYXRhXT11c2VTdGF0ZShudWxsKTtcbiAgIHVzZUVmZmVjdCgoKT0+e1xuICAgIFxuICAgIGNvbnN0IHJvdz1kPT57XG4gICAgICAgcmV0dXJuIGQ7XG4gICAgfTtcbiAgICBjc3YoY3N2VXJsLHJvdykudGhlbihzZXREYXRhKTtcbiAgICBcbiAgfSxbXSk7XG5cbiBcblx0cmV0dXJuIGRhdGFcbn0iLCJpbXBvcnQgUmVhY3Qse21lbW8sdXNlU3RhdGUsdXNlQ2FsbGJhY2t9IGZyb20gJ3JlYWN0JztcbmltcG9ydCB7Zm9ybWF0fSBmcm9tICdkMyc7XG5cbmNvbnN0IGYgPSBmb3JtYXQoXCIuMWZcIik7XG5leHBvcnQgY29uc3QgTWFya3M9KHtcbiAgY29sb3JTY2FsZSxcbiAgY29sb3JWYWx1ZSxcbiAgdG9vbHRpcEZvcm1hdCxcbiAgZGF0YSxcbiAgeVNjYWxlLFxuICB4U2NhbGUsXG4gIHlWYWx1ZSxcbiAgeFZhbHVlLFxuICBjaXJjbGVSYWRpdXMsXG4gIHJTY2FsZSxcbiAgcmFkaWFsU2NhbGUsXG4gIGNlbnRlclgsXG4gIGNlbnRlclksXG4gIG9uSG92ZXIsXG4gIGhvdmVyZWRWYWx1ZSxcbiAgZmFkZU9wYWNpdHksXG4gIGxhcnIsXG4gIHJjaXJjbGUsXG4gIGNvdW50cnlMZWdlbmQsXG4gIHJmYWN0b3Jcbn0pPT57XG5cdGNvbnN0IHRlbXBvID0gbmV3IERhdGUoKTtcbiAgbGV0IHNlY29uZHMgPSB0ZW1wby5nZXRTZWNvbmRzKCk7XHRcbiAgY29uc3QgbWF4Yz1NYXRoLm1heC5hcHBseShNYXRoLCBkYXRhLm1hcChmdW5jdGlvbihkKSB7IHJldHVybiBkLkNvcnJ1cDsgfSkpXG4gIGNvbnN0IG1pbmc9TWF0aC5taW4uYXBwbHkoTWF0aCwgZGF0YS5tYXAoZnVuY3Rpb24oZCkgeyByZXR1cm4gZC5HYXA7IH0pKVxuXG5cbiAgXG4gIFxuICByZXR1cm4gKFxuICAgICAgICBkYXRhLm1hcChmdW5jdGlvbihkLGkpe1xuICAgICAgICAgICBcdFx0XHRcdCAgXG4gIFx0XHRcdFx0XHRcdFx0XHRjb25zdCByYWQ9KChyYWRpYWxTY2FsZSgobWF4Yy14VmFsdWUoZCkrMzApKSkvMi43KVxuICAgICAgICAgICAgICBcbiAgICAgICAgICBcdFx0XHRcdHJldHVybiAoXG4gICAgICAgICAgICAgIDw+XG4gICAgICAgICAgICAgICA8ZyBcbiAgICAgICAgXHRcdFx0XHRvcGFjaXR5PXtob3ZlcmVkVmFsdWUmJmQhPWhvdmVyZWRWYWx1ZT9mYWRlT3BhY2l0eToxfVxuICAgICAgICBcdFx0XHRcdG9uTW91c2VFbnRlcj17KCk9PntvbkhvdmVyKGQpfX1cbiAgICAgICAgXHRcdFx0XHRvbk1vdXNlT3V0PXsoKT0+e29uSG92ZXIobnVsbCl9fVxuICAgICAgICBcdFx0XHRcdD5cbiAgICAgICAgICAgICAgICBcdDxjaXJjbGUgXG4gICAgICAgICAgICAgICAgICAgY2xhc3NOYW1lPVwibWFya1wiXG4gICAgICAgICAgICAgICAgICAgY3g9e3JhZCpNYXRoLnNpbihNYXRoLmZsb29yKDEwMCpsYXJyW2krNDNdKjM2MC8xODApLzEwMCkrY2VudGVyWH0gXG4gICAgICAgICAgICAgICAgICAgY3k9e3JhZCpNYXRoLmNvcyhNYXRoLmZsb29yKDEwMCpsYXJyW2krNDNdKjM2MC8xODApLzEwMCkrY2VudGVyWX0gXG4gICAgICAgICAgICAgICAgICAgcj17clNjYWxlKCh5VmFsdWUoZCktbWluZykpLzEwMCpyZmFjdG9yfVxuICAgICAgICAgICAgICAgICAgIG9wYWNpdHk9XCIwLjhcIlxuICAgICAgICAgICAgICAgICAgIGZpbGw9e2NvbG9yU2NhbGUoY29sb3JWYWx1ZShkKSl9XG4gICAgICAgICAgICAgICAgICAgICBcbiAgICAgICAgICAgICAgICAgID5cbiAgICAgICAgICAgICAgICAgICBcbiAgICAgICAgICAgICAgICA8L2NpcmNsZT5cblxuICAgICAgICAgICAgICAgICAgIDwvZz5cblxuICAgICAgICAgICAgICAgIDxnIG9wYWNpdHk9e2hvdmVyZWRWYWx1ZSYmZD09aG92ZXJlZFZhbHVlPzE6MH0+XG5cdFx0XHRcdFx0XHRcdFx0IDxyZWN0IHJ4PVwiMjBcIiByeT1cIjIwXCIgd2lkdGg9XCIyNDBcIiBoZWlnaHQ9XCIxMjBcIlxuICAgICAgICAgICAgICAgICAgb3BhY2l0eT17MC41fVxuICAgICAgICAgICAgICAgICAgeD17NTB9XG4gICAgICAgICAgICAgICAgICB5PXsxODB9XG4gICAgICAgICAgICAgICAgICBjb2xvcj1cImJsYWNrXCJcbiAgICAgICAgICAgICAgICAgIGZpbGw9XCJ3aGl0ZVwiXG4gICAgICAgICAgICAgICAgICBcbiAgICAgICAgICAgICAgICAgID5cbiAgICAgICAgICAgICAgXHRcdFxuICAgICAgICAgICAgICAgICAgPC9yZWN0Pjx0ZXh0XG4gICAgICAgICAgICAgICAgIGZvbnQtc2l6ZT1cIjE1XCIgXG4gICAgICAgICAgICAgICAgICBmaWxsPVwiYmxhY2tcIiBcbiAgICAgICAgICAgICAgICAgIHg9ezcwfVxuICAgICAgICAgICAgICAgICAgeT17MjQwfVxuICAgICAgICAgICAgICAgICAgZHk9XCIuMzJlbVwiXG4gXHRcdFx0XHRcdFx0XHQgICA+SW50ZXJuZXQgR2VuZGVyIEdhcDoge2YoZC5HYXApfTwvdGV4dD5cbiAgICAgICAgICAgICAgICAgPHRleHRcbiAgICAgICAgICAgICAgICAgIGZvbnQtc2l6ZT1cIjE1XCIgXG4gICAgICAgICAgICAgICAgICBmaWxsPVwiYmxhY2tcIiBcbiAgICAgICAgICAgICAgICAgIHg9ezcwfVxuICAgICAgICAgICAgICAgICAgeT17MjcwfVxuICAgICAgICAgICAgICAgICAgZHk9XCIuMzJlbVwiXG4gXHRcdFx0XHRcdFx0XHQgICA+Q29ycnVwdGlvbiBQZXJjZXB0aW9uOiB7ZC5Db3JydXB9PC90ZXh0PlxuICAgICAgICAgICAgICAgIDx0ZXh0XG4gICAgICAgICAgICAgICAgICBmb250LXNpemU9XCIyNVwiIFxuICAgICAgICAgICAgICAgICAgZmlsbD1cImJsYWNrXCIgXG4gICAgICAgICAgICAgICAgICB4PXs3MH1cbiAgICAgICAgICAgICAgICAgIHk9ezIxMH1cbiAgICAgICAgICAgICAgICAgIGR5PVwiLjMyZW1cIlxuIFx0XHRcdFx0XHRcdFx0ICAgPkNvdW50cnk6IHtkLkNvdW50cnl9PC90ZXh0PlxuICAgICAgICAgICAgICAgICA8L2c+XG4gXG4gICAgICAgICAgICAgIDwvPlxuICAgICAgICAgICAgICAgICAgICAgICk7XG4gICAgICAgICAgICAgICAgIH0pXG4gICAgICAgICAgKVxuXG59XG4iLCJcbmltcG9ydCB7cmFuZ2UsZXh0ZW50fSBmcm9tICdkMyc7XG5leHBvcnQgY29uc3QgQ29sb3JMZWdlbmQ9KHtkYXRhLGlubmVyV2lkdGgsdGlja1RleHRPZmZzZXQ9MzAsY29sb3JTY2FsZSx0aWNrU3BhY2U9MTAsdGlja1NpemU9MTB9KT0+e1xuICB2YXIgaz0wO1xuICBcbiAgXG4gIFxuICByZXR1cm4gY29sb3JTY2FsZS5kb21haW4oKS5tYXAoKGRvbWFpblZhbHVlLGkpPT57XG4gIFx0XHRcblxuICAgIGlmIChpICUgOCA9PSAwKSB7XG4gICAgICBrPWsrMVxuICAgICAgcmV0dXJuIChcbiAgICAgIFxuICAgICAgPGcgdHJhbnNmb3JtPXtgdHJhbnNsYXRlKCR7NS0xMzAqTWF0aC5jb3MoTWF0aC5QSS8xLjcrTWF0aC5QSS8xNyprKS0xMDB9LCR7KGkpKnRpY2tTcGFjZS84LjN9KWB9PlxuICAgICAgPGNpcmNsZSBmaWxsPXtjb2xvclNjYWxlKChkb21haW5WYWx1ZSkqMS4wKX0gcj17dGlja1NpemV9Lz5cbiAgICAgICAgPHRleHQgXG4gICAgICAgICAgZm9udC1zaXplPVwiMTVcIiBcbiAgICAgICAgICBmaWxsPVwid2hpdGVcIiBcbiAgICAgICAgICB4PXt0aWNrVGV4dE9mZnNldH0gXG4gICAgICAgICAgZHk9XCIuMzJlbVwiPntNYXRoLmZsb29yKGRvbWFpblZhbHVlKX08L3RleHQ+XG4gICAgICA8L2c+XG4gICAgICBcbiAgICApO1xuICAgIFxuICAgIFxuICAgIH07XG5cbiAgfSk7XG59IiwiaW1wb3J0IHtyYW5nZSxleHRlbnR9IGZyb20gJ2QzJztcbmV4cG9ydCBjb25zdCBTaXplTGVnZW5kPSh7cmZhY3RvcixyU2NhbGUsZGF0YSx5VmFsdWUsaW5uZXJXaWR0aCx0aWNrVGV4dE9mZnNldD0zMCx0aWNrU3BhY2U9MTAsdGlja1NpemU9MTB9KT0+e1xuIHZhciBrPTA7XG4gIGNvbnN0IG1pbmc9TWF0aC5taW4uYXBwbHkoTWF0aCwgZGF0YS5tYXAoZnVuY3Rpb24oZCkgeyByZXR1cm4gZC5HYXA7IH0pKVxuXHRcbiAgY29uc3QgYXJyYXluPXJhbmdlKE1hdGguZmxvb3IoZXh0ZW50KGRhdGEubWFwKGQ9PitkLkdhcCkpWzBdKSxNYXRoLmZsb29yKGV4dGVudChkYXRhLm1hcChkPT4rZC5HYXApKVsxXSkrMi4pXG5cbiAgcmV0dXJuIGFycmF5bi5tYXAoKGRvbWFpblZhbHVlLGkpPT57XG4gIFx0XHRcbiAgICAgIFxuIGlmIChpJTM9PTAgJiYgZG9tYWluVmFsdWU+MCkge1xuICAgICBrPWsrMVxuICAgICAgcmV0dXJuIChcbiAgICAgIFxuICAgICA8ZyB0cmFuc2Zvcm09e2B0cmFuc2xhdGUoJHsxMC0zMDAqTWF0aC5jb3MoTWF0aC5QSS8xLjE3K01hdGguUEkvMzIqayktMjkwfSwkeyh0aWNrU3BhY2UrNTApKmkqaS80MDkuNSpyZmFjdG9yLTEwfSlgfT5cbiAgICAgIDxjaXJjbGUgZmlsbD1cIndoaXRlXCIgcj17clNjYWxlKChkb21haW5WYWx1ZS1taW5nKSkvMTAwKnJmYWN0b3J9Lz5cbiAgICAgICAgPHRleHQgXG4gICAgICAgICAgZm9udC1zaXplPVwiMTVcIiBcbiAgICAgICAgICBmaWxsPVwid2hpdGVcIiBcbiAgICAgICAgICB4PXt0aWNrVGV4dE9mZnNldH0gXG4gICAgICAgICAgZHk9XCIuMzJlbVwiPntkb21haW5WYWx1ZX08L3RleHQ+XG4gICAgICA8L2c+XG4gICAgICBcbiAgICk7XG4gICAgXG4gICAgXG4gICB9O1xuXG4gIH0pO1xufSIsImltcG9ydCBSZWFjdCx7bWVtbyx1c2VTdGF0ZSx1c2VDYWxsYmFjayx1c2VFZmZlY3R9IGZyb20gJ3JlYWN0JztcbmltcG9ydCBSZWFjdERPTSBmcm9tICdyZWFjdC1kb20nO1xuXG5pbXBvcnQge3NjYWxlT3JkaW5hbCxleHRlbnQsZm9ybWF0LGNzdixzY2FsZUJhbmQsc2NhbGVMaW5lYXIsbWF4LGFzY2VuZGluZyxkZXNjZW5kaW5nLGNvcyxzaW4sbWlufSBmcm9tICdkMyc7XG5pbXBvcnQge3VzZURhdGF9IGZyb20gJy4vdXNlRGF0YSdcbmltcG9ydCB7cmFuZEFycmF5fSBmcm9tICcuL3JhbmRBcnJheSdcblxuXG5pbXBvcnQge01hcmtzfSBmcm9tICcuL01hcmtzJ1xuaW1wb3J0IHtDb2xvckxlZ2VuZH0gZnJvbSAnLi9Db2xvckxlZ2VuZCdcbmltcG9ydCB7U2l6ZUxlZ2VuZH0gZnJvbSAnLi9TaXplTGVnZW5kJ1xuXG5cbmV4cG9ydCBjb25zdCBWaXo9KHt5QXhpc2xhYmVsT2Zmc2V0LHhBeGlzbGFiZWxPZmZzZXQsd2lkdGgsaGVpZ2h0LG1hcmdpblRvcCxtYXJnaW5SaWdodCxtYXJnaW5Cb3R0b20sbWFyZ2luTGVmdH0pPT57XG4gIGNvbnN0IGRhdGE9dXNlRGF0YSgpO1xuICBjb25zdCByYW5kPXJhbmRBcnJheSgpO1xuICBjb25zdCBbaG92ZXJlZFZhbHVlLHNldEhvdmVyZWRWYWx1ZV09dXNlU3RhdGUobnVsbClcblxuICBcbiAgIGlmKCFkYXRhKXtcbiAgIFxuICBcdHJldHVybiA8cHJlPi4uLmxvYWRpbmc8L3ByZT47XG4gIH07XG4gIFxuICAgIGlmKCFyYW5kKXtcbiAgIFxuICBcdHJldHVybiA8cHJlPi4uLmxvYWRpbmc8L3ByZT47XG4gIH07XG4gIFxuICBcbiAgY29uc3QgaW5uZXJIZWlnaHQ9aGVpZ2h0LW1hcmdpblRvcC1tYXJnaW5Cb3R0b207XG4gIGNvbnN0IGlubmVyV2lkdGg9d2lkdGgtbWFyZ2luTGVmdC1tYXJnaW5SaWdodDtcbiAgY29uc3QgY2VudGVyWD1pbm5lcldpZHRoLzI7XG4gIGNvbnN0IGNlbnRlclk9aW5uZXJIZWlnaHQvMjtcbiAgXG4gIFxuICBjb25zdCB4VmFsdWU9ZD0+ZC5Db3JydXA7XG5cbiBcbiAgY29uc3QgeVZhbHVlPWQ9PmQuR2FwO1xuICBjb25zdCBmYWRlT3BhY2l0eT0wLjI7XG4gIGNvbnN0IGxhcnI9W107XG5cbiAgcmFuZC5tYXAoKGQsaSk9PmxhcnIucHVzaChNYXRoLlBJKnJhbmRbaV0ubnVtYmVyKSlcbiAgXG5cbiAgY29uc3QgeEF4aXN0aWNrRm9ybWF0PXRpY2t2YWx1ZT0+c2lGb3JtYXQodGlja3ZhbHVlKS5yZXBsYWNlKCdHJywnQmknKTtcbiAgXG4gXG4gIGNvbnN0IHJTY2FsZSA9IHNjYWxlTGluZWFyKClcblx0XHQuZG9tYWluKGV4dGVudChkYXRhLHlWYWx1ZSkpXG4gIFx0LnJhbmdlKFswLCBpbm5lckhlaWdodF0pO1xuICBcbiAgXG4gIFxuIGNvbnN0IHJhZGlhbFNjYWxlID0gc2NhbGVMaW5lYXIoKVxuXHRcdC5kb21haW4oZXh0ZW50KGRhdGEseFZhbHVlKSlcbiAgXHQucmFuZ2UoWzAsIGlubmVySGVpZ2h0XSk7XG5cbiAgXG4gIGNvbnN0IHhTY2FsZT1zY2FsZUxpbmVhcigpXG4gIFx0LmRvbWFpbihleHRlbnQoZGF0YSx4VmFsdWUpKVxuICBcdC5yYW5nZShbMCxpbm5lcldpZHRoXSk7XG4gIFxuXHRjb25zdCB5U2NhbGU9c2NhbGVMaW5lYXIoKVxuICAuZG9tYWluKGV4dGVudChkYXRhLHlWYWx1ZSkpXG4gIC5yYW5nZShbMCwgaW5uZXJIZWlnaHRdKVxuICBcbiAgY29uc3QgY29sb3JWYWx1ZT1kPT5kLkNvcnJ1cDtcbiAgXG4gICBjb25zdCBjb2xvclNjYWxlPXNjYWxlT3JkaW5hbCgpXG4gIFx0LmRvbWFpbihkYXRhLnNvcnQoZnVuY3Rpb24oYSwgYil7cmV0dXJuIGEuQ
