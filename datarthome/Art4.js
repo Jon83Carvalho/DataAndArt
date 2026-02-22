@@ -149,7 +149,7 @@ export function Art4() {
   //START - variable declaration=========================================
   const rawdata=[{28000:'{"Volume":0.1}'}]; 
   var csvUrl
-  csvUrl='' //'http://127.0.0.1:8000/'
+  csvUrl='http://127.0.0.1:8000/'
   const previousdata = useRef();
   const respdata=useRef()
   //END - variable declaration=========================================
@@ -169,7 +169,9 @@ export function Art4() {
     revalidateOnFocus: false,
     revalidateOnReconnect: true,
     revalidateOnMount:true,
-    refreshInterval: 5000
+    refreshInterval: 5000,
+
+    
   })
   
    previousdata.current=localStorage.getItem('cdata')
@@ -382,5 +384,10 @@ return (
      
       <Text>This is bottom filler</Text>
     </View>
-  );
-}
+
+
+   
+      )}    
+
+
+//R
