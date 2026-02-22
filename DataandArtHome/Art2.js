@@ -1,6 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, Image, Dimensions } from 'react-native';
+import React, { useState, useEffect, useRef } from 'react';
+import { View, TouchableOpacity, Text, StyleSheet, Dimensions } from 'react-native';
 import * as d3 from 'd3';
+import { Image } from 'react-native';
 import { useEscapeKey } from './useEscapeKey';
 import { Platform } from 'react-native';
 
@@ -54,6 +55,7 @@ export default function Art2({ navigation }) {
   const [dimensions, setDimensions] = useState({ width: 800, height: 600 });
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [tooltipData, setTooltipData] = useState(null);
   
   // Add escape key functionality for web
   useEscapeKey(() => navigation.goBack());
@@ -136,6 +138,8 @@ export default function Art2({ navigation }) {
     const centerX = width / 2;
     const centerY = height / 2;
 
+    // Add eye image in background
+    
     // Add circular grid lines
     const gridLevels = 5;
     for (let i = 1; i <= gridLevels; i++) {
@@ -167,20 +171,7 @@ export default function Art2({ navigation }) {
         .attr('opacity', 0.5);
     }
 
-    // Create tooltip
-    const tooltip = d3.select('body').append('div')
-      .attr('class', 'tooltip')
-      .style('opacity', 0)
-      .style('position', 'absolute')
-      .style('background', 'rgba(0, 0, 0, 0.8)')
-      .style('color', '#fff')
-      .style('padding', '8px')
-      .style('border-radius', '4px')
-      .style('font-size', '12px')
-      .style('pointer-events', 'none');
-
     // Create polar sectors for each country
-    let currentAngle = 0;
     const sectors = svg.selectAll('path.sector')
       .data(sortedData)
       .enter()
@@ -190,8 +181,12 @@ export default function Art2({ navigation }) {
       .attr('d', (d, i) => {
         // Calculate angle span proportional to gender gap
         const angleSpan = gapScale(Math.abs(d.Gap)) * (Math.PI / 180); // Convert to radians
-        const startAngle = currentAngle;
-        const endAngle = currentAngle + angleSpan;
+        
+        // Calculate polar position proportional to alphabetical order
+        const totalCountries = sortedData.length;
+        const anglePosition = (i / totalCountries) * 2 * Math.PI; // Full 360 degrees
+        const startAngle = anglePosition - angleSpan / 2; // Center on alphabetical position
+        const endAngle = anglePosition + angleSpan / 2;
         
         // Radius based on corruption perception (radial translation)
         const innerRadius = radiusScale(d.Corrup) * 0.8; // Inner radius based on corruption (increased spread)
@@ -204,7 +199,6 @@ export default function Art2({ navigation }) {
           .startAngle(startAngle)
           .endAngle(endAngle);
         
-        currentAngle += angleSpan;
         return arc();
       })
       .attr('fill', d => colorScale(d.Corrup))
@@ -214,28 +208,19 @@ export default function Art2({ navigation }) {
       .style('cursor', 'pointer')
       .on('mouseover', function(event, d) {
         d3.select(this)
-          .attr('opacity', 1)
-          .attr('stroke-width', 1);
-        
-        tooltip.transition()
+          .transition()
           .duration(200)
-          .style('opacity', .9);
-        tooltip.html(`
-          <strong>${d.Country}</strong><br/>
-          Corruption: ${d.Corrup}<br/>
-          Gender Gap: ${d.Gap}%
-        `)
-          .style('left', (event.pageX + 10) + 'px')
-          .style('top', (event.pageY - 28) + 'px');
+          .attr('opacity', 1)
+          .attr('stroke-width', 2);
+        setTooltipData(d);
       })
-      .on('mouseout', function() {
+      .on('mouseout', function(event, d) {
         d3.select(this)
+          .transition()
+          .duration(200)
           .attr('opacity', 0.8)
           .attr('stroke-width', 0.5);
-        
-        tooltip.transition()
-          .duration(500)
-          .style('opacity', 0);
+        setTooltipData(null);
       });
 
     // Add center circle
@@ -257,8 +242,8 @@ export default function Art2({ navigation }) {
       .text('Sunburst: Internet Gender Gap vs Corruption Perception');
 
     // Add legend
-    const legendX = width - 150;
-    const legendY = 50;
+    const legendX = width / 2 + radiusScale.range()[1] + 20; // Just outside outer radius
+    const legendY = 40;
     
     svg.append('text')
       .attr('x', legendX)
@@ -299,7 +284,7 @@ export default function Art2({ navigation }) {
 
     svg.append('text')
       .attr('x', legendX)
-      .attr('y', legendY + 200)
+      .attr('y', legendY + 195)
       .attr('fill', '#fff')
       .style('font-size', '10px')
       .text('(Sector width)');
@@ -307,35 +292,35 @@ export default function Art2({ navigation }) {
     // Add explanatory text
     svg.append('text')
       .attr('x', legendX)
-      .attr('y', legendY + 220)
+      .attr('y', legendY + 215)
       .attr('fill', '#aaa')
       .style('font-size', '9px')
       .text('Wider sectors =');
     
     svg.append('text')
       .attr('x', legendX)
-      .attr('y', legendY + 232)
+      .attr('y', legendY + 227)
       .attr('fill', '#aaa')
       .style('font-size', '9px')
       .text('larger gap');
 
     svg.append('text')
       .attr('x', legendX)
-      .attr('y', legendY + 248)
+      .attr('y', legendY + 243)
       .attr('fill', '#aaa')
       .style('font-size', '9px')
       .text('Distance from');
 
     svg.append('text')
       .attr('x', legendX)
-      .attr('y', legendY + 260)
+      .attr('y', legendY + 255)
       .attr('fill', '#aaa')
       .style('font-size', '9px')
       .text('center = corruption');
 
     return () => {
-      tooltip.remove();
-    };
+    // Tooltip cleanup removed - using React state instead
+  };
   }, [data, dimensions, loading]);
 
   if (loading) {
@@ -367,12 +352,83 @@ export default function Art2({ navigation }) {
           Press ESC to return to gallery
         </Text>
       )}
+     
       <View style={styles.svgContainer}>
-        <svg width={dimensions.width} height={dimensions.height} ref={svgRef}></svg>
+        {tooltipData && (
+          <View style={{
+            position: 'absolute',
+            left: '50%', // Perfect horizontal center
+            top: '50%', // Perfect vertical center
+            marginLeft: -40, // Offset by half the width
+            marginTop: -40, // Offset by half the height
+            width: 80,
+            height: 80,
+            backgroundColor: 'rgba(0, 0, 0, 0.9)',
+            borderRadius: 40, // Makes it a circle
+            zIndex: 9999,
+            borderWidth: 2,
+            borderColor: '#fff',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+            {/* Gap text above country name */}
+            <Text style={{ 
+              position: 'absolute',
+              color: '#fff', 
+              fontSize: 8, 
+              textAlign: 'center',
+              width: 70,
+              left: 5,
+              top: 22, // Positioned above centered country name
+            }}>
+              Gap: {tooltipData.Gap}%
+            </Text>
+            
+            {/* Country name in perfect center */}
+            <Text style={{ 
+              position: 'absolute',
+              color: '#fff', 
+              fontSize: 10, 
+              fontWeight: 'bold', 
+              textAlign: 'center',
+              width: 70,
+              left: 5,
+              top: 35, // Perfect center of 80px circle (40 - 10/2 = 35)
+            }}>
+              {tooltipData.Country}
+            </Text>
+            
+            {/* Corruption text below country name */}
+            <Text style={{ 
+              position: 'absolute',
+              color: '#fff', 
+              fontSize: 8, 
+              textAlign: 'center',
+              width: 70,
+              left: 5,
+              top: 48, // Positioned below centered country name
+            }}>
+              Corruption: {tooltipData.Corrup}
+            </Text>
+          </View>
+        )}
         <Image
           style={styles.icon}
           source={require("./assets/StartScreen.jpg")}
           resizeMode="cover"
+        />
+        
+        <svg width={dimensions.width} height={dimensions.height} ref={svgRef} style={{zIndex: 3}}></svg>
+         <Image
+          style={{
+            position: 'absolute',
+            width: dimensions.width,
+            height: dimensions.height,
+            opacity: 0.4,
+            zIndex: 2
+          }}
+          source={require("./assets/eye.png")}
+          resizeMode="contain"
         />
       </View>
     </View>
