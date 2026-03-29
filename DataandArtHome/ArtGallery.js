@@ -84,8 +84,8 @@ export default function ArtGallery({ navigation }) {
     },
     {
       id: 2,
-      title: "Network Connections",
-      description: "Dynamic network graph with real-time data updates",
+      title: "Internet Gender Gap",
+      description: "A visual exploration of the internet gender gap associated with corruption index from different countries of the world.",
       component: "Art2"
     },
     {

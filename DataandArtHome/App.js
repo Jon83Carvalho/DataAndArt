@@ -1,9 +1,7 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import StartScreen from './StartScreen';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
 import ArtGallery from './ArtGallery';
 import Art1 from './Art1';
 import Art2 from './Art2';
