@@ -53,7 +53,7 @@ export default function Art1({ navigation }) {
   const svgRef = useRef(null);
   const [dimensions, setDimensions] = useState({ width: 800, height: 600 });
   
-  // Add escape key functionality for web
+  // Add escape key functionality for web ==================
   useEscapeKey(() => navigation.goBack());
 
   // Update dimensions on mount and resize
