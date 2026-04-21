@@ -57,7 +57,7 @@ export default function ArtGallery({ navigation }) {
   const scrollViewRef = useRef(null);
   const [currentPage, setCurrentPage] = useState(0);
   const { isDragging, dragProps } = useMouseDrag(scrollViewRef);
-  const { keyboardHint } = useKeyboardNavigation(scrollViewRef, 3); // 3 artworks
+  const { keyboardHint } = useKeyboardNavigation(scrollViewRef, 4); // 4 artworks
   
   // Track current page based on scroll position
   useEffect(() => {
@@ -93,13 +93,19 @@ export default function ArtGallery({ navigation }) {
       title: "Color Harmonies",
       description: "Generative art based on color theory and data relationships",
       component: "Art3"
+    },
+    {
+      id: 4,
+      title: "Network Connections",
+      description: "Interactive network visualization with force-directed graph showing connections between nodes",
+      component: "Art4"
     }
   ];
 
   return (
     <View style={styles.container}>
       <View style={styles.topIndicator}>
-        <PageIndicator currentPage={currentPage} totalPages={3} />
+        <PageIndicator currentPage={currentPage} totalPages={4} />
       </View>
       <ScrollView 
         ref={scrollViewRef}
