@@ -6,6 +6,7 @@ import ArtGallery from './ArtGallery';
 import Art1 from './Art1';
 import Art2 from './Art2';
 import Art3 from './Art3';
+import Art4 from './Art4';
 
 const RootStack = createNativeStackNavigator();
 
@@ -32,6 +33,10 @@ export default function App() {
         <RootStack.Screen
           name="Art3" 
           component={Art3}
+        />
+        <RootStack.Screen
+          name="Art4" 
+          component={Art4}
         />
       </RootStack.Navigator> 
     </NavigationContainer>
