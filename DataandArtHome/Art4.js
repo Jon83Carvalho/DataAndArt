@@ -1,13 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, Image, Dimensions } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, Image, Dimensions, Platform } from 'react-native';
 import * as d3 from 'd3';
 import { useEscapeKey } from './useEscapeKey';
-import { Platform } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#111',
+    backgroundColor: '#0c0c14',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -57,102 +56,70 @@ const styles = StyleSheet.create({
     top: 20,
     right: 20,
   },
+  tooltip: {
+    position: 'absolute',
+    padding: 15,
+    backgroundColor: 'rgba(255,255,255,0.1)',
+    borderRadius: 10,
+    alignItems: 'center',
+    minWidth: 200,
+  },
+  tooltipName: {
+    fontSize: 18,
+    color: '#f39c12',
+    fontWeight: 'bold',
+  },
+  tooltipPop: {
+    fontSize: 14,
+    color: '#fff',
+    marginTop: 5,
+  },
+  tooltipRegion: {
+    fontSize: 12,
+    color: 'rgba(255,255,255,0.6)',
+    marginTop: 3,
+  },
 });
 
-// Network data - nodes and connections
-const networkData = {
-  nodes: [
-    { id: "Brazil", group: 1, size: 25 },
-    { id: "Argentina", group: 1, size: 22 },
-    { id: "France", group: 1, size: 20 },
-    { id: "England", group: 2, size: 18 },
-    { id: "Netherlands", group: 2, size: 16 },
-    { id: "Portugal", group: 2, size: 15 },
-    { id: "Croatia", group: 2, size: 14 },
-    { id: "Morocco", group: 2, size: 13 },
-    { id: "Spain", group: 3, size: 12 },
-    { id: "Germany", group: 3, size: 12 },
-    { id: "Belgium", group: 3, size: 11 },
-    { id: "Italy", group: 3, size: 10 },
-    { id: "Uruguay", group: 1, size: 10 },
-    { id: "Mexico", group: 1, size: 9 },
-    { id: "USA", group: 3, size: 9 },
-    { id: "Japan", group: 4, size: 8 },
-    { id: "South Korea", group: 4, size: 7 },
-    { id: "Australia", group: 4, size: 6 },
-    { id: "Senegal", group: 5, size: 6 },
-    { id: "Poland", group: 3, size: 7 },
-    { id: "Switzerland", group: 3, size: 6 },
-    { id: "Denmark", group: 3, size: 5 },
-    { id: "Serbia", group: 3, size: 5 },
-    { id: "Cameroon", group: 5, size: 4 },
-    { id: "Ghana", group: 5, size: 4 },
-    { id: "Canada", group: 3, size: 5 },
-    { id: "Costa Rica", group: 1, size: 4 },
-    { id: "Ecuador", group: 1, size: 5 },
-    { id: "Saudi Arabia", group: 4, size: 4 },
-    { id: "Tunisia", group: 5, size: 4 },
-  ],
-  links: [
-    { source: "Brazil", target: "Argentina", strength: 0.9 },
-    { source: "Brazil", target: "France", strength: 0.7 },
-    { source: "Brazil", target: "England", strength: 0.6 },
-    { source: "Argentina", target: "France", strength: 0.95 },
-    { source: "Argentina", target: "Brazil", strength: 0.85 },
-    { source: "Argentina", target: "Uruguay", strength: 0.8 },
-    { source: "France", target: "England", strength: 0.7 },
-    { source: "France", target: "Portugal", strength: 0.6 },
-    { source: "England", target: "Netherlands", strength: 0.5 },
-    { source: "England", target: "Portugal", strength: 0.5 },
-    { source: "Netherlands", target: "Belgium", strength: 0.6 },
-    { source: "Netherlands", target: "Germany", strength: 0.7 },
-    { source: "Portugal", target: "Spain", strength: 0.8 },
-    { source: "Croatia", target: "Serbia", strength: 0.6 },
-    { source: "Morocco", target: "Tunisia", strength: 0.7 },
-    { source: "Morocco", target: "Senegal", strength: 0.6 },
-    { source: "Spain", target: "Portugal", strength: 0.75 },
-    { source: "Spain", target: "Germany", strength: 0.5 },
-    { source: "Germany", target: "Belgium", strength: 0.6 },
-    { source: "Germany", target: "Netherlands", strength: 0.65 },
-    { source: "Belgium", target: "Netherlands", strength: 0.7 },
-    { source: "Italy", target: "Spain", strength: 0.5 },
-    { source: "Italy", target: "Germany", strength: 0.6 },
-    { source: "Uruguay", target: "Argentina", strength: 0.75 },
-    { source: "Uruguay", target: "Brazil", strength: 0.7 },
-    { source: "Mexico", target: "USA", strength: 0.6 },
-    { source: "Mexico", target: "Costa Rica", strength: 0.5 },
-    { source: "USA", target: "Canada", strength: 0.5 },
-    { source: "Japan", target: "South Korea", strength: 0.7 },
-    { source: "Japan", target: "Australia", strength: 0.5 },
-    { source: "South Korea", target: "Australia", strength: 0.4 },
-    { source: "Senegal", target: "Cameroon", strength: 0.6 },
-    { source: "Senegal", target: "Ghana", strength: 0.5 },
-    { source: "Poland", target: "Germany", strength: 0.4 },
-    { source: "Switzerland", target: "Germany", strength: 0.5 },
-    { source: "Switzerland", target: "Italy", strength: 0.5 },
-    { source: "Denmark", target: "Germany", strength: 0.6 },
-    { source: "Denmark", target: "Netherlands", strength: 0.5 },
-    { source: "Serbia", target: "Croatia", strength: 0.65 },
-    { source: "Ecuador", target: "Brazil", strength: 0.6 },
-    { source: "Ecuador", target: "Argentina", strength: 0.5 },
-    { source: "Saudi Arabia", target: "Japan", strength: 0.4 },
-    { source: "Tunisia", target: "Morocco", strength: 0.65 },
-    { source: "Cameroon", target: "Ghana", strength: 0.5 },
-    { source: "Canada", target: "Mexico", strength: 0.5 },
-    { source: "Canada", target: "USA", strength: 0.55 },
-    { source: "Costa Rica", target: "Mexico", strength: 0.5 },
-    { source: "Costa Rica", target: "USA", strength: 0.45 },
-  ]
+// Region colors
+const regionColors = {
+  Africa: ['#f39c12', '#e67e22'],
+  Americas: ['#3498db', '#2980b9'],
+  Asia: ['#e74c3c', '#c0392b'],
+  Europe: ['#9b59b6', '#8e44ad'],
+  Oceania: ['#1abc9c', '#16a085'],
 };
 
 export default function Art4({ navigation }) {
   const svgRef = useRef(null);
   const [dimensions, setDimensions] = useState({ width: 1200, height: 800 });
+  const [countries, setCountries] = useState([]);
+  const [hoveredCountry, setHoveredCountry] = useState(null);
   
-  // Add escape key functionality for web
   useEscapeKey(() => navigation.goBack());
 
-  // Update dimensions on mount and resize
+  // Fetch country data
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('https://restcountries.com/v3.1/all?fields=name,population,region,subregion');
+        const data = await response.json();
+        
+        const filtered = data
+          .filter(c => c.population && c.name?.common)
+          .sort((a, b) => b.population - a.population)
+          .slice(0, 50);
+        
+        setCountries(filtered);
+      } catch (e) {
+        console.error('Failed to fetch countries:', e);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  // Update dimensions
   useEffect(() => {
     const updateDimensions = () => {
       const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
@@ -170,8 +137,9 @@ export default function Art4({ navigation }) {
     }
   }, []);
 
+  // Draw visualization
   useEffect(() => {
-    if (!svgRef.current) return;
+    if (!countries.length || !svgRef.current) return;
 
     const svg = d3.select(svgRef.current);
     svg.selectAll('*').remove();
@@ -183,212 +151,147 @@ export default function Art4({ navigation }) {
 
     svg.attr('width', width).attr('height', height);
 
-    // Color scheme
-    const colors = {
-      background: '#111',
-      text: '#ffffff',
-      accent: '#4ade80',
-      group1: '#ef4444',
-      group2: '#3b82f6',
-      group3: '#f59e0b',
-      group4: '#10b981',
-      group5: '#8b5cf6',
-      line: '#374151',
-      lineStrong: '#6b7280'
-    };
+    // Create gradients
+    const defs = svg.append('defs');
+    Object.entries(regionColors).forEach(([region, colors]) => {
+      const gradient = defs.append('linearGradient')
+        .attr('id', `gradient-${region}`)
+        .attr('x1', '0%')
+        .attr('y1', '0%')
+        .attr('x2', '100%')
+        .attr('y2', '100%');
 
-    // Add title
-    svg.append('text')
-      .attr('x', width / 2)
-      .attr('y', 40)
-      .attr('text-anchor', 'middle')
-      .style('font-size', '28px')
-      .style('font-weight', 'bold')
-      .style('fill', colors.text)
-      .text('Global Football Network');
+      gradient.append('stop').attr('offset', '0%').attr('stop-color', colors[0]);
+      gradient.append('stop').attr('offset', '100%').attr('stop-color', colors[1]);
+    });
 
-    svg.append('text')
-      .attr('x', width / 2)
-      .attr('y', 65)
-      .attr('text-anchor', 'middle')
-      .style('font-size', '16px')
-      .style('fill', '#888')
-      .text('International Team Connections & Rivalries');
+    // Background
+    svg.append('rect')
+      .attr('width', width)
+      .attr('height', height)
+      .attr('fill', '#0c0c14');
 
-    // Create main group
-    const g = svg.append('g')
-      .attr('transform', `translate(${margin.left},${margin.top})`);
+    // Spiral layout
+    const centerX = width / 2;
+    const centerY = height / 2;
+    const maxRadius = Math.min(innerWidth, innerHeight) / 2 - 40;
 
-    // Create force simulation
-    const simulation = d3.forceSimulation()
-      .force('link', d3.forceLink().id(d => d.id).distance(100))
-      .force('charge', d3.forceManyBody().strength(-300))
-      .force('center', d3.forceCenter(innerWidth / 2, innerHeight / 2))
-      .force('collide', d3.forceCollide().radius(d => d.size + 5));
+    const spiralData = countries.map((country, i) => {
+      const t = i * 0.3;
+      const r = (t / (countries.length * 0.3)) * maxRadius;
+      const angle = t * 2;
+      return {
+        ...country,
+        x: centerX + r * Math.cos(angle),
+        y: centerY + r * Math.sin(angle),
+        radius: Math.sqrt(country.population) * 0.002 + 5,
+      };
+    });
 
-    // Prepare data
-    const nodes = networkData.nodes.map(n => ({ ...n }));
-    const links = networkData.links.map(l => ({ ...l }));
+    // Draw spiral path
+    const lineGenerator = d3.line()
+      .x(d => d.x)
+      .y(d => d.y)
+      .curve(d3.curveCatmullRom.alpha(0.5));
 
-    // Add links
-    const link = g.append('g')
-      .attr('stroke', colors.line)
-      .attr('stroke-opacity', 0.6)
-      .selectAll('line')
-      .data(links)
-      .join('line')
-      .attr('stroke-width', d => Math.sqrt(d.strength) * 3);
-
-    // Add nodes
-    const node = g.append('g')
-      .attr('stroke', '#fff')
+    svg.append('path')
+      .datum(spiralData)
+      .attr('fill', 'none')
+      .attr('stroke', 'rgba(255,255,255,0.1)')
       .attr('stroke-width', 2)
-      .selectAll('circle')
-      .data(nodes)
-      .join('circle')
-      .attr('r', d => d.size)
-      .attr('fill', d => {
-        switch(d.group) {
-          case 1: return colors.group1;
-          case 2: return colors.group2;
-          case 3: return colors.group3;
-          case 4: return colors.group4;
-          case 5: return colors.group5;
-          default: return colors.accent;
-        }
-      })
-      .attr('opacity', 0.8)
-      .call(d3.drag()
-        .on('start', dragstarted)
-        .on('drag', dragged)
-        .on('end', dragended));
+      .attr('stroke-dasharray', '5,5')
+      .attr('d', lineGenerator);
 
-    // Add labels
-    const label = g.append('g')
-      .attr('font-family', 'sans-serif')
-      .attr('font-size', '11px')
-      .attr('fill', colors.text)
-      .attr('text-anchor', 'middle')
-      .selectAll('text')
-      .data(nodes)
-      .join('text')
-      .text(d => d.id);
+    // Create bubbles
+    const bubbleGroup = svg.append('g').attr('class', 'bubbles');
 
-    // Add tooltip group
-    const tooltip = g.append('g')
-      .attr('display', 'none');
+    spiralData.forEach((country, i) => {
+      const region = country.region || 'Unknown';
+      const gradientId = regionColors[region] ? `gradient-${region}` : null;
 
-    tooltip.append('rect')
-      .attr('fill', 'rgba(0, 0, 0, 0.8)')
-      .attr('rx', 5)
-      .attr('ry', 5);
+      const group = bubbleGroup.append('g')
+        .attr('transform', `translate(${country.x},${country.y})`);
 
-    tooltip.append('text')
-      .attr('fill', colors.text)
-      .attr('font-size', '12px')
-      .attr('dy', '0.3em');
+      // Outer ring
+      group.append('circle')
+        .attr('r', country.radius + 3)
+        .attr('fill', 'none')
+        .attr('stroke', gradientId ? `url(#gradient-${region})` : '#fff')
+        .attr('stroke-width', 2)
+        .attr('opacity', 0.8);
 
-    // Mouse interactions
-    node.on('mouseover', function(event, d) {
-      d3.select(this).attr('opacity', 1).attr('stroke', colors.text).attr('stroke-width', 3);
-      
-      // Show connected links
-      link.attr('stroke-opacity', l => 
-        (l.source.id === d.id || l.target.id === d.id) ? 0.9 : 0.2
-      );
-      
-      // Show tooltip
-      tooltip.attr('display', 'block');
-      tooltip.select('text').text(`${d.id} - ${d.size} connections`);
-      
-      const bbox = tooltip.select('text').node().getBBox();
-      tooltip.select('rect')
-        .attr('width', bbox.width + 10)
-        .attr('height', bbox.height + 6)
-        .attr('x', -bbox.width / 2 - 5)
-        .attr('y', -bbox.height - 10);
-    })
-    .on('mousemove', function(event) {
-      const [mouseX, mouseY] = d3.pointer(event);
-      tooltip.attr('transform', `translate(${mouseX},${mouseY})`);
-    })
-    .on('mouseout', function() {
-      d3.select(this).attr('opacity', 0.8).attr('stroke', '#fff').attr('stroke-width', 2);
-      link.attr('stroke-opacity', 0.6);
-      tooltip.attr('display', 'none');
+      // Main bubble
+      group.append('circle')
+        .attr('r', country.radius)
+        .attr('fill', gradientId ? `url(#gradient-${region})` : '#666')
+        .attr('stroke', '#fff')
+        .attr('stroke-width', 1.5)
+        .attr('opacity', 0.9);
+
+      // Pulse for top 10
+      if (i < 10) {
+        const pulseRing = group.append('circle')
+          .attr('r', country.radius)
+          .attr('fill', 'none')
+          .attr('stroke', gradientId ? `url(#gradient-${region})` : '#fff')
+          .attr('stroke-width', 2)
+          .attr('opacity', 0.6);
+
+        pulseRing.transition()
+          .duration(1500)
+          .attr('r', country.radius * 2)
+          .attr('opacity', 0)
+          .on('end', function repeat() {
+            d3.select(this)
+              .attr('r', country.radius)
+              .attr('opacity', 0.6)
+              .transition()
+              .duration(1500)
+              .attr('r', country.radius * 2)
+              .attr('opacity', 0)
+              .on('end', repeat);
+          });
+      }
     });
 
-    // Update positions on tick
-    simulation.nodes(nodes).on('tick', () => {
-      link
-        .attr('x1', d => d.source.x)
-        .attr('y1', d => d.source.y)
-        .attr('x2', d => d.target.x)
-        .attr('y2', d => d.target.y);
+    // Legend
+    const legendGroup = svg.append('g')
+      .attr('transform', `translate(${margin.left + 20},${margin.top + 20})`);
 
-      node
-        .attr('cx', d => d.x)
-        .attr('cy', d => d.y);
-
-      label
-        .attr('x', d => d.x)
-        .attr('y', d => d.y + d.size + 15);
-        
-      tooltip.attr('transform', d => `translate(${d.x},${d.y - d.size - 20})`);
-    });
-
-    simulation.force('link').links(links);
-
-    // Drag functions
-    function dragstarted(event, d) {
-      if (!event.active) simulation.alphaTarget(0.3).restart();
-      d.fx = d.x;
-      d.fy = d.y;
-    }
-
-    function dragged(event, d) {
-      d.fx = event.x;
-      d.fy = event.y;
-    }
-
-    function dragended(event, d) {
-      if (!event.active) simulation.alphaTarget(0);
-      d.fx = null;
-      d.fy = null;
-    }
-
-    // Add legend
-    const legend = g.append('g')
-      .attr('transform', `translate(20, ${innerHeight - 100})`);
-
-    const legendData = [
-      { color: colors.group1, label: 'South America' },
-      { color: colors.group2, label: 'Europe Top' },
-      { color: colors.group3, label: 'Europe Mid' },
-      { color: colors.group4, label: 'Asia/Oceania' },
-      { color: colors.group5, label: 'Africa' }
-    ];
-
-    legendData.forEach((item, i) => {
-      const lg = legend.append('g')
-        .attr('transform', `translate(0, ${i * 25})`);
-      
-      lg.append('circle')
+    Object.entries(regionColors).forEach(([region, colors], i) => {
+      const y = i * 25;
+      legendGroup.append('circle')
+        .attr('cx', 0)
+        .attr('cy', y + 5)
         .attr('r', 6)
-        .attr('fill', item.color);
-      
-      lg.append('text')
+        .attr('fill', `url(#gradient-${region})`);
+
+      legendGroup.append('text')
         .attr('x', 15)
-        .attr('y', 4)
+        .attr('y', y + 9)
+        .attr('fill', '#fff')
         .attr('font-size', '11px')
-        .attr('fill', colors.text)
-        .text(item.label);
+        .text(region);
     });
 
-    return () => {
-      simulation.stop();
-    };
-  }, [dimensions]);
+    // Title
+    svg.append('text')
+      .attr('x', width - margin.right - 20)
+      .attr('y', margin.top + 30)
+      .attr('text-anchor', 'end')
+      .attr('fill', '#fff')
+      .attr('font-size', '14px')
+      .attr('font-weight', 'bold')
+      .text('Top 50 Countries by Population');
+
+  }, [countries, dimensions]);
+
+  const formatNumber = (num) => {
+    if (num >= 1e9) return (num / 1e9).toFixed(2) + 'B';
+    if (num >= 1e6) return (num / 1e6).toFixed(2) + 'M';
+    if (num >= 1e3) return (num / 1e3).toFixed(2) + 'K';
+    return num.toString();
+  };
 
   return (
     <View style={styles.container}>
@@ -398,11 +301,11 @@ export default function Art4({ navigation }) {
       >
         <Text style={styles.backButtonText}>← Back to Gallery</Text>
       </TouchableOpacity>
-      <Text style={styles.title}>Network Connections</Text>
-      <Text style={styles.subtitle}>Interactive Force-Directed Graph</Text>
+      <Text style={styles.title}>Population Galaxy</Text>
+      <Text style={styles.subtitle}>Countries sized by population • Spiral through civilization</Text>
       {Platform.OS === 'web' && (
         <Text style={{color: '#666', fontSize: 12, position: 'absolute', bottom: 20}}>
-          Press ESC to return to gallery • Drag nodes to interact
+          Press ESC to return to gallery
         </Text>
       )}
       <View style={styles.svgContainer}>
@@ -413,6 +316,14 @@ export default function Art4({ navigation }) {
           resizeMode="cover"
         />
       </View>
+      
+      {hoveredCountry && (
+        <View style={styles.tooltip}>
+          <Text style={styles.tooltipName}>{hoveredCountry.name.common}</Text>
+          <Text style={styles.tooltipPop}>👥 {formatNumber(hoveredCountry.population)} people</Text>
+          <Text style={styles.tooltipRegion}>{hoveredCountry.subregion || hoveredCountry.region}</Text>
+        </View>
+      )}
     </View>
   );
 }

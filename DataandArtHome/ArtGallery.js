@@ -57,7 +57,7 @@ export default function ArtGallery({ navigation }) {
   const scrollViewRef = useRef(null);
   const [currentPage, setCurrentPage] = useState(0);
   const { isDragging, dragProps } = useMouseDrag(scrollViewRef);
-  const { keyboardHint } = useKeyboardNavigation(scrollViewRef, 4); // 4 artworks
+  const { keyboardHint } = useKeyboardNavigation(scrollViewRef, 6); // 6 artworks
   
   // Track current page based on scroll position
   useEffect(() => {
@@ -96,16 +96,28 @@ export default function ArtGallery({ navigation }) {
     },
     {
       id: 4,
-      title: "Network Connections",
-      description: "Interactive network visualization with force-directed graph showing connections between nodes",
+      title: "Population Galaxy",
+      description: "Spiral visualization of top 50 countries by population with region-based color gradients",
       component: "Art4"
+    },
+    {
+      id: 5,
+      title: "Circadian Rhythms",
+      description: "24-hour clock showing sunrise/sunset patterns across global cities with real-time indicator",
+      component: "Art5"
+    },
+    {
+      id: 6,
+      title: "Global Weather Symphony",
+      description: "Real-time weather data from major cities with animated particles and temperature-based colors",
+      component: "Art6"
     }
   ];
 
   return (
     <View style={styles.container}>
       <View style={styles.topIndicator}>
-        <PageIndicator currentPage={currentPage} totalPages={4} />
+        <PageIndicator currentPage={currentPage} totalPages={6} />
       </View>
       <ScrollView 
         ref={scrollViewRef}
