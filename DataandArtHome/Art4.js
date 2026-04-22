@@ -171,14 +171,17 @@ export default function Art4({ navigation }) {
       .attr('height', height)
       .attr('fill', '#0c0c14');
 
-    // Spiral layout
+    // Spiral layout - reverse order so larger populations are at the end
     const centerX = width / 2;
     const centerY = height / 2;
     const maxRadius = Math.min(innerWidth, innerHeight) / 2 - 40;
 
-    const spiralData = countries.map((country, i) => {
+    // Reverse the data so smaller populations are at the start (center) and larger at the end (outer)
+    const reversedData = [...countries].reverse();
+
+    const spiralData = reversedData.map((country, i) => {
       const t = i * 0.3;
-      const r = (t / (countries.length * 0.3)) * maxRadius;
+      const r = (t / (reversedData.length * 0.3)) * maxRadius;
       const angle = t * 2;
       return {
         ...country,
@@ -226,7 +229,16 @@ export default function Art4({ navigation }) {
         .attr('fill', gradientId ? `url(#gradient-${region})` : '#666')
         .attr('stroke', '#fff')
         .attr('stroke-width', 1.5)
-        .attr('opacity', 0.9);
+        .attr('opacity', 0.9)
+        .style('cursor', 'pointer')
+        .on('mouseover', function(event) {
+          setHoveredCountry(country);
+          d3.select(this).attr('opacity', 1).attr('stroke-width', 3);
+        })
+        .on('mouseout', function() {
+          setHoveredCountry(null);
+          d3.select(this).attr('opacity', 0.9).attr('stroke-width', 1.5);
+        });
 
       // Pulse for top 10
       if (i < 10) {

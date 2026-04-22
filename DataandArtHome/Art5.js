@@ -56,6 +56,24 @@ const styles = StyleSheet.create({
     top: 20,
     right: 20,
   },
+  tooltip: {
+    position: 'absolute',
+    padding: 15,
+    backgroundColor: 'rgba(255,255,255,0.1)',
+    borderRadius: 10,
+    alignItems: 'center',
+    minWidth: 200,
+  },
+  tooltipName: {
+    fontSize: 18,
+    color: '#f39c12',
+    fontWeight: 'bold',
+  },
+  tooltipTimes: {
+    fontSize: 14,
+    color: '#fff',
+    marginTop: 5,
+  },
   legendContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
@@ -89,6 +107,7 @@ export default function Art5({ navigation }) {
   const [dimensions, setDimensions] = useState({ width: 1200, height: 800 });
   const [timeData, setTimeData] = useState([]);
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [hoveredCity, setHoveredCity] = useState(null);
   
   useEscapeKey(() => navigation.goBack());
 
@@ -301,14 +320,23 @@ export default function Art5({ navigation }) {
         .startAngle(startAngle)
         .endAngle(endAngle);
 
-      arcGroup.append('path')
+      const arcPath = arcGroup.append('path')
         .attr('d', arc)
         .attr('transform', `translate(${centerX},${centerY})`)
         .attr('fill', 'none')
         .attr('stroke', `hsl(${i * 45}, 70%, 60%)`)
         .attr('stroke-width', 4)
         .attr('stroke-linecap', 'round')
-        .attr('opacity', 0.7);
+        .attr('opacity', 0.7)
+        .style('cursor', 'pointer')
+        .on('mouseover', function(event) {
+          setHoveredCity(cityData);
+          d3.select(this).attr('stroke-width', 6).attr('opacity', 1);
+        })
+        .on('mouseout', function() {
+          setHoveredCity(null);
+          d3.select(this).attr('stroke-width', 4).attr('opacity', 0.7);
+        });
 
       // Sunrise marker
       const sunriseX = centerX + arcRadius * Math.cos(startAngle);
@@ -379,6 +407,18 @@ export default function Art5({ navigation }) {
           resizeMode="cover"
         />
       </View>
+      
+      {hoveredCity && (
+        <View style={styles.tooltip}>
+          <Text style={styles.tooltipName}>{hoveredCity.name}</Text>
+          <Text style={styles.tooltipTimes}>
+            🌅 Sunrise: {hoveredCity.sunrise?.toLocaleTimeString('en-US', {hour: '2-digit', minute:'2-digit'})}
+          </Text>
+          <Text style={styles.tooltipTimes}>
+            🌇 Sunset: {hoveredCity.sunset?.toLocaleTimeString('en-US', {hour: '2-digit', minute:'2-digit'})}
+          </Text>
+        </View>
+      )}
       
       <View style={styles.legendContainer}>
         <View style={styles.legendItem}>

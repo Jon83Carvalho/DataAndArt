@@ -251,7 +251,13 @@ export default function Art6({ navigation }) {
 
       const cityGroup = svg.append('g')
         .attr('class', 'city-group')
-        .attr('transform', `translate(${x},${y})`);
+        .attr('transform', `translate(${x},${y})`)
+        .on('mouseover', function(event) {
+          setHoveredCity(city);
+        })
+        .on('mouseout', function() {
+          setHoveredCity(null);
+        });
 
       // Glow ring
       const glowRing = cityGroup.append('circle')
@@ -284,7 +290,8 @@ export default function Art6({ navigation }) {
         .attr('r', 20)
         .attr('fill', tempColor(city.temp))
         .attr('stroke', '#fff')
-        .attr('stroke-width', 2);
+        .attr('stroke-width', 2)
+        .style('cursor', 'pointer');
 
       // Wind indicator
       cityGroup.append('line')
