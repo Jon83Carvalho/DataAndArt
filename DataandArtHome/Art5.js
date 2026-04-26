@@ -409,7 +409,7 @@ export default function Art5({ navigation }) {
       </View>
       
       {hoveredCity && (
-        <View style={styles.tooltip}>
+        <View style={[styles.tooltip, { bottom: 100, left: '50%', marginLeft: -100 }]}>
           <Text style={styles.tooltipName}>{hoveredCity.name}</Text>
           <Text style={styles.tooltipTimes}>
             🌅 Sunrise: {hoveredCity.sunrise?.toLocaleTimeString('en-US', {hour: '2-digit', minute:'2-digit'})}

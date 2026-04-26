@@ -330,7 +330,7 @@ export default function Art4({ navigation }) {
       </View>
       
       {hoveredCountry && (
-        <View style={styles.tooltip}>
+        <View style={[styles.tooltip, { bottom: 80, left: '50%', marginLeft: -100 }]}>
           <Text style={styles.tooltipName}>{hoveredCountry.name.common}</Text>
           <Text style={styles.tooltipPop}>👥 {formatNumber(hoveredCountry.population)} people</Text>
           <Text style={styles.tooltipRegion}>{hoveredCountry.subregion || hoveredCountry.region}</Text>

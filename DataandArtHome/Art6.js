@@ -378,7 +378,7 @@ export default function Art6({ navigation }) {
       </View>
       
       {hoveredCity && (
-        <View style={styles.tooltip}>
+        <View style={[styles.tooltip, { bottom: 80, left: '50%', marginLeft: -100 }]}>
           <Text style={styles.tooltipName}>{hoveredCity.name}</Text>
           <Text style={styles.tooltipWeather}>🌡️ {hoveredCity.temp}°C • 💨 {hoveredCity.windspeed} km/h</Text>
         </View>
