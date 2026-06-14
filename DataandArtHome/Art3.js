@@ -374,22 +374,31 @@ function createCompleteEliminationTree(worldCupData) {
     const treeData = createCompleteEliminationTree(worldCup2022Data);
 
     // Specify the chart’s dimensions for radial layout
-    const cx = width * 0.5; // Center X
-    const cy = height * 0.5; // Center Y
-    const radius = Math.min(width, height) / 2 - 30;
+    const width = dimensions.width;
+    const height = dimensions.height;
+    const cx = width / 2; // Center X
+    const cy = height / 2; // Center Y
+    const radius = Math.min(width, height) * 0.4; // Ajuste para garantir espaço suficiente
 
-    // Create a radial tree layout
+    // Ajuste para garantir que a árvore seja exibida corretamente dentro do SVG
+    const width = dimensions.width;
+    const height = dimensions.height;
+    const cx = width / 2; // Centro X
+    const cy = height / 2; // Centro Y
+    const maxRadius = Math.min(width, height) * 0.35; // Reduzido para evitar cortes
+
+    // Criação do layout radial
     const tree = d3.tree()
-      .size([2 * Math.PI, radius])
+      .size([2 * Math.PI, maxRadius])
       .separation((a, b) => (a.parent == b.parent ? 1 : 2) / a.depth);
 
-    // Transform data to hierarchy and apply layout
+    // Transforma os dados em hierarquia e aplica o layout
     const root = tree(d3.hierarchy(treeData).sort((a, b) => d3.ascending(a.data.name, b.data.name)));
 
-    // Adjust SVG dimensions for radial layout
+    // Ajusta as dimensões do SVG para garantir que toda a árvore seja exibida
     svg.attr('width', width).attr('height', height).attr('viewBox', [-cx, -cy, width, height]);
 
-    // Create main group for radial layout
+    // Cria o grupo principal para o layout radial
     const g = svg.append('g').attr('transform', `translate(${cx},${cy})`);
 
     // Color scheme
@@ -404,10 +413,10 @@ function createCompleteEliminationTree(worldCupData) {
     };
 
     // Add title
-    // Add title for radial chart
+    // Adiciona títulos fora da área da árvore radial
     svg.append('text')
       .attr('x', cx)
-      .attr('y', -height / 2 + 30)
+      .attr('y', -cy + 30)
       .attr('text-anchor', 'middle')
       .style('font-size', '24px')
       .style('font-weight', 'bold')
@@ -416,7 +425,7 @@ function createCompleteEliminationTree(worldCupData) {
 
     svg.append('text')
       .attr('x', cx)
-      .attr('y', -height / 2 + 60)
+      .attr('y', -cy + 60)
       .attr('text-anchor', 'middle')
       .style('font-size', '14px')
       .style('fill', '#888')
@@ -426,7 +435,7 @@ function createCompleteEliminationTree(worldCupData) {
     const link = g.append('g')
       .attr('fill', 'none')
       .attr('stroke', colors.line)
-      .attr('stroke-opacity', 0.4)
+      .attr('stroke-opacity', 0.6)
       .attr('stroke-width', 1.5)
       .selectAll()
       .data(root.links())
