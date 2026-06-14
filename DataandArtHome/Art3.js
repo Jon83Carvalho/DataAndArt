@@ -374,8 +374,8 @@ function createCompleteEliminationTree(worldCupData) {
     const treeData = createCompleteEliminationTree(worldCup2022Data);
 
     // Ajuste para garantir que a árvore seja exibida corretamente dentro do SVG
-    const cx = width / 2; // Centro X
-    const cy = height / 2; // Centro Y
+    const cx = width / 2/2; // Centro X
+    const cy = height / 2/2; // Centro Y
     const maxRadius = Math.min(width, height) * 0.35; // Reduzido para evitar cortes
 
     // Criação do layout radial
