@@ -373,39 +373,24 @@ function createCompleteEliminationTree(worldCupData) {
     // Transform World Cup data to complete elimination phase tree
     const treeData = createCompleteEliminationTree(worldCup2022Data);
 
-    // Compute tree layout
-    const root = d3.hierarchy(treeData);
-    const dx = 50; // Vertical spacing between nodes
-    const dy = 200; // Horizontal spacing for better visibility
+    // Specify the chart’s dimensions for radial layout
+    const cx = width * 0.5; // Center X
+    const cy = height * 0.5; // Center Y
+    const radius = Math.min(width, height) / 2 - 30;
 
-    // Create a tree layout
-    const tree = d3.tree().nodeSize([dx, dy]);
+    // Create a radial tree layout
+    const tree = d3.tree()
+      .size([2 * Math.PI, radius])
+      .separation((a, b) => (a.parent == b.parent ? 1 : 2) / a.depth);
 
-    // Sort tree and apply layout
-    root.sort((a, b) => d3.ascending(a.data.name, b.data.name));
-    tree(root);
+    // Transform data to hierarchy and apply layout
+    const root = tree(d3.hierarchy(treeData).sort((a, b) => d3.ascending(a.data.name, b.data.name)));
 
-    // Compute extent of tree
-    let x0 = Infinity;
-    let x1 = -x0;
-    root.each(d => {
-      if (d.x > x1) x1 = d.x;
-      if (d.x < x0) x0 = d.x;
-    });
+    // Adjust SVG dimensions for radial layout
+    svg.attr('width', width).attr('height', height).attr('viewBox', [-cx, -cy, width, height]);
 
-    // Compute adjusted height of tree
-    const treeHeight = x1 - x0 + dx * 2;
-    const treeWidth = root.height * dy + dy * 2; // Calculate total width needed
-
-    // Adjust SVG dimensions if needed
-    const totalWidth = Math.max(width, treeWidth + margin.left + margin.right);
-    const totalHeight = Math.max(height, treeHeight + margin.top + margin.bottom);
-
-    svg.attr('width', totalWidth).attr('height', totalHeight);
-
-    // Create main group with proper centering
-    const g = svg.append('g')
-      .attr('transform', `translate(${margin.left},${margin.top - x0 + dx})`);
+    // Create main group for radial layout
+    const g = svg.append('g').attr('transform', `translate(${cx},${cy})`);
 
     // Color scheme
     const colors = {
@@ -419,100 +404,91 @@ function createCompleteEliminationTree(worldCupData) {
     };
 
     // Add title
+    // Add title for radial chart
     svg.append('text')
-      .attr('x', totalWidth / 2)
-      .attr('y', 40)
+      .attr('x', cx)
+      .attr('y', -height / 2 + 30)
       .attr('text-anchor', 'middle')
-      .style('font-size', '28px')
+      .style('font-size', '24px')
       .style('font-weight', 'bold')
       .style('fill', colors.text)
       .text('2022 FIFA World Cup');
 
     svg.append('text')
-      .attr('x', totalWidth / 2)
-      .attr('y', 65)
+      .attr('x', cx)
+      .attr('y', -height / 2 + 60)
       .attr('text-anchor', 'middle')
-      .style('font-size', '16px')
+      .style('font-size', '14px')
       .style('fill', '#888')
-      .text('Complete Elimination Phase Tree');
+      .text('Radial Elimination Phase Tree');
 
-    // Create links
+    // Create links for radial layout
     const link = g.append('g')
       .attr('fill', 'none')
       .attr('stroke', colors.line)
-      .attr('stroke-opacity', 0.8)
-      .attr('stroke-width', 2)
+      .attr('stroke-opacity', 0.4)
+      .attr('stroke-width', 1.5)
       .selectAll()
       .data(root.links())
       .join('path')
-      .attr('d', d3.linkHorizontal()
-        .x(d => d.y)
-        .y(d => d.x));
+      .attr('d', d3.linkRadial()
+        .angle(d => d.x)
+        .radius(d => d.y));
 
-    // Create nodes
+    // Create nodes for radial layout
     const node = g.append('g')
-      .attr('stroke-linejoin', 'round')
-      .attr('stroke-width', 3)
       .selectAll()
       .data(root.descendants())
       .join('g')
-      .attr('transform', d => `translate(${d.y},${d.x})`);
+      .attr('transform', d => `rotate(${d.x * 180 / Math.PI - 90}) translate(${d.y},0)`);
 
     // Add circles for nodes
     node.append('circle')
       .attr('fill', d => {
         if (d.data.round === "Final") return colors.winner;
         if (d.data.round === "Semi-finals") return colors.finalist;
-        return colors.accent;
+        return d.children ? colors.accent : '#999';
       })
-      .attr('r', d => {
-        if (d.data.round === "Final") return 10;
-        if (d.data.round === "Semi-finals") return 8;
-        return 6;
-      });
+      .attr('r', 2.5);
 
-    // Add match names
+    // Add match names (labels for radial layout)
     node.append('text')
+      .attr('transform', d => `rotate(${d.x >= Math.PI ? 180 : 0})`)
       .attr('dy', '0.31em')
-      .attr('x', d => d.children ? -15 : 15)
-      .attr('text-anchor', d => d.children ? 'end' : 'start')
-      .style('font-size', d => {
-        if (d.data.round === "Final") return '14px';
-        return '11px';
-      })
-      .style('font-weight', d => {
-        if (d.data.round === "Final") return 'bold';
-        return 'normal';
-      })
-      .style('fill', colors.text)
-      .text(d => d.data.match || d.data.name);
-
-    // Add match details
-    node.append('text')
-      .attr('dy', '1.2em')
-      .attr('x', d => d.children ? -15 : 15)
-      .attr('text-anchor', d => d.children ? 'end' : 'start')
+      .attr('x', d => d.x < Math.PI === !d.children ? 6 : -6)
+      .attr('text-anchor', d => d.x < Math.PI === !d.children ? 'start' : 'end')
       .style('font-size', '10px')
-      .style('fill', colors.accent)
-      .text(d => d.data.score);
+      .style('font-weight', d => d.data.round === "Final" ? 'bold' : 'normal')
+      .style('fill', colors.text)
+      .text(d => d.data.name || d.data.match);
 
-    // Add round labels
+    // Add score details (smaller text)
     node.append('text')
+      .attr('transform', d => `rotate(${d.x >= Math.PI ? 180 : 0})`)
+      .attr('dy', '1.3em')
+      .attr('x', d => d.x < Math.PI === !d.children ? 6 : -6)
+      .attr('text-anchor', d => d.x < Math.PI === !d.children ? 'start' : 'end')
+      .style('font-size', '8px')
+      .style('fill', colors.accent)
+      .text(d => d.data.score || '');
+
+    // Add round labels (smaller and closer to nodes)
+    node.append('text')
+      .attr('dy', '-0.8em')
+      .attr('x', 0)
+      .attr('text-anchor', 'middle')
+      .style('font-size', '8px')
+      .style('fill', '#888')
+      .style('font-style', 'italic')
+      .text(d => d.data.round || '');
+
+    // Add champion crown for the final match
+    const championNode = node.filter(d => d.data.round === "Final");
+    championNode.append('text')
       .attr('dy', '-1.5em')
       .attr('x', 0)
       .attr('text-anchor', 'middle')
-      .style('font-size', '9px')
-      .style('fill', '#888')
-      .style('font-style', 'italic')
-      .text(d => d.data.round);
-
-    // Add champion crown
-    const championNode = node.filter(d => d.data.round === "Final");
-    championNode.append('text')
-      .attr('dy', '-2.5em')
-      .attr('x', 0)
-      .attr('text-anchor', 'middle')
-      .style('font-size', '20px')
+      .style('font-size', '16px')
       .text('👑');
 
   }, [dimensions]);
