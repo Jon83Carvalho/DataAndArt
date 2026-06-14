@@ -373,16 +373,7 @@ function createCompleteEliminationTree(worldCupData) {
     // Transform World Cup data to complete elimination phase tree
     const treeData = createCompleteEliminationTree(worldCup2022Data);
 
-    // Specify the chart’s dimensions for radial layout
-    const width = dimensions.width;
-    const height = dimensions.height;
-    const cx = width / 2; // Center X
-    const cy = height / 2; // Center Y
-    const radius = Math.min(width, height) * 0.4; // Ajuste para garantir espaço suficiente
-
     // Ajuste para garantir que a árvore seja exibida corretamente dentro do SVG
-    const width = dimensions.width;
-    const height = dimensions.height;
     const cx = width / 2; // Centro X
     const cy = height / 2; // Centro Y
     const maxRadius = Math.min(width, height) * 0.35; // Reduzido para evitar cortes
