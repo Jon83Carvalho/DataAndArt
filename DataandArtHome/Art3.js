@@ -2361,7 +2361,7 @@ const wrldCup = JSON.parse(
       .attr('dy', '0.31em')
       .attr('x', d => d.x < Math.PI === !d.children ? 6 : -6)
       .attr('text-anchor', d => d.x < Math.PI === !d.children ? 'start' : 'end')
-      .style('font-size', '10px')
+      .style('font-size', '5px')
       .style('font-weight', d => d.data.round === "Final" ? 'bold' : 'normal')
       .style('fill', colors.text)
       .text(d => d.data.name || d.data.match);
@@ -2372,7 +2372,7 @@ const wrldCup = JSON.parse(
       .attr('dy', '1.3em')
       .attr('x', d => d.x < Math.PI === !d.children ? 6 : -6)
       .attr('text-anchor', d => d.x < Math.PI === !d.children ? 'start' : 'end')
-      .style('font-size', '8px')
+      .style('font-size', '4px')
       .style('fill', colors.accent)
       .text(d => d.data.score || '');
 
@@ -2381,8 +2381,8 @@ const wrldCup = JSON.parse(
       .attr('dy', '-0.9em')
       .attr('x', 0)
       .attr('text-anchor', 'middle')
-      .style('font-size', '8px')
-      .style('fill', '#888')
+      .style('font-size', '4px')
+      .style('fill', '#ff0000ff')
       .style('font-style', 'italic')
       .text(d => d.data.winner || '');
 
