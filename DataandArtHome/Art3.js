@@ -207,164 +207,2056 @@ export default function Art3({ navigation }) {
 
   // Transform World Cup data to complete elimination phase tree
 function createCompleteEliminationTree(worldCupData) {
-const wrldCup = {
-    name: "FIFA World Cup",
-    round: "",
-    match: "",
-    score: "",
-    winner: "",
-    children: []
-  };
+const wrldCup = JSON.parse(
+  `{
+  "name": "FIFA World Cup",
+  "children": [
+    {
+      "name": "1930 World Cup",
+      "round": "world-cup",
+      "match": "Uruguay vs Argentina",
+      "score": "4x2",
+      "winner": "Uruguay",
+      "children": [
+        {
+          "name": "Argentina v United States",
+          "round": "semi-finals",
+          "match": "Argentina vs United States",
+          "score": "6x1",
+          "winner": "Argentina",
+          "children": []
+        },
+        {
+          "name": "Uruguay v Yugoslavia",
+          "round": "semi-finals",
+          "match": "Uruguay vs Yugoslavia",
+          "score": "6x1",
+          "winner": "Uruguay",
+          "children": []
+        }
+      ]
+    },
+    {
+      "name": "1934 World Cup",
+      "round": "world-cup",
+      "match": "Italy vs Czechoslovakia",
+      "score": "2x1",
+      "winner": "Italy",
+      "children": [
+        {
+          "name": "Czechoslovakia v Germany",
+          "round": "semi-finals",
+          "match": "Czechoslovakia vs Germany",
+          "score": "3x1",
+          "winner": "Czechoslovakia",
+          "children": [
+            {
+              "name": "Austria v Hungary",
+              "round": "quarter-finals",
+              "match": "Austria vs Hungary",
+              "score": "2x1",
+              "winner": "Austria",
+              "children": [
+                {
+                  "name": "Austria v France",
+                  "round": "round-of-16",
+                  "match": "Austria vs France",
+                  "score": "3x2",
+                  "winner": "Austria",
+                  "children": []
+                },
+                {
+                  "name": "Czechoslovakia v Romania",
+                  "round": "round-of-16",
+                  "match": "Czechoslovakia vs Romania",
+                  "score": "2x1",
+                  "winner": "Czechoslovakia",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "name": "Czechoslovakia v Switzerland",
+              "round": "quarter-finals",
+              "match": "Czechoslovakia vs Switzerland",
+              "score": "3x2",
+              "winner": "Czechoslovakia",
+              "children": [
+                {
+                  "name": "Germany v Belgium",
+                  "round": "round-of-16",
+                  "match": "Germany vs Belgium",
+                  "score": "5x2",
+                  "winner": "Germany",
+                  "children": []
+                },
+                {
+                  "name": "Hungary v Egypt",
+                  "round": "round-of-16",
+                  "match": "Hungary vs Egypt",
+                  "score": "4x2",
+                  "winner": "Hungary",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Italy v Austria",
+          "round": "semi-finals",
+          "match": "Italy vs Austria",
+          "score": "1x0",
+          "winner": "Italy",
+          "children": [
+            {
+              "name": "Germany v Sweden",
+              "round": "quarter-finals",
+              "match": "Germany vs Sweden",
+              "score": "2x1",
+              "winner": "Germany",
+              "children": [
+                {
+                  "name": "Italy v United States",
+                  "round": "round-of-16",
+                  "match": "Italy vs United States",
+                  "score": "7x1",
+                  "winner": "Italy",
+                  "children": []
+                },
+                {
+                  "name": "Spain v Brazil",
+                  "round": "round-of-16",
+                  "match": "Spain vs Brazil",
+                  "score": "3x1",
+                  "winner": "Spain",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "name": "Italy v Spain",
+              "round": "quarter-finals",
+              "match": "Italy vs Spain",
+              "score": "1x1",
+              "winner": "draw",
+              "children": [
+                {
+                  "name": "Sweden v Argentina",
+                  "round": "round-of-16",
+                  "match": "Sweden vs Argentina",
+                  "score": "3x2",
+                  "winner": "Sweden",
+                  "children": []
+                },
+                {
+                  "name": "Switzerland v Netherlands",
+                  "round": "round-of-16",
+                  "match": "Switzerland vs Netherlands",
+                  "score": "3x2",
+                  "winner": "Switzerland",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "1938 World Cup",
+      "round": "world-cup",
+      "match": "Italy vs Hungary",
+      "score": "4x2",
+      "winner": "Italy",
+      "children": [
+        {
+          "name": "Hungary v Sweden",
+          "round": "semi-finals",
+          "match": "Hungary vs Sweden",
+          "score": "5x1",
+          "winner": "Hungary",
+          "children": [
+            {
+              "name": "Brazil v Czechoslovakia",
+              "round": "quarter-finals",
+              "match": "Brazil vs Czechoslovakia",
+              "score": "1x1",
+              "winner": "draw",
+              "children": [
+                {
+                  "name": "Switzerland v Germany",
+                  "round": "round-of-16",
+                  "match": "Switzerland vs Germany",
+                  "score": "1x1",
+                  "winner": "draw",
+                  "children": []
+                },
+                {
+                  "name": "Cuba v Romania",
+                  "round": "round-of-16",
+                  "match": "Cuba vs Romania",
+                  "score": "3x3",
+                  "winner": "draw",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "name": "Hungary v Switzerland",
+              "round": "quarter-finals",
+              "match": "Hungary vs Switzerland",
+              "score": "2x0",
+              "winner": "Hungary",
+              "children": [
+                {
+                  "name": "France v Belgium",
+                  "round": "round-of-16",
+                  "match": "France vs Belgium",
+                  "score": "3x1",
+                  "winner": "France",
+                  "children": []
+                },
+                {
+                  "name": "Hungary v Dutch East Indies",
+                  "round": "round-of-16",
+                  "match": "Hungary vs Dutch East Indies",
+                  "score": "6x0",
+                  "winner": "Hungary",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Italy v Brazil",
+          "round": "semi-finals",
+          "match": "Italy vs Brazil",
+          "score": "2x1",
+          "winner": "Italy",
+          "children": [
+            {
+              "name": "Italy v France",
+              "round": "quarter-finals",
+              "match": "Italy vs France",
+              "score": "3x1",
+              "winner": "Italy",
+              "children": [
+                {
+                  "name": "Italy v Norway",
+                  "round": "round-of-16",
+                  "match": "Italy vs Norway",
+                  "score": "2x1",
+                  "winner": "Italy",
+                  "children": []
+                },
+                {
+                  "name": "Brazil v Poland",
+                  "round": "round-of-16",
+                  "match": "Brazil vs Poland",
+                  "score": "6x5",
+                  "winner": "Brazil",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "name": "Sweden v Cuba",
+              "round": "quarter-finals",
+              "match": "Sweden vs Cuba",
+              "score": "8x0",
+              "winner": "Sweden",
+              "children": [
+                {
+                  "name": "Czechoslovakia v Netherlands",
+                  "round": "round-of-16",
+                  "match": "Czechoslovakia vs Netherlands",
+                  "score": "3x0",
+                  "winner": "Czechoslovakia",
+                  "children": []
+                },
+                {
+                  "name": "Cuba v Romania",
+                  "round": "round-of-16",
+                  "match": "Cuba vs Romania",
+                  "score": "2x1",
+                  "winner": "Cuba",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "1954 World Cup",
+      "round": "world-cup",
+      "match": "West Germany vs Hungary",
+      "score": "3x2",
+      "winner": "West Germany",
+      "children": [
+        {
+          "name": "Hungary v Uruguay",
+          "round": "semi-finals",
+          "match": "Hungary vs Uruguay",
+          "score": "4x2",
+          "winner": "Hungary",
+          "children": [
+            {
+              "name": "Austria v Switzerland",
+              "round": "quarter-finals",
+              "match": "Austria vs Switzerland",
+              "score": "7x5",
+              "winner": "Austria",
+              "children": []
+            },
+            {
+              "name": "Uruguay v England",
+              "round": "quarter-finals",
+              "match": "Uruguay vs England",
+              "score": "4x2",
+              "winner": "Uruguay",
+              "children": []
+            }
+          ]
+        },
+        {
+          "name": "West Germany v Austria",
+          "round": "semi-finals",
+          "match": "West Germany vs Austria",
+          "score": "6x1",
+          "winner": "West Germany",
+          "children": [
+            {
+              "name": "Hungary v Brazil",
+              "round": "quarter-finals",
+              "match": "Hungary vs Brazil",
+              "score": "4x2",
+              "winner": "Hungary",
+              "children": []
+            },
+            {
+              "name": "West Germany v Yugoslavia",
+              "round": "quarter-finals",
+              "match": "West Germany vs Yugoslavia",
+              "score": "2x0",
+              "winner": "West Germany",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "1958 World Cup",
+      "round": "world-cup",
+      "match": "Brazil vs Sweden",
+      "score": "5x2",
+      "winner": "Brazil",
+      "children": [
+        {
+          "name": "Brazil v France",
+          "round": "semi-finals",
+          "match": "Brazil vs France",
+          "score": "5x2",
+          "winner": "Brazil",
+          "children": [
+            {
+              "name": "Brazil v Wales",
+              "round": "quarter-finals",
+              "match": "Brazil vs Wales",
+              "score": "1x0",
+              "winner": "Brazil",
+              "children": []
+            },
+            {
+              "name": "France v Northern Ireland",
+              "round": "quarter-finals",
+              "match": "France vs Northern Ireland",
+              "score": "4x0",
+              "winner": "France",
+              "children": []
+            }
+          ]
+        },
+        {
+          "name": "Sweden v West Germany",
+          "round": "semi-finals",
+          "match": "Sweden vs West Germany",
+          "score": "3x1",
+          "winner": "Sweden",
+          "children": [
+            {
+              "name": "Sweden v Soviet Union",
+              "round": "quarter-finals",
+              "match": "Sweden vs Soviet Union",
+              "score": "2x0",
+              "winner": "Sweden",
+              "children": []
+            },
+            {
+              "name": "West Germany v Yugoslavia",
+              "round": "quarter-finals",
+              "match": "West Germany vs Yugoslavia",
+              "score": "1x0",
+              "winner": "West Germany",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "1962 World Cup",
+      "round": "world-cup",
+      "match": "Brazil vs Czechoslovakia",
+      "score": "3x1",
+      "winner": "Brazil",
+      "children": [
+        {
+          "name": "Brazil v Chile",
+          "round": "semi-finals",
+          "match": "Brazil vs Chile",
+          "score": "4x2",
+          "winner": "Brazil",
+          "children": [
+            {
+              "name": "Brazil v England",
+              "round": "quarter-finals",
+              "match": "Brazil vs England",
+              "score": "3x1",
+              "winner": "Brazil",
+              "children": []
+            },
+            {
+              "name": "Chile v Soviet Union",
+              "round": "quarter-finals",
+              "match": "Chile vs Soviet Union",
+              "score": "2x1",
+              "winner": "Chile",
+              "children": []
+            }
+          ]
+        },
+        {
+          "name": "Czechoslovakia v Yugoslavia",
+          "round": "semi-finals",
+          "match": "Czechoslovakia vs Yugoslavia",
+          "score": "3x1",
+          "winner": "Czechoslovakia",
+          "children": [
+            {
+              "name": "Czechoslovakia v Hungary",
+              "round": "quarter-finals",
+              "match": "Czechoslovakia vs Hungary",
+              "score": "1x0",
+              "winner": "Czechoslovakia",
+              "children": []
+            },
+            {
+              "name": "Yugoslavia v West Germany",
+              "round": "quarter-finals",
+              "match": "Yugoslavia vs West Germany",
+              "score": "1x0",
+              "winner": "Yugoslavia",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "1966 World Cup",
+      "round": "world-cup",
+      "match": "England vs West Germany",
+      "score": "4x2",
+      "winner": "England",
+      "children": [
+        {
+          "name": "West Germany v Soviet Union",
+          "round": "semi-finals",
+          "match": "West Germany vs Soviet Union",
+          "score": "2x1",
+          "winner": "West Germany",
+          "children": [
+            {
+              "name": "England v Argentina",
+              "round": "quarter-finals",
+              "match": "England vs Argentina",
+              "score": "1x0",
+              "winner": "England",
+              "children": []
+            },
+            {
+              "name": "Portugal v North Korea",
+              "round": "quarter-finals",
+              "match": "Portugal vs North Korea",
+              "score": "5x3",
+              "winner": "Portugal",
+              "children": []
+            }
+          ]
+        },
+        {
+          "name": "England v Portugal",
+          "round": "semi-finals",
+          "match": "England vs Portugal",
+          "score": "2x1",
+          "winner": "England",
+          "children": [
+            {
+              "name": "Soviet Union v Hungary",
+              "round": "quarter-finals",
+              "match": "Soviet Union vs Hungary",
+              "score": "2x1",
+              "winner": "Soviet Union",
+              "children": []
+            },
+            {
+              "name": "West Germany v Uruguay",
+              "round": "quarter-finals",
+              "match": "West Germany vs Uruguay",
+              "score": "4x0",
+              "winner": "West Germany",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "1970 World Cup",
+      "round": "world-cup",
+      "match": "Brazil vs Italy",
+      "score": "4x1",
+      "winner": "Brazil",
+      "children": [
+        {
+          "name": "Brazil v Uruguay",
+          "round": "semi-finals",
+          "match": "Brazil vs Uruguay",
+          "score": "3x1",
+          "winner": "Brazil",
+          "children": [
+            {
+              "name": "Brazil v Peru",
+              "round": "quarter-finals",
+              "match": "Brazil vs Peru",
+              "score": "4x2",
+              "winner": "Brazil",
+              "children": []
+            },
+            {
+              "name": "Italy v Mexico",
+              "round": "quarter-finals",
+              "match": "Italy vs Mexico",
+              "score": "4x1",
+              "winner": "Italy",
+              "children": []
+            }
+          ]
+        },
+        {
+          "name": "Italy v West Germany",
+          "round": "semi-finals",
+          "match": "Italy vs West Germany",
+          "score": "4x3",
+          "winner": "Italy",
+          "children": [
+            {
+              "name": "Soviet Union v Uruguay",
+              "round": "quarter-finals",
+              "match": "Soviet Union vs Uruguay",
+              "score": "0x1",
+              "winner": "away team win",
+              "children": []
+            },
+            {
+              "name": "West Germany v England",
+              "round": "quarter-finals",
+              "match": "West Germany vs England",
+              "score": "3x2",
+              "winner": "West Germany",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "1974 World Cup",
+      "round": "world-cup",
+      "match": "Netherlands vs West Germany",
+      "score": "1x2",
+      "winner": "away team win",
+      "children": []
+    },
+    {
+      "name": "1978 World Cup",
+      "round": "world-cup",
+      "match": "Argentina vs Netherlands",
+      "score": "3x1",
+      "winner": "Argentina",
+      "children": []
+    },
+    {
+      "name": "1982 World Cup",
+      "round": "world-cup",
+      "match": "Italy vs West Germany",
+      "score": "3x1",
+      "winner": "Italy",
+      "children": [
+        {
+          "name": "Poland v Italy",
+          "round": "semi-finals",
+          "match": "Poland vs Italy",
+          "score": "0x2",
+          "winner": "away team win",
+          "children": []
+        },
+        {
+          "name": "West Germany v France",
+          "round": "semi-finals",
+          "match": "West Germany vs France",
+          "score": "3x3",
+          "winner": "draw",
+          "children": []
+        }
+      ]
+    },
+    {
+      "name": "1986 World Cup",
+      "round": "world-cup",
+      "match": "Argentina vs West Germany",
+      "score": "3x2",
+      "winner": "Argentina",
+      "children": [
+        {
+          "name": "France v West Germany",
+          "round": "semi-finals",
+          "match": "France vs West Germany",
+          "score": "0x2",
+          "winner": "away team win",
+          "children": [
+            {
+              "name": "Brazil v France",
+              "round": "quarter-finals",
+              "match": "Brazil vs France",
+              "score": "1x1",
+              "winner": "away team win",
+              "children": [
+                {
+                  "name": "Mexico v Bulgaria",
+                  "round": "round-of-16",
+                  "match": "Mexico vs Bulgaria",
+                  "score": "2x0",
+                  "winner": "Mexico",
+                  "children": []
+                },
+                {
+                  "name": "Soviet Union v Belgium",
+                  "round": "round-of-16",
+                  "match": "Soviet Union vs Belgium",
+                  "score": "3x4",
+                  "winner": "away team win",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "name": "West Germany v Mexico",
+              "round": "quarter-finals",
+              "match": "West Germany vs Mexico",
+              "score": "0x0",
+              "winner": "draw",
+              "children": [
+                {
+                  "name": "Brazil v Poland",
+                  "round": "round-of-16",
+                  "match": "Brazil vs Poland",
+                  "score": "4x0",
+                  "winner": "Brazil",
+                  "children": []
+                },
+                {
+                  "name": "Argentina v Uruguay",
+                  "round": "round-of-16",
+                  "match": "Argentina vs Uruguay",
+                  "score": "1x0",
+                  "winner": "Argentina",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Argentina v Belgium",
+          "round": "semi-finals",
+          "match": "Argentina vs Belgium",
+          "score": "2x0",
+          "winner": "Argentina",
+          "children": [
+            {
+              "name": "Argentina v England",
+              "round": "quarter-finals",
+              "match": "Argentina vs England",
+              "score": "2x1",
+              "winner": "Argentina",
+              "children": [
+                {
+                  "name": "Italy v France",
+                  "round": "round-of-16",
+                  "match": "Italy vs France",
+                  "score": "0x2",
+                  "winner": "away team win",
+                  "children": []
+                },
+                {
+                  "name": "Morocco v West Germany",
+                  "round": "round-of-16",
+                  "match": "Morocco vs West Germany",
+                  "score": "0x1",
+                  "winner": "away team win",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "name": "Spain v Belgium",
+              "round": "quarter-finals",
+              "match": "Spain vs Belgium",
+              "score": "1x1",
+              "winner": "away team win",
+              "children": [
+                {
+                  "name": "England v Paraguay",
+                  "round": "round-of-16",
+                  "match": "England vs Paraguay",
+                  "score": "3x0",
+                  "winner": "England",
+                  "children": []
+                },
+                {
+                  "name": "Denmark v Spain",
+                  "round": "round-of-16",
+                  "match": "Denmark vs Spain",
+                  "score": "1x5",
+                  "winner": "away team win",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "1990 World Cup",
+      "round": "world-cup",
+      "match": "West Germany vs Argentina",
+      "score": "1x0",
+      "winner": "West Germany",
+      "children": [
+        {
+          "name": "Argentina v Italy",
+          "round": "semi-finals",
+          "match": "Argentina vs Italy",
+          "score": "1x1",
+          "winner": "draw",
+          "children": [
+            {
+              "name": "Argentina v Yugoslavia",
+              "round": "quarter-finals",
+              "match": "Argentina vs Yugoslavia",
+              "score": "0x0",
+              "winner": "draw",
+              "children": [
+                {
+                  "name": "Cameroon v Colombia",
+                  "round": "round-of-16",
+                  "match": "Cameroon vs Colombia",
+                  "score": "2x1",
+                  "winner": "Cameroon",
+                  "children": []
+                },
+                {
+                  "name": "Czechoslovakia v Costa Rica",
+                  "round": "round-of-16",
+                  "match": "Czechoslovakia vs Costa Rica",
+                  "score": "4x1",
+                  "winner": "Czechoslovakia",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "name": "Republic of Ireland v Italy",
+              "round": "quarter-finals",
+              "match": "Republic of Ireland vs Italy",
+              "score": "0x1",
+              "winner": "away team win",
+              "children": [
+                {
+                  "name": "Brazil v Argentina",
+                  "round": "round-of-16",
+                  "match": "Brazil vs Argentina",
+                  "score": "0x1",
+                  "winner": "away team win",
+                  "children": []
+                },
+                {
+                  "name": "West Germany v Netherlands",
+                  "round": "round-of-16",
+                  "match": "West Germany vs Netherlands",
+                  "score": "2x1",
+                  "winner": "West Germany",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "West Germany v England",
+          "round": "semi-finals",
+          "match": "West Germany vs England",
+          "score": "1x1",
+          "winner": "draw",
+          "children": [
+            {
+              "name": "Czechoslovakia v West Germany",
+              "round": "quarter-finals",
+              "match": "Czechoslovakia vs West Germany",
+              "score": "0x1",
+              "winner": "away team win",
+              "children": [
+                {
+                  "name": "Republic of Ireland v Romania",
+                  "round": "round-of-16",
+                  "match": "Republic of Ireland vs Romania",
+                  "score": "0x0",
+                  "winner": "draw",
+                  "children": []
+                },
+                {
+                  "name": "Italy v Uruguay",
+                  "round": "round-of-16",
+                  "match": "Italy vs Uruguay",
+                  "score": "2x0",
+                  "winner": "Italy",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "name": "Cameroon v England",
+              "round": "quarter-finals",
+              "match": "Cameroon vs England",
+              "score": "2x3",
+              "winner": "away team win",
+              "children": [
+                {
+                  "name": "Spain v Yugoslavia",
+                  "round": "round-of-16",
+                  "match": "Spain vs Yugoslavia",
+                  "score": "1x2",
+                  "winner": "away team win",
+                  "children": []
+                },
+                {
+                  "name": "England v Belgium",
+                  "round": "round-of-16",
+                  "match": "England vs Belgium",
+                  "score": "1x0",
+                  "winner": "England",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "1994 World Cup",
+      "round": "world-cup",
+      "match": "Brazil vs Italy",
+      "score": "0x0",
+      "winner": "draw",
+      "children": [
+        {
+          "name": "Bulgaria v Italy",
+          "round": "semi-finals",
+          "match": "Bulgaria vs Italy",
+          "score": "1x2",
+          "winner": "away team win",
+          "children": [
+            {
+              "name": "Italy v Spain",
+              "round": "quarter-finals",
+              "match": "Italy vs Spain",
+              "score": "2x1",
+              "winner": "Italy",
+              "children": [
+                {
+                  "name": "Germany v Belgium",
+                  "round": "round-of-16",
+                  "match": "Germany vs Belgium",
+                  "score": "3x2",
+                  "winner": "Germany",
+                  "children": []
+                },
+                {
+                  "name": "Spain v Switzerland",
+                  "round": "round-of-16",
+                  "match": "Spain vs Switzerland",
+                  "score": "3x0",
+                  "winner": "Spain",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "name": "Netherlands v Brazil",
+              "round": "quarter-finals",
+              "match": "Netherlands vs Brazil",
+              "score": "2x3",
+              "winner": "away team win",
+              "children": [
+                {
+                  "name": "Saudi Arabia v Sweden",
+                  "round": "round-of-16",
+                  "match": "Saudi Arabia vs Sweden",
+                  "score": "1x3",
+                  "winner": "away team win",
+                  "children": []
+                },
+                {
+                  "name": "Romania v Argentina",
+                  "round": "round-of-16",
+                  "match": "Romania vs Argentina",
+                  "score": "3x2",
+                  "winner": "Romania",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Sweden v Brazil",
+          "round": "semi-finals",
+          "match": "Sweden vs Brazil",
+          "score": "0x1",
+          "winner": "away team win",
+          "children": [
+            {
+              "name": "Bulgaria v Germany",
+              "round": "quarter-finals",
+              "match": "Bulgaria vs Germany",
+              "score": "2x1",
+              "winner": "Bulgaria",
+              "children": [
+                {
+                  "name": "Netherlands v Republic of Ireland",
+                  "round": "round-of-16",
+                  "match": "Netherlands vs Republic of Ireland",
+                  "score": "2x0",
+                  "winner": "Netherlands",
+                  "children": []
+                },
+                {
+                  "name": "Brazil v United States",
+                  "round": "round-of-16",
+                  "match": "Brazil vs United States",
+                  "score": "1x0",
+                  "winner": "Brazil",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "name": "Romania v Sweden",
+              "round": "quarter-finals",
+              "match": "Romania vs Sweden",
+              "score": "2x2",
+              "winner": "away team win",
+              "children": [
+                {
+                  "name": "Nigeria v Italy",
+                  "round": "round-of-16",
+                  "match": "Nigeria vs Italy",
+                  "score": "1x2",
+                  "winner": "away team win",
+                  "children": []
+                },
+                {
+                  "name": "Mexico v Bulgaria",
+                  "round": "round-of-16",
+                  "match": "Mexico vs Bulgaria",
+                  "score": "1x1",
+                  "winner": "away team win",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "1998 World Cup",
+      "round": "world-cup",
+      "match": "Brazil vs France",
+      "score": "0x3",
+      "winner": "away team win",
+      "children": [
+        {
+          "name": "Brazil v Netherlands",
+          "round": "semi-finals",
+          "match": "Brazil vs Netherlands",
+          "score": "1x1",
+          "winner": "draw",
+          "children": [
+            {
+              "name": "Italy v France",
+              "round": "quarter-finals",
+              "match": "Italy vs France",
+              "score": "0x0",
+              "winner": "away team win",
+              "children": [
+                {
+                  "name": "Italy v Norway",
+                  "round": "round-of-16",
+                  "match": "Italy vs Norway",
+                  "score": "1x0",
+                  "winner": "Italy",
+                  "children": []
+                },
+                {
+                  "name": "Brazil v Chile",
+                  "round": "round-of-16",
+                  "match": "Brazil vs Chile",
+                  "score": "4x1",
+                  "winner": "Brazil",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "name": "Brazil v Denmark",
+              "round": "quarter-finals",
+              "match": "Brazil vs Denmark",
+              "score": "3x2",
+              "winner": "Brazil",
+              "children": [
+                {
+                  "name": "France v Paraguay",
+                  "round": "round-of-16",
+                  "match": "France vs Paraguay",
+                  "score": "1x0",
+                  "winner": "France",
+                  "children": []
+                },
+                {
+                  "name": "Nigeria v Denmark",
+                  "round": "round-of-16",
+                  "match": "Nigeria vs Denmark",
+                  "score": "1x4",
+                  "winner": "away team win",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "France v Croatia",
+          "round": "semi-finals",
+          "match": "France vs Croatia",
+          "score": "2x1",
+          "winner": "France",
+          "children": [
+            {
+              "name": "Netherlands v Argentina",
+              "round": "quarter-finals",
+              "match": "Netherlands vs Argentina",
+              "score": "2x1",
+              "winner": "Netherlands",
+              "children": [
+                {
+                  "name": "Germany v Mexico",
+                  "round": "round-of-16",
+                  "match": "Germany vs Mexico",
+                  "score": "2x1",
+                  "winner": "Germany",
+                  "children": []
+                },
+                {
+                  "name": "Netherlands v Yugoslavia",
+                  "round": "round-of-16",
+                  "match": "Netherlands vs Yugoslavia",
+                  "score": "2x1",
+                  "winner": "Netherlands",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "name": "Germany v Croatia",
+              "round": "quarter-finals",
+              "match": "Germany vs Croatia",
+              "score": "0x3",
+              "winner": "away team win",
+              "children": [
+                {
+                  "name": "Romania v Croatia",
+                  "round": "round-of-16",
+                  "match": "Romania vs Croatia",
+                  "score": "0x1",
+                  "winner": "away team win",
+                  "children": []
+                },
+                {
+                  "name": "Argentina v England",
+                  "round": "round-of-16",
+                  "match": "Argentina vs England",
+                  "score": "2x2",
+                  "winner": "draw",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "2002 World Cup",
+      "round": "world-cup",
+      "match": "Germany vs Brazil",
+      "score": "0x2",
+      "winner": "away team win",
+      "children": [
+        {
+          "name": "Germany v South Korea",
+          "round": "semi-finals",
+          "match": "Germany vs South Korea",
+          "score": "1x0",
+          "winner": "Germany",
+          "children": [
+            {
+              "name": "England v Brazil",
+              "round": "quarter-finals",
+              "match": "England vs Brazil",
+              "score": "1x2",
+              "winner": "away team win",
+              "children": [
+                {
+                  "name": "Germany v Paraguay",
+                  "round": "round-of-16",
+                  "match": "Germany vs Paraguay",
+                  "score": "1x0",
+                  "winner": "Germany",
+                  "children": []
+                },
+                {
+                  "name": "Denmark v England",
+                  "round": "round-of-16",
+                  "match": "Denmark vs England",
+                  "score": "0x3",
+                  "winner": "away team win",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "name": "Germany v United States",
+              "round": "quarter-finals",
+              "match": "Germany vs United States",
+              "score": "1x0",
+              "winner": "Germany",
+              "children": [
+                {
+                  "name": "Sweden v Senegal",
+                  "round": "round-of-16",
+                  "match": "Sweden vs Senegal",
+                  "score": "1x2",
+                  "winner": "away team win",
+                  "children": []
+                },
+                {
+                  "name": "Spain v Republic of Ireland",
+                  "round": "round-of-16",
+                  "match": "Spain vs Republic of Ireland",
+                  "score": "1x1",
+                  "winner": "draw",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Brazil v Turkey",
+          "round": "semi-finals",
+          "match": "Brazil vs Turkey",
+          "score": "1x0",
+          "winner": "Brazil",
+          "children": [
+            {
+              "name": "Spain v South Korea",
+              "round": "quarter-finals",
+              "match": "Spain vs South Korea",
+              "score": "0x0",
+              "winner": "away team win",
+              "children": [
+                {
+                  "name": "Mexico v United States",
+                  "round": "round-of-16",
+                  "match": "Mexico vs United States",
+                  "score": "0x2",
+                  "winner": "away team win",
+                  "children": []
+                },
+                {
+                  "name": "Brazil v Belgium",
+                  "round": "round-of-16",
+                  "match": "Brazil vs Belgium",
+                  "score": "2x0",
+                  "winner": "Brazil",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "name": "Senegal v Turkey",
+              "round": "quarter-finals",
+              "match": "Senegal vs Turkey",
+              "score": "0x1",
+              "winner": "away team win",
+              "children": [
+                {
+                  "name": "Japan v Turkey",
+                  "round": "round-of-16",
+                  "match": "Japan vs Turkey",
+                  "score": "0x1",
+                  "winner": "away team win",
+                  "children": []
+                },
+                {
+                  "name": "South Korea v Italy",
+                  "round": "round-of-16",
+                  "match": "South Korea vs Italy",
+                  "score": "2x1",
+                  "winner": "South Korea",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "2006 World Cup",
+      "round": "world-cup",
+      "match": "Italy vs France",
+      "score": "1x1",
+      "winner": "draw",
+      "children": [
+        {
+          "name": "Germany v Italy",
+          "round": "semi-finals",
+          "match": "Germany vs Italy",
+          "score": "0x2",
+          "winner": "away team win",
+          "children": [
+            {
+              "name": "Germany v Argentina",
+              "round": "quarter-finals",
+              "match": "Germany vs Argentina",
+              "score": "1x1",
+              "winner": "draw",
+              "children": [
+                {
+                  "name": "Germany v Sweden",
+                  "round": "round-of-16",
+                  "match": "Germany vs Sweden",
+                  "score": "2x0",
+                  "winner": "Germany",
+                  "children": []
+                },
+                {
+                  "name": "Argentina v Mexico",
+                  "round": "round-of-16",
+                  "match": "Argentina vs Mexico",
+                  "score": "2x1",
+                  "winner": "Argentina",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "name": "Italy v Ukraine",
+              "round": "quarter-finals",
+              "match": "Italy vs Ukraine",
+              "score": "3x0",
+              "winner": "Italy",
+              "children": [
+                {
+                  "name": "England v Ecuador",
+                  "round": "round-of-16",
+                  "match": "England vs Ecuador",
+                  "score": "1x0",
+                  "winner": "England",
+                  "children": []
+                },
+                {
+                  "name": "Portugal v Netherlands",
+                  "round": "round-of-16",
+                  "match": "Portugal vs Netherlands",
+                  "score": "1x0",
+                  "winner": "Portugal",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Portugal v France",
+          "round": "semi-finals",
+          "match": "Portugal vs France",
+          "score": "0x1",
+          "winner": "away team win",
+          "children": [
+            {
+              "name": "England v Portugal",
+              "round": "quarter-finals",
+              "match": "England vs Portugal",
+              "score": "0x0",
+              "winner": "away team win",
+              "children": [
+                {
+                  "name": "Italy v Australia",
+                  "round": "round-of-16",
+                  "match": "Italy vs Australia",
+                  "score": "1x0",
+                  "winner": "Italy",
+                  "children": []
+                },
+                {
+                  "name": "Switzerland v Ukraine",
+                  "round": "round-of-16",
+                  "match": "Switzerland vs Ukraine",
+                  "score": "0x0",
+                  "winner": "away team win",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "name": "Brazil v France",
+              "round": "quarter-finals",
+              "match": "Brazil vs France",
+              "score": "0x1",
+              "winner": "away team win",
+              "children": [
+                {
+                  "name": "Brazil v Ghana",
+                  "round": "round-of-16",
+                  "match": "Brazil vs Ghana",
+                  "score": "3x0",
+                  "winner": "Brazil",
+                  "children": []
+                },
+                {
+                  "name": "Spain v France",
+                  "round": "round-of-16",
+                  "match": "Spain vs France",
+                  "score": "1x3",
+                  "winner": "away team win",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "2010 World Cup",
+      "round": "world-cup",
+      "match": "Netherlands vs Spain",
+      "score": "0x1",
+      "winner": "away team win",
+      "children": [
+        {
+          "name": "Uruguay v Netherlands",
+          "round": "semi-finals",
+          "match": "Uruguay vs Netherlands",
+          "score": "2x3",
+          "winner": "away team win",
+          "children": [
+            {
+              "name": "Netherlands v Brazil",
+              "round": "quarter-finals",
+              "match": "Netherlands vs Brazil",
+              "score": "2x1",
+              "winner": "Netherlands",
+              "children": [
+                {
+                  "name": "Uruguay v South Korea",
+                  "round": "round-of-16",
+                  "match": "Uruguay vs South Korea",
+                  "score": "2x1",
+                  "winner": "Uruguay",
+                  "children": []
+                },
+                {
+                  "name": "United States v Ghana",
+                  "round": "round-of-16",
+                  "match": "United States vs Ghana",
+                  "score": "1x2",
+                  "winner": "away team win",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "name": "Uruguay v Ghana",
+              "round": "quarter-finals",
+              "match": "Uruguay vs Ghana",
+              "score": "1x1",
+              "winner": "draw",
+              "children": [
+                {
+                  "name": "Germany v England",
+                  "round": "round-of-16",
+                  "match": "Germany vs England",
+                  "score": "4x1",
+                  "winner": "Germany",
+                  "children": []
+                },
+                {
+                  "name": "Argentina v Mexico",
+                  "round": "round-of-16",
+                  "match": "Argentina vs Mexico",
+                  "score": "3x1",
+                  "winner": "Argentina",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Germany v Spain",
+          "round": "semi-finals",
+          "match": "Germany vs Spain",
+          "score": "0x1",
+          "winner": "away team win",
+          "children": [
+            {
+              "name": "Argentina v Germany",
+              "round": "quarter-finals",
+              "match": "Argentina vs Germany",
+              "score": "0x4",
+              "winner": "away team win",
+              "children": [
+                {
+                  "name": "Netherlands v Slovakia",
+                  "round": "round-of-16",
+                  "match": "Netherlands vs Slovakia",
+                  "score": "2x1",
+                  "winner": "Netherlands",
+                  "children": []
+                },
+                {
+                  "name": "Brazil v Chile",
+                  "round": "round-of-16",
+                  "match": "Brazil vs Chile",
+                  "score": "3x0",
+                  "winner": "Brazil",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "name": "Paraguay v Spain",
+              "round": "quarter-finals",
+              "match": "Paraguay vs Spain",
+              "score": "0x1",
+              "winner": "away team win",
+              "children": [
+                {
+                  "name": "Paraguay v Japan",
+                  "round": "round-of-16",
+                  "match": "Paraguay vs Japan",
+                  "score": "0x0",
+                  "winner": "draw",
+                  "children": []
+                },
+                {
+                  "name": "Spain v Portugal",
+                  "round": "round-of-16",
+                  "match": "Spain vs Portugal",
+                  "score": "1x0",
+                  "winner": "Spain",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "2014 World Cup",
+      "round": "world-cup",
+      "match": "Germany vs Argentina",
+      "score": "1x0",
+      "winner": "Germany",
+      "children": [
+        {
+          "name": "Brazil v Germany",
+          "round": "semi-finals",
+          "match": "Brazil vs Germany",
+          "score": "1x7",
+          "winner": "away team win",
+          "children": [
+            {
+              "name": "France v Germany",
+              "round": "quarter-finals",
+              "match": "France vs Germany",
+              "score": "0x1",
+              "winner": "away team win",
+              "children": [
+                {
+                  "name": "Brazil v Chile",
+                  "round": "round-of-16",
+                  "match": "Brazil vs Chile",
+                  "score": "1x1",
+                  "winner": "draw",
+                  "children": []
+                },
+                {
+                  "name": "Colombia v Uruguay",
+                  "round": "round-of-16",
+                  "match": "Colombia vs Uruguay",
+                  "score": "2x0",
+                  "winner": "Colombia",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "name": "Brazil v Colombia",
+              "round": "quarter-finals",
+              "match": "Brazil vs Colombia",
+              "score": "2x1",
+              "winner": "Brazil",
+              "children": [
+                {
+                  "name": "Netherlands v Mexico",
+                  "round": "round-of-16",
+                  "match": "Netherlands vs Mexico",
+                  "score": "2x1",
+                  "winner": "Netherlands",
+                  "children": []
+                },
+                {
+                  "name": "Costa Rica v Greece",
+                  "round": "round-of-16",
+                  "match": "Costa Rica vs Greece",
+                  "score": "1x1",
+                  "winner": "draw",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Netherlands v Argentina",
+          "round": "semi-finals",
+          "match": "Netherlands vs Argentina",
+          "score": "0x0",
+          "winner": "away team win",
+          "children": [
+            {
+              "name": "Argentina v Belgium",
+              "round": "quarter-finals",
+              "match": "Argentina vs Belgium",
+              "score": "1x0",
+              "winner": "Argentina",
+              "children": [
+                {
+                  "name": "France v Nigeria",
+                  "round": "round-of-16",
+                  "match": "France vs Nigeria",
+                  "score": "2x0",
+                  "winner": "France",
+                  "children": []
+                },
+                {
+                  "name": "Germany v Algeria",
+                  "round": "round-of-16",
+                  "match": "Germany vs Algeria",
+                  "score": "2x1",
+                  "winner": "Germany",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "name": "Netherlands v Costa Rica",
+              "round": "quarter-finals",
+              "match": "Netherlands vs Costa Rica",
+              "score": "0x0",
+              "winner": "draw",
+              "children": [
+                {
+                  "name": "Argentina v Switzerland",
+                  "round": "round-of-16",
+                  "match": "Argentina vs Switzerland",
+                  "score": "1x0",
+                  "winner": "Argentina",
+                  "children": []
+                },
+                {
+                  "name": "Belgium v United States",
+                  "round": "round-of-16",
+                  "match": "Belgium vs United States",
+                  "score": "2x1",
+                  "winner": "Belgium",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "2018 World Cup",
+      "round": "world-cup",
+      "match": "France vs Croatia",
+      "score": "4x2",
+      "winner": "France",
+      "children": [
+        {
+          "name": "France v Belgium",
+          "round": "semi-finals",
+          "match": "France vs Belgium",
+          "score": "1x0",
+          "winner": "France",
+          "children": [
+            {
+              "name": "Uruguay v France",
+              "round": "quarter-finals",
+              "match": "Uruguay vs France",
+              "score": "0x2",
+              "winner": "away team win",
+              "children": [
+                {
+                  "name": "France v Argentina",
+                  "round": "round-of-16",
+                  "match": "France vs Argentina",
+                  "score": "4x3",
+                  "winner": "France",
+                  "children": []
+                },
+                {
+                  "name": "Uruguay v Portugal",
+                  "round": "round-of-16",
+                  "match": "Uruguay vs Portugal",
+                  "score": "2x1",
+                  "winner": "Uruguay",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "name": "Brazil v Belgium",
+              "round": "quarter-finals",
+              "match": "Brazil vs Belgium",
+              "score": "1x2",
+              "winner": "away team win",
+              "children": [
+                {
+                  "name": "Spain v Russia",
+                  "round": "round-of-16",
+                  "match": "Spain vs Russia",
+                  "score": "1x1",
+                  "winner": "away team win",
+                  "children": []
+                },
+                {
+                  "name": "Croatia v Denmark",
+                  "round": "round-of-16",
+                  "match": "Croatia vs Denmark",
+                  "score": "1x1",
+                  "winner": "draw",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Croatia v England",
+          "round": "semi-finals",
+          "match": "Croatia vs England",
+          "score": "2x1",
+          "winner": "Croatia",
+          "children": [
+            {
+              "name": "Sweden v England",
+              "round": "quarter-finals",
+              "match": "Sweden vs England",
+              "score": "0x2",
+              "winner": "away team win",
+              "children": [
+                {
+                  "name": "Brazil v Mexico",
+                  "round": "round-of-16",
+                  "match": "Brazil vs Mexico",
+                  "score": "2x0",
+                  "winner": "Brazil",
+                  "children": []
+                },
+                {
+                  "name": "Belgium v Japan",
+                  "round": "round-of-16",
+                  "match": "Belgium vs Japan",
+                  "score": "3x2",
+                  "winner": "Belgium",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "name": "Russia v Croatia",
+              "round": "quarter-finals",
+              "match": "Russia vs Croatia",
+              "score": "2x2",
+              "winner": "away team win",
+              "children": [
+                {
+                  "name": "Sweden v Switzerland",
+                  "round": "round-of-16",
+                  "match": "Sweden vs Switzerland",
+                  "score": "1x0",
+                  "winner": "Sweden",
+                  "children": []
+                },
+                {
+                  "name": "Colombia v England",
+                  "round": "round-of-16",
+                  "match": "Colombia vs England",
+                  "score": "1x1",
+                  "winner": "away team win",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "2022 World Cup",
+      "round": "world-cup",
+      "match": "Argentina vs France",
+      "score": "3x3",
+      "winner": "draw",
+      "children": [
+        {
+          "name": "Argentina v Croatia",
+          "round": "semi-finals",
+          "match": "Argentina vs Croatia",
+          "score": "3x0",
+          "winner": "Argentina",
+          "children": [
+            {
+              "name": "Croatia v Brazil",
+              "round": "quarter-finals",
+              "match": "Croatia vs Brazil",
+              "score": "1x1",
+              "winner": "draw",
+              "children": [
+                {
+                  "name": "Netherlands v United States",
+                  "round": "round-of-16",
+                  "match": "Netherlands vs United States",
+                  "score": "3x1",
+                  "winner": "Netherlands",
+                  "children": []
+                },
+                {
+                  "name": "Argentina v Australia",
+                  "round": "round-of-16",
+                  "match": "Argentina vs Australia",
+                  "score": "2x1",
+                  "winner": "Argentina",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "name": "Netherlands v Argentina",
+              "round": "quarter-finals",
+              "match": "Netherlands vs Argentina",
+              "score": "2x2",
+              "winner": "away team win",
+              "children": [
+                {
+                  "name": "France v Poland",
+                  "round": "round-of-16",
+                  "match": "France vs Poland",
+                  "score": "3x1",
+                  "winner": "France",
+                  "children": []
+                },
+                {
+                  "name": "England v Senegal",
+                  "round": "round-of-16",
+                  "match": "England vs Senegal",
+                  "score": "3x0",
+                  "winner": "England",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "France v Morocco",
+          "round": "semi-finals",
+          "match": "France vs Morocco",
+          "score": "2x0",
+          "winner": "France",
+          "children": [
+            {
+              "name": "Morocco v Portugal",
+              "round": "quarter-finals",
+              "match": "Morocco vs Portugal",
+              "score": "1x0",
+              "winner": "Morocco",
+              "children": [
+                {
+                  "name": "Japan v Croatia",
+                  "round": "round-of-16",
+                  "match": "Japan vs Croatia",
+                  "score": "1x1",
+                  "winner": "away team win",
+                  "children": []
+                },
+                {
+                  "name": "Brazil v South Korea",
+                  "round": "round-of-16",
+                  "match": "Brazil vs South Korea",
+                  "score": "4x1",
+                  "winner": "Brazil",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "name": "England v France",
+              "round": "quarter-finals",
+              "match": "England vs France",
+              "score": "1x2",
+              "winner": "away team win",
+              "children": [
+                {
+                  "name": "Morocco v Spain",
+                  "round": "round-of-16",
+                  "match": "Morocco vs Spain",
+                  "score": "0x0",
+                  "winner": "draw",
+                  "children": []
+                },
+                {
+                  "name": "Portugal v Switzerland",
+                  "round": "round-of-16",
+                  "match": "Portugal vs Switzerland",
+                  "score": "6x1",
+                  "winner": "Portugal",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}`
+)
+//{
+//     name: "FIFA World Cup",
+//     round: "",
+//     match: "",
+//     score: "",
+//     winner: "",
+//     children: []
+//   };
   
-  const treeData = {
-    name: "2022 FIFA World Cup",
-    round: "Final",
-    match: "Argentina vs France",
-    score: "3-3 (4-2p)",
-    winner: "Argentina",
-    children: []
-  };
+//   const treeData = {
+//     name: "2022 FIFA World Cup",
+//     round: "Final",
+//     match: "Argentina vs France",
+//     score: "3-3 (4-2p)",
+//     winner: "Argentina",
+//     children: []
+//   };
 
-  // Semi-finals
-  const semiFinals = [
-    {
-      name: "Semi-final 1",
-      round: "Semi-finals", 
-      match: "Argentina vs Croatia",
-      score: "3-0",
-      winner: "Argentina",
-      children: []
-    },
-    {
-      name: "Semi-final 2",
-      round: "Semi-finals",
-      match: "France vs Morocco", 
-      score: "2-0",
-      winner: "France",
-      children: []
-    }
-  ];
+//   // Semi-finals
+//   const semiFinals = [
+//     {
+//       name: "Semi-final 1",
+//       round: "Semi-finals", 
+//       match: "Argentina vs Croatia",
+//       score: "3-0",
+//       winner: "Argentina",
+//       children: []
+//     },
+//     {
+//       name: "Semi-final 2",
+//       round: "Semi-finals",
+//       match: "France vs Morocco", 
+//       score: "2-0",
+//       winner: "France",
+//       children: []
+//     }
+//   ];
 
-  // Quarter-finals
-  const quarterFinals = [
-    {
-      name: "Quarter-final 1",
-      round: "Quarter-finals",
-      match: "Croatia vs Brazil",
-      score: "1-1 (4-2p)", 
-      winner: "Croatia",
-      children: []
-    },
-    {
-      name: "Quarter-final 2",
-      round: "Quarter-finals",
-      match: "Netherlands vs Argentina",
-      score: "2-2 (3-4p)",
-      winner: "Argentina", 
-      children: []
-    },
-    {
-      name: "Quarter-final 3",
-      round: "Quarter-finals",
-      match: "Morocco vs Portugal",
-      score: "1-0",
-      winner: "Morocco",
-      children: []
-    },
-    {
-      name: "Quarter-final 4", 
-      round: "Quarter-finals",
-      match: "England vs France",
-      score: "1-2",
-      winner: "France",
-      children: []
-    }
-  ];
+//   // Quarter-finals
+//   const quarterFinals = [
+//     {
+//       name: "Quarter-final 1",
+//       round: "Quarter-finals",
+//       match: "Croatia vs Brazil",
+//       score: "1-1 (4-2p)", 
+//       winner: "Croatia",
+//       children: []
+//     },
+//     {
+//       name: "Quarter-final 2",
+//       round: "Quarter-finals",
+//       match: "Netherlands vs Argentina",
+//       score: "2-2 (3-4p)",
+//       winner: "Argentina", 
+//       children: []
+//     },
+//     {
+//       name: "Quarter-final 3",
+//       round: "Quarter-finals",
+//       match: "Morocco vs Portugal",
+//       score: "1-0",
+//       winner: "Morocco",
+//       children: []
+//     },
+//     {
+//       name: "Quarter-final 4", 
+//       round: "Quarter-finals",
+//       match: "England vs France",
+//       score: "1-2",
+//       winner: "France",
+//       children: []
+//     }
+//   ];
 
-  // Round of 16
-  const roundOf16 = [
-    {
-      name: "Round of 16 - 1",
-      round: "Round of 16",
-      match: "Netherlands vs United States",
-      score: "3-1",
-      winner: "Netherlands",
-      children: []
-    },
-    {
-      name: "Round of 16 - 2",
-      round: "Round of 16", 
-      match: "Argentina vs Australia",
-      score: "2-1",
-      winner: "Argentina",
-      children: []
-    },
-    {
-      name: "Round of 16 - 3",
-      round: "Round of 16",
-      match: "France vs Poland", 
-      score: "3-1",
-      winner: "France",
-      children: []
-    },
-    {
-      name: "Round of 16 - 4",
-      round: "Round of 16",
-      match: "England vs Senegal",
-      score: "3-0", 
-      winner: "England",
-      children: []
-    },
-    {
-      name: "Round of 16 - 5",
-      round: "Round of 16",
-      match: "Japan vs Croatia",
-      score: "1-1 (3-4p)",
-      winner: "Croatia",
-      children: []
-    },
-    {
-      name: "Round of 16 - 6",
-      round: "Round of 16",
-      match: "Brazil vs South Korea",
-      score: "4-1",
-      winner: "Brazil", 
-      children: []
-    },
-    {
-      name: "Round of 16 - 7",
-      round: "Round of 16",
-      match: "Morocco vs Spain",
-      score: "0-0 (3-0p)",
-      winner: "Morocco",
-      children: []
-    },
-    {
-      name: "Round of 16 - 8",
-      round: "Round of 16",
-      match: "Portugal vs Switzerland",
-      score: "6-1",
-      winner: "Portugal",
-      children: []
-    }
-  ];
+//   // Round of 16
+//   const roundOf16 = [
+//     {
+//       name: "Round of 16 - 1",
+//       round: "Round of 16",
+//       match: "Netherlands vs United States",
+//       score: "3-1",
+//       winner: "Netherlands",
+//       children: []
+//     },
+//     {
+//       name: "Round of 16 - 2",
+//       round: "Round of 16", 
+//       match: "Argentina vs Australia",
+//       score: "2-1",
+//       winner: "Argentina",
+//       children: []
+//     },
+//     {
+//       name: "Round of 16 - 3",
+//       round: "Round of 16",
+//       match: "France vs Poland", 
+//       score: "3-1",
+//       winner: "France",
+//       children: []
+//     },
+//     {
+//       name: "Round of 16 - 4",
+//       round: "Round of 16",
+//       match: "England vs Senegal",
+//       score: "3-0", 
+//       winner: "England",
+//       children: []
+//     },
+//     {
+//       name: "Round of 16 - 5",
+//       round: "Round of 16",
+//       match: "Japan vs Croatia",
+//       score: "1-1 (3-4p)",
+//       winner: "Croatia",
+//       children: []
+//     },
+//     {
+//       name: "Round of 16 - 6",
+//       round: "Round of 16",
+//       match: "Brazil vs South Korea",
+//       score: "4-1",
+//       winner: "Brazil", 
+//       children: []
+//     },
+//     {
+//       name: "Round of 16 - 7",
+//       round: "Round of 16",
+//       match: "Morocco vs Spain",
+//       score: "0-0 (3-0p)",
+//       winner: "Morocco",
+//       children: []
+//     },
+//     {
+//       name: "Round of 16 - 8",
+//       round: "Round of 16",
+//       match: "Portugal vs Switzerland",
+//       score: "6-1",
+//       winner: "Portugal",
+//       children: []
+//     }
+//   ];
 
-  // Build the tree structure
-  // Connect Round of 16 to Quarter-finals
-  quarterFinals[0].children = [roundOf16[4], roundOf16[5]]; // Croatia beat Japan, Brazil beat SK
-  quarterFinals[1].children = [roundOf16[0], roundOf16[1]]; // Argentina beat Aus, Netherlands beat US
-  quarterFinals[2].children = [roundOf16[6], roundOf16[7]]; // Morocco beat Spain, Portugal beat Swiss
-  quarterFinals[3].children = [roundOf16[2], roundOf16[3]]; // France beat Poland, England beat Senegal
+//   // Build the tree structure
+//   // Connect Round of 16 to Quarter-finals
+//   quarterFinals[0].children = [roundOf16[4], roundOf16[5]]; // Croatia beat Japan, Brazil beat SK
+//   quarterFinals[1].children = [roundOf16[0], roundOf16[1]]; // Argentina beat Aus, Netherlands beat US
+//   quarterFinals[2].children = [roundOf16[6], roundOf16[7]]; // Morocco beat Spain, Portugal beat Swiss
+//   quarterFinals[3].children = [roundOf16[2], roundOf16[3]]; // France beat Poland, England beat Senegal
 
-  // Connect Quarter-finals to Semi-finals
-  semiFinals[0].children = [quarterFinals[0], quarterFinals[1]]; // Argentina beat Croatia
-  semiFinals[1].children = [quarterFinals[2], quarterFinals[3]]; // France beat Morocco
+//   // Connect Quarter-finals to Semi-finals
+//   semiFinals[0].children = [quarterFinals[0], quarterFinals[1]]; // Argentina beat Croatia
+//   semiFinals[1].children = [quarterFinals[2], quarterFinals[3]]; // France beat Morocco
 
-  // Connect Semi-finals to Final
-  treeData.children = semiFinals;
+//   // Connect Semi-finals to Final
+//   treeData.children = semiFinals;
 
-  //connect cup with championchip
-  wrldCup.children = [treeData, treeData,treeData];
+//   //connect cup with championchip
+//   wrldCup.children = [treeData, treeData,treeData];
 
   return wrldCup//treeData;
 }
