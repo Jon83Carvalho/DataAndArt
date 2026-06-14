@@ -207,6 +207,15 @@ export default function Art3({ navigation }) {
 
   // Transform World Cup data to complete elimination phase tree
 function createCompleteEliminationTree(worldCupData) {
+const wrldCup = {
+    name: "FIFA World Cup",
+    round: "",
+    match: "",
+    score: "",
+    winner: "",
+    children: []
+  };
+  
   const treeData = {
     name: "2022 FIFA World Cup",
     round: "Final",
@@ -354,7 +363,10 @@ function createCompleteEliminationTree(worldCupData) {
   // Connect Semi-finals to Final
   treeData.children = semiFinals;
 
-  return treeData;
+  //connect cup with championchip
+  wrldCup.children = [treeData, treeData,treeData];
+
+  return wrldCup//treeData;
 }
 
   useEffect(() => {
@@ -474,13 +486,13 @@ function createCompleteEliminationTree(worldCupData) {
 
     // Add round labels (smaller and closer to nodes)
     node.append('text')
-      .attr('dy', '-0.8em')
+      .attr('dy', '-0.9em')
       .attr('x', 0)
       .attr('text-anchor', 'middle')
       .style('font-size', '8px')
       .style('fill', '#888')
       .style('font-style', 'italic')
-      .text(d => d.data.round || '');
+      .text(d => d.data.winner || '');
 
     // Add champion crown for the final match
     const championNode = node.filter(d => d.data.round === "Final");
