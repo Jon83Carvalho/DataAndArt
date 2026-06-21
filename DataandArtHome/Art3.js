@@ -2356,15 +2356,15 @@ const wrldCup = JSON.parse(
       .attr('r', 2.5);
 
     // Add match names (labels for radial layout)
-    node.append('text')
-      .attr('transform', d => `rotate(${d.x >= Math.PI ? 180 : 0})`)
-      .attr('dy', '0.31em')
-      .attr('x', d => d.x < Math.PI === !d.children ? 6 : -6)
-      .attr('text-anchor', d => d.x < Math.PI === !d.children ? 'start' : 'end')
-      .style('font-size', '5px')
-      .style('font-weight', d => d.data.round === "Final" ? 'bold' : 'normal')
-      .style('fill', colors.text)
-      .text(d => d.data.name || d.data.match);
+    // node.append('text')
+    //   .attr('transform', d => `rotate(${d.x >= Math.PI ? 180 : 0})`)
+    //   .attr('dy', '0.31em')
+    //   .attr('x', d => d.x < Math.PI === !d.children ? 6 : -6)
+    //   .attr('text-anchor', d => d.x < Math.PI === !d.children ? 'start' : 'end')
+    //   .style('font-size', '5px')
+    //   .style('font-weight', d => d.data.round === "Final" ? 'bold' : 'normal')
+    //   .style('fill', colors.text)
+    //   .text(d => d.data.name || d.data.match);
 
     // Add score details (smaller text)
     node.append('text')
@@ -2381,8 +2381,8 @@ const wrldCup = JSON.parse(
       .attr('dy', '-0.9em')
       .attr('x', 0)
       .attr('text-anchor', 'middle')
-      .style('font-size', '4px')
-      .style('fill', '#ff0000ff')
+      .style('font-size', '8px')
+      .style('fill', '#f8f3f3ff')
       .style('font-style', 'italic')
       .text(d => d.data.winner || '');
 
