@@ -2146,7 +2146,7 @@ const wrldCup = JSON.parse(
       accent: '#4ade80',
       winner: '#fbbf24',
       finalist: '#94a3b8',
-      line: '#374151',
+      line: '#00f2ffff',
       box: '#1f2937'
     };
 
@@ -2230,7 +2230,7 @@ const wrldCup = JSON.parse(
       .text(d => d.data.winner || '');
 
     // Add champion crown for the final match
-    const championNode = node.filter(d => d.data.round === "Final");
+    const championNode = node.filter(d => d.data.round === "world-cup");
     championNode.append('text')
       .attr('dy', '-1.5em')
       .attr('x', 0)
