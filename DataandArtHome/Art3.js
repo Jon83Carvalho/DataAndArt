@@ -60,125 +60,6 @@ const styles = StyleSheet.create({
 });
 
 // 2022 World Cup knockout stage data
-const worldCup2022Data = {
-  name: "2022 FIFA World Cup",
-  children: [
-    {
-      name: "Round of 16",
-      round: 1,
-      matches: [
-        {
-          home: "Netherlands",
-          away: "United States", 
-          score: "3-1",
-          winner: "Netherlands"
-        },
-        {
-          home: "Argentina",
-          away: "Australia",
-          score: "2-1", 
-          winner: "Argentina"
-        },
-        {
-          home: "France",
-          away: "Poland",
-          score: "3-1",
-          winner: "France"
-        },
-        {
-          home: "England", 
-          away: "Senegal",
-          score: "3-0",
-          winner: "England"
-        },
-        {
-          home: "Japan",
-          away: "Croatia",
-          score: "1-1 (3-4p)",
-          winner: "Croatia"
-        },
-        {
-          home: "Brazil",
-          away: "South Korea", 
-          score: "4-1",
-          winner: "Brazil"
-        },
-        {
-          home: "Morocco",
-          away: "Spain",
-          score: "0-0 (3-0p)",
-          winner: "Morocco"
-        },
-        {
-          home: "Portugal",
-          away: "Switzerland",
-          score: "6-1",
-          winner: "Portugal"
-        }
-      ]
-    },
-    {
-      name: "Quarter-finals",
-      round: 2,
-      matches: [
-        {
-          home: "Croatia",
-          away: "Brazil",
-          score: "1-1 (4-2p)",
-          winner: "Croatia"
-        },
-        {
-          home: "Netherlands",
-          away: "Argentina", 
-          score: "2-2 (3-4p)",
-          winner: "Argentina"
-        },
-        {
-          home: "Morocco",
-          away: "Portugal",
-          score: "1-0",
-          winner: "Morocco"
-        },
-        {
-          home: "England",
-          away: "France",
-          score: "1-2", 
-          winner: "France"
-        }
-      ]
-    },
-    {
-      name: "Semi-finals",
-      round: 3,
-      matches: [
-        {
-          home: "Argentina",
-          away: "Croatia",
-          score: "3-0",
-          winner: "Argentina"
-        },
-        {
-          home: "France",
-          away: "Morocco",
-          score: "2-0",
-          winner: "France"
-        }
-      ]
-    },
-    {
-      name: "Final",
-      round: 4,
-      matches: [
-        {
-          home: "Argentina",
-          away: "France",
-          score: "3-3 (4-2p)",
-          winner: "Argentina"
-        }
-      ]
-    }
-  ]
-};
 
 export default function Art3({ navigation }) {
   const svgRef = useRef(null);
@@ -192,8 +73,8 @@ export default function Art3({ navigation }) {
     const updateDimensions = () => {
       const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
       setDimensions({
-        width: Math.min(screenWidth - 40, 1400),
-        height: Math.min(screenHeight - 200, 900)
+        width: 1500,//Math.min(screenWidth - 40, 1400),
+        height: 1200//Math.min(screenHeight - 200, 900)
       });
     };
 
@@ -2118,7 +1999,7 @@ const wrldCup = JSON.parse(
     svg.attr('width', width).attr('height', height);
 
     // Transform World Cup data to complete elimination phase tree
-    const treeData = createCompleteEliminationTree(worldCup2022Data);
+    const treeData = createCompleteEliminationTree();
 
     // Ajuste para garantir que a árvore seja exibida corretamente dentro do SVG
     const cx = width / 2/2; // Centro X
@@ -2146,28 +2027,28 @@ const wrldCup = JSON.parse(
       accent: '#4ade80',
       winner: '#fbbf24',
       finalist: '#94a3b8',
-      line: '#00f2ffff',
+      line: '#ffce47ff',
       box: '#1f2937'
     };
 
     // Add title
     // Adiciona títulos fora da área da árvore radial
-    svg.append('text')
-      .attr('x', cx)
-      .attr('y', -cy + 30)
-      .attr('text-anchor', 'middle')
-      .style('font-size', '24px')
-      .style('font-weight', 'bold')
-      .style('fill', colors.text)
-      .text('2022 FIFA World Cup');
+    // svg.append('text')
+    //   .attr('x', cx)
+    //   .attr('y', -cy + 30)
+    //   .attr('text-anchor', 'middle')
+    //   .style('font-size', '24px')
+    //   .style('font-weight', 'bold')
+    //   .style('fill', colors.text)
+    //   .text('FIFA World Cup');
 
-    svg.append('text')
-      .attr('x', cx)
-      .attr('y', -cy + 60)
-      .attr('text-anchor', 'middle')
-      .style('font-size', '14px')
-      .style('fill', '#888')
-      .text('Radial Elimination Phase Tree');
+    // svg.append('text')
+    //   .attr('x', cx)
+    //   .attr('y', -cy + 60)
+    //   .attr('text-anchor', 'middle')
+    //   .style('font-size', '14px')
+    //   .style('fill', '#888')
+    //   .text('Radial Elimination Phase Tree');
 
     // Create links for radial layout
     const link = g.append('g')
@@ -2210,14 +2091,14 @@ const wrldCup = JSON.parse(
     //   .text(d => d.data.name || d.data.match);
 
     // Add score details (smaller text)
-    node.append('text')
-      .attr('transform', d => `rotate(${d.x >= Math.PI ? 180 : 0})`)
-      .attr('dy', '1.3em')
-      .attr('x', d => d.x < Math.PI === !d.children ? 6 : -6)
-      .attr('text-anchor', d => d.x < Math.PI === !d.children ? 'start' : 'end')
-      .style('font-size', '4px')
-      .style('fill', colors.accent)
-      .text(d => d.data.score || '');
+    // node.append('text')
+    //   .attr('transform', d => `rotate(${d.x >= Math.PI ? 180 : 0})`)
+    //   .attr('dy', '1.3em')
+    //   .attr('x', d => d.x < Math.PI === !d.children ? 6 : -6)
+    //   .attr('text-anchor', d => d.x < Math.PI === !d.children ? 'start' : 'end')
+    //   .style('font-size', '4px')
+    //   .style('fill', colors.accent)
+    //   .text(d => d.data.score || '');
 
     // Add round labels (smaller and closer to nodes)
     node.append('text')
@@ -2232,11 +2113,12 @@ const wrldCup = JSON.parse(
     // Add champion crown for the final match
     const championNode = node.filter(d => d.data.round === "world-cup");
     championNode.append('text')
-      .attr('dy', '-1.5em')
-      .attr('x', 0)
+      .attr('dy', '2em')
+      .attr('x', '-2em')
       .attr('text-anchor', 'middle')
-      .style('font-size', '16px')
-      .text('👑');
+      .style('fill', '#05f4ccff')
+      .style('font-size', '6px')
+      .text(d => d.data.name);
 
   }, [dimensions]);
 
@@ -2248,8 +2130,8 @@ const wrldCup = JSON.parse(
       >
         <Text style={styles.backButtonText}>← Back to Gallery</Text>
       </TouchableOpacity>
-      <Text style={styles.title}>World Cup 2022</Text>
-      <Text style={styles.subtitle}>Tournament Bracket Visualization</Text>
+      <Text style={styles.title}>Fifa World Cup 2022</Text>
+      <Text style={styles.subtitle}>Tournament Radial Bracket Visualization</Text>
       {Platform.OS === 'web' && (
         <Text style={{color: '#666', fontSize: 12, position: 'absolute', bottom: 20}}>
           Press ESC to return to gallery
