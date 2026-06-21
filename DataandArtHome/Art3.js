@@ -182,7 +182,7 @@ const worldCup2022Data = {
 
 export default function Art3({ navigation }) {
   const svgRef = useRef(null);
-  const [dimensions, setDimensions] = useState({ width: 1200, height: 800 });
+  const [dimensions, setDimensions] = useState({ width: 1500, height: 1200 });
   
   // Add escape key functionality for web
   useEscapeKey(() => navigation.goBack());
@@ -2099,164 +2099,7 @@ const wrldCup = JSON.parse(
   ]
 }`
 )
-//{
-//     name: "FIFA World Cup",
-//     round: "",
-//     match: "",
-//     score: "",
-//     winner: "",
-//     children: []
-//   };
-  
-//   const treeData = {
-//     name: "2022 FIFA World Cup",
-//     round: "Final",
-//     match: "Argentina vs France",
-//     score: "3-3 (4-2p)",
-//     winner: "Argentina",
-//     children: []
-//   };
 
-//   // Semi-finals
-//   const semiFinals = [
-//     {
-//       name: "Semi-final 1",
-//       round: "Semi-finals", 
-//       match: "Argentina vs Croatia",
-//       score: "3-0",
-//       winner: "Argentina",
-//       children: []
-//     },
-//     {
-//       name: "Semi-final 2",
-//       round: "Semi-finals",
-//       match: "France vs Morocco", 
-//       score: "2-0",
-//       winner: "France",
-//       children: []
-//     }
-//   ];
-
-//   // Quarter-finals
-//   const quarterFinals = [
-//     {
-//       name: "Quarter-final 1",
-//       round: "Quarter-finals",
-//       match: "Croatia vs Brazil",
-//       score: "1-1 (4-2p)", 
-//       winner: "Croatia",
-//       children: []
-//     },
-//     {
-//       name: "Quarter-final 2",
-//       round: "Quarter-finals",
-//       match: "Netherlands vs Argentina",
-//       score: "2-2 (3-4p)",
-//       winner: "Argentina", 
-//       children: []
-//     },
-//     {
-//       name: "Quarter-final 3",
-//       round: "Quarter-finals",
-//       match: "Morocco vs Portugal",
-//       score: "1-0",
-//       winner: "Morocco",
-//       children: []
-//     },
-//     {
-//       name: "Quarter-final 4", 
-//       round: "Quarter-finals",
-//       match: "England vs France",
-//       score: "1-2",
-//       winner: "France",
-//       children: []
-//     }
-//   ];
-
-//   // Round of 16
-//   const roundOf16 = [
-//     {
-//       name: "Round of 16 - 1",
-//       round: "Round of 16",
-//       match: "Netherlands vs United States",
-//       score: "3-1",
-//       winner: "Netherlands",
-//       children: []
-//     },
-//     {
-//       name: "Round of 16 - 2",
-//       round: "Round of 16", 
-//       match: "Argentina vs Australia",
-//       score: "2-1",
-//       winner: "Argentina",
-//       children: []
-//     },
-//     {
-//       name: "Round of 16 - 3",
-//       round: "Round of 16",
-//       match: "France vs Poland", 
-//       score: "3-1",
-//       winner: "France",
-//       children: []
-//     },
-//     {
-//       name: "Round of 16 - 4",
-//       round: "Round of 16",
-//       match: "England vs Senegal",
-//       score: "3-0", 
-//       winner: "England",
-//       children: []
-//     },
-//     {
-//       name: "Round of 16 - 5",
-//       round: "Round of 16",
-//       match: "Japan vs Croatia",
-//       score: "1-1 (3-4p)",
-//       winner: "Croatia",
-//       children: []
-//     },
-//     {
-//       name: "Round of 16 - 6",
-//       round: "Round of 16",
-//       match: "Brazil vs South Korea",
-//       score: "4-1",
-//       winner: "Brazil", 
-//       children: []
-//     },
-//     {
-//       name: "Round of 16 - 7",
-//       round: "Round of 16",
-//       match: "Morocco vs Spain",
-//       score: "0-0 (3-0p)",
-//       winner: "Morocco",
-//       children: []
-//     },
-//     {
-//       name: "Round of 16 - 8",
-//       round: "Round of 16",
-//       match: "Portugal vs Switzerland",
-//       score: "6-1",
-//       winner: "Portugal",
-//       children: []
-//     }
-//   ];
-
-//   // Build the tree structure
-//   // Connect Round of 16 to Quarter-finals
-//   quarterFinals[0].children = [roundOf16[4], roundOf16[5]]; // Croatia beat Japan, Brazil beat SK
-//   quarterFinals[1].children = [roundOf16[0], roundOf16[1]]; // Argentina beat Aus, Netherlands beat US
-//   quarterFinals[2].children = [roundOf16[6], roundOf16[7]]; // Morocco beat Spain, Portugal beat Swiss
-//   quarterFinals[3].children = [roundOf16[2], roundOf16[3]]; // France beat Poland, England beat Senegal
-
-//   // Connect Quarter-finals to Semi-finals
-//   semiFinals[0].children = [quarterFinals[0], quarterFinals[1]]; // Argentina beat Croatia
-//   semiFinals[1].children = [quarterFinals[2], quarterFinals[3]]; // France beat Morocco
-
-//   // Connect Semi-finals to Final
-//   treeData.children = semiFinals;
-
-//   //connect cup with championchip
-//   wrldCup.children = [treeData, treeData,treeData];
 
   return wrldCup//treeData;
 }
@@ -2349,11 +2192,11 @@ const wrldCup = JSON.parse(
     // Add circles for nodes
     node.append('circle')
       .attr('fill', d => {
-        if (d.data.round === "Final") return colors.winner;
-        if (d.data.round === "Semi-finals") return colors.finalist;
+        if (d.data.round === "world-cup") return colors.winner;
+        if (d.data.round === "semi-finals") return colors.finalist;
         return d.children ? colors.accent : '#999';
       })
-      .attr('r', 2.5);
+      .attr('r', 1.5);
 
     // Add match names (labels for radial layout)
     // node.append('text')
