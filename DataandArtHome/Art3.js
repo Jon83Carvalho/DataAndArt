@@ -219,8 +219,8 @@ const wrldCup = JSON.parse(
               "name": "Italy v Spain",
               "round": "quarter-finals",
               "match": "Italy vs Spain",
-              "score": "1x1",
-              "winner": "draw",
+              "score": "1x1 (replay Italy 1-0)",
+              "winner": "Italy",
               "children": [
                 {
                   "name": "Sweden v Argentina",
@@ -262,23 +262,23 @@ const wrldCup = JSON.parse(
               "name": "Brazil v Czechoslovakia",
               "round": "quarter-finals",
               "match": "Brazil vs Czechoslovakia",
-              "score": "1x1",
-              "winner": "draw",
+              "score": "1x1 (replay Brazil 2-1)",
+              "winner": "Brazil",
               "children": [
                 {
                   "name": "Switzerland v Germany",
                   "round": "round-of-16",
                   "match": "Switzerland vs Germany",
-                  "score": "1x1",
-                  "winner": "draw",
+                  "score": "1x1 (replay Switzerland 4-2)",
+                  "winner": "Switzerland",
                   "children": []
                 },
                 {
                   "name": "Cuba v Romania",
                   "round": "round-of-16",
                   "match": "Cuba vs Romania",
-                  "score": "3x3",
-                  "winner": "draw",
+                  "score": "3x3 (replay Cuba 2-1)",
+                  "winner": "Cuba",
                   "children": []
                 }
               ]
@@ -671,8 +671,17 @@ const wrldCup = JSON.parse(
       "round": "world-cup",
       "match": "Netherlands vs West Germany",
       "score": "1x2",
-      "winner": "away team win",
-      "children": []
+      "winner": "West Germany",
+      "children": [
+        {
+          "name": "Poland v Brazil",
+          "round": "third-place",
+          "match": "Poland vs Brazil",
+          "score": "1x0",
+          "winner": "Poland",
+          "children": []
+        }
+      ]
     },
     {
       "name": "1978 World Cup",
@@ -680,7 +689,16 @@ const wrldCup = JSON.parse(
       "match": "Argentina vs Netherlands",
       "score": "3x1",
       "winner": "Argentina",
-      "children": []
+      "children": [
+        {
+          "name": "Brazil v Italy",
+          "round": "third-place",
+          "match": "Brazil vs Italy",
+          "score": "2x1",
+          "winner": "Brazil",
+          "children": []
+        }
+      ]
     },
     {
       "name": "1982 World Cup",
@@ -694,15 +712,23 @@ const wrldCup = JSON.parse(
           "round": "semi-finals",
           "match": "Poland vs Italy",
           "score": "0x2",
-          "winner": "away team win",
+          "winner": "Italy",
           "children": []
         },
         {
           "name": "West Germany v France",
           "round": "semi-finals",
           "match": "West Germany vs France",
-          "score": "3x3",
-          "winner": "draw",
+          "score": "3x3 (5-4 pens)",
+          "winner": "West Germany",
+          "children": []
+        },
+        {
+          "name": "Poland v France",
+          "round": "third-place",
+          "match": "Poland vs France",
+          "score": "3x2",
+          "winner": "Poland",
           "children": []
         }
       ]
@@ -750,8 +776,8 @@ const wrldCup = JSON.parse(
               "name": "West Germany v Mexico",
               "round": "quarter-finals",
               "match": "West Germany vs Mexico",
-              "score": "0x0",
-              "winner": "draw",
+              "score": "0x0 (4-1 pens)",
+              "winner": "West Germany",
               "children": [
                 {
                   "name": "Brazil v Poland",
@@ -845,15 +871,15 @@ const wrldCup = JSON.parse(
           "name": "Argentina v Italy",
           "round": "semi-finals",
           "match": "Argentina vs Italy",
-          "score": "1x1",
-          "winner": "draw",
+          "score": "1x1 (4-3 pens)",
+          "winner": "Argentina",
           "children": [
             {
               "name": "Argentina v Yugoslavia",
               "round": "quarter-finals",
               "match": "Argentina vs Yugoslavia",
-              "score": "0x0",
-              "winner": "draw",
+              "score": "0x0 (3-2 pens)",
+              "winner": "Argentina",
               "children": [
                 {
                   "name": "Cameroon v Colombia",
@@ -904,8 +930,8 @@ const wrldCup = JSON.parse(
           "name": "West Germany v England",
           "round": "semi-finals",
           "match": "West Germany vs England",
-          "score": "1x1",
-          "winner": "draw",
+          "score": "1x1 (4-3 pens)",
+          "winner": "West Germany",
           "children": [
             {
               "name": "Czechoslovakia v West Germany",
@@ -918,8 +944,8 @@ const wrldCup = JSON.parse(
                   "name": "Republic of Ireland v Romania",
                   "round": "round-of-16",
                   "match": "Republic of Ireland vs Romania",
-                  "score": "0x0",
-                  "winner": "draw",
+                  "score": "0x0 (5-4 pens)",
+                  "winner": "Republic of Ireland",
                   "children": []
                 },
                 {
@@ -965,8 +991,8 @@ const wrldCup = JSON.parse(
       "name": "1994 World Cup",
       "round": "world-cup",
       "match": "Brazil vs Italy",
-      "score": "0x0",
-      "winner": "draw",
+      "score": "0x0 (3-2 pens)",
+      "winner": "Brazil",
       "children": [
         {
           "name": "Bulgaria v Italy",
@@ -1099,15 +1125,15 @@ const wrldCup = JSON.parse(
           "name": "Brazil v Netherlands",
           "round": "semi-finals",
           "match": "Brazil vs Netherlands",
-          "score": "1x1",
-          "winner": "draw",
+          "score": "1x1 (4-2 pens)",
+          "winner": "Brazil",
           "children": [
             {
               "name": "Italy v France",
               "round": "quarter-finals",
               "match": "Italy vs France",
-              "score": "0x0",
-              "winner": "away team win",
+              "score": "0x0 (4-3 pens)",
+              "winner": "France",
               "children": [
                 {
                   "name": "Italy v Norway",
@@ -1206,7 +1232,7 @@ const wrldCup = JSON.parse(
                   "round": "round-of-16",
                   "match": "Argentina vs England",
                   "score": "2x2",
-                  "winner": "draw",
+                  "winner": "England",
                   "children": []
                 }
               ]
@@ -1273,8 +1299,8 @@ const wrldCup = JSON.parse(
                   "name": "Spain v Republic of Ireland",
                   "round": "round-of-16",
                   "match": "Spain vs Republic of Ireland",
-                  "score": "1x1",
-                  "winner": "draw",
+                  "score": "1x1 (3-2 pens)",
+                  "winner": "Spain",
                   "children": []
                 }
               ]
@@ -1292,8 +1318,8 @@ const wrldCup = JSON.parse(
               "name": "Spain v South Korea",
               "round": "quarter-finals",
               "match": "Spain vs South Korea",
-              "score": "0x0",
-              "winner": "away team win",
+              "score": "0x0 (5-3 pens)",
+              "winner": "South Korea",
               "children": [
                 {
                   "name": "Mexico v United States",
@@ -1346,8 +1372,8 @@ const wrldCup = JSON.parse(
       "name": "2006 World Cup",
       "round": "world-cup",
       "match": "Italy vs France",
-      "score": "1x1",
-      "winner": "draw",
+      "score": "1x1 (5-3 pens)",
+      "winner": "Italy",
       "children": [
         {
           "name": "Germany v Italy",
@@ -1360,8 +1386,8 @@ const wrldCup = JSON.parse(
               "name": "Germany v Argentina",
               "round": "quarter-finals",
               "match": "Germany vs Argentina",
-              "score": "1x1",
-              "winner": "draw",
+              "score": "1x1 (4-2 pens)",
+              "winner": "Germany",
               "children": [
                 {
                   "name": "Germany v Sweden",
@@ -1512,8 +1538,8 @@ const wrldCup = JSON.parse(
               "name": "Uruguay v Ghana",
               "round": "quarter-finals",
               "match": "Uruguay vs Ghana",
-              "score": "1x1",
-              "winner": "draw",
+              "score": "1x1 (4-2 pens)",
+              "winner": "Uruguay",
               "children": [
                 {
                   "name": "Germany v England",
@@ -1578,8 +1604,8 @@ const wrldCup = JSON.parse(
                   "name": "Paraguay v Japan",
                   "round": "round-of-16",
                   "match": "Paraguay vs Japan",
-                  "score": "0x0",
-                  "winner": "draw",
+                  "score": "0x0 (5-3 pens)",
+                  "winner": "Paraguay",
                   "children": []
                 },
                 {
@@ -1621,8 +1647,8 @@ const wrldCup = JSON.parse(
                   "name": "Brazil v Chile",
                   "round": "round-of-16",
                   "match": "Brazil vs Chile",
-                  "score": "1x1",
-                  "winner": "draw",
+                  "score": "1x1 (3-2 pens)",
+                  "winner": "Brazil",
                   "children": []
                 },
                 {
@@ -1654,8 +1680,8 @@ const wrldCup = JSON.parse(
                   "name": "Costa Rica v Greece",
                   "round": "round-of-16",
                   "match": "Costa Rica vs Greece",
-                  "score": "1x1",
-                  "winner": "draw",
+                  "score": "1x1 (5-3 pens)",
+                  "winner": "Costa Rica",
                   "children": []
                 }
               ]
@@ -1698,8 +1724,8 @@ const wrldCup = JSON.parse(
               "name": "Netherlands v Costa Rica",
               "round": "quarter-finals",
               "match": "Netherlands vs Costa Rica",
-              "score": "0x0",
-              "winner": "draw",
+              "score": "0x0 (4-3 pens)",
+              "winner": "Netherlands",
               "children": [
                 {
                   "name": "Argentina v Switzerland",
@@ -1781,8 +1807,8 @@ const wrldCup = JSON.parse(
                   "name": "Croatia v Denmark",
                   "round": "round-of-16",
                   "match": "Croatia vs Denmark",
-                  "score": "1x1",
-                  "winner": "draw",
+                  "score": "1x1 (3-2 pens)",
+                  "winner": "Croatia",
                   "children": []
                 }
               ]
@@ -1854,8 +1880,8 @@ const wrldCup = JSON.parse(
       "name": "2022 World Cup",
       "round": "world-cup",
       "match": "Argentina vs France",
-      "score": "3x3",
-      "winner": "draw",
+      "score": "3x3 (4-2 pens)",
+      "winner": "Argentina",
       "children": [
         {
           "name": "Argentina v Croatia",
@@ -1868,8 +1894,8 @@ const wrldCup = JSON.parse(
               "name": "Croatia v Brazil",
               "round": "quarter-finals",
               "match": "Croatia vs Brazil",
-              "score": "1x1",
-              "winner": "draw",
+              "score": "1x1 (2-1 pens)",
+              "winner": "Croatia",
               "children": [
                 {
                   "name": "Netherlands v United States",
@@ -1959,8 +1985,8 @@ const wrldCup = JSON.parse(
                   "name": "Morocco v Spain",
                   "round": "round-of-16",
                   "match": "Morocco vs Spain",
-                  "score": "0x0",
-                  "winner": "draw",
+                  "score": "0x0 (3-0 pens)",
+                  "winner": "Morocco",
                   "children": []
                 },
                 {
@@ -2027,8 +2053,33 @@ const wrldCup = JSON.parse(
       accent: '#4ade80',
       winner: '#fbbf24',
       finalist: '#94a3b8',
-      line: '#ffce47ff',
       box: '#1f2937'
+    };
+
+    // Create color palette for each World Cup year
+    const worldCupColors = [
+      '#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8',
+      '#F7DC6F', '#BB8FCE', '#85C1E9', '#F8B739', '#52B788',
+      '#E76F51', '#2A9D8F', '#E9C46A', '#F4A261', '#264653',
+      '#8E44AD', '#3498DB', '#E74C3C', '#16A085', '#27AE60',
+      '#D35400', '#C0392B'
+    ];
+
+    // Function to get color based on World Cup year
+    const getWorldCupColor = (d) => {
+      if (d.depth === 0) return colors.text; // Root node
+      if (d.depth === 1) {
+        // World Cup year nodes
+        const yearIndex = treeData.children.findIndex(child => child.name === d.data.name);
+        return worldCupColors[yearIndex % worldCupColors.length];
+      }
+      // For child nodes, use the parent's World Cup color
+      let parent = d;
+      while (parent.depth > 1) {
+        parent = parent.parent;
+      }
+      const yearIndex = treeData.children.findIndex(child => child.name === parent.data.name);
+      return worldCupColors[yearIndex % worldCupColors.length];
     };
 
     // Add title
@@ -2052,13 +2103,13 @@ const wrldCup = JSON.parse(
 
     // Create links for radial layout
     const link = g.append('g')
-      .attr('fill', 'none')
-      .attr('stroke', colors.line)
-      .attr('stroke-opacity', 0.6)
-      .attr('stroke-width', 1.5)
       .selectAll()
       .data(root.links())
       .join('path')
+      .attr('fill', 'none')
+      .attr('stroke', d => getWorldCupColor(d.source))
+      .attr('stroke-opacity', 0.6)
+      .attr('stroke-width', 1.5)
       .attr('d', d3.linkRadial()
         .angle(d => d.x)
         .radius(d => d.y));
@@ -2073,9 +2124,8 @@ const wrldCup = JSON.parse(
     // Add circles for nodes
     node.append('circle')
       .attr('fill', d => {
-        if (d.data.round === "world-cup") return colors.winner;
-        if (d.data.round === "semi-finals") return colors.finalist;
-        return d.children ? colors.accent : '#999';
+        if (d.depth === 0) return colors.text; // Root node
+        return getWorldCupColor(d);
       })
       .attr('r', 1.5);
 
@@ -2106,7 +2156,7 @@ const wrldCup = JSON.parse(
       .attr('x', 0)
       .attr('text-anchor', 'middle')
       .style('font-size', '8px')
-      .style('fill', '#f8f3f3ff')
+      .style('fill', d => getWorldCupColor(d))
       .style('font-style', 'italic')
       .text(d => d.data.winner || '');
 
@@ -2116,7 +2166,7 @@ const wrldCup = JSON.parse(
       .attr('dy', '2em')
       .attr('x', '-2em')
       .attr('text-anchor', 'middle')
-      .style('fill', '#05f4ccff')
+      .style('fill', d => getWorldCupColor(d))
       .style('font-size', '6px')
       .text(d => d.data.name);
 
