@@ -2069,8 +2069,8 @@ const wrldCup = JSON.parse(
               "round": "quarter-finals",
               "match": "Russia vs Croatia",
               "score": "2x2",
-              "winner":"Croatia"
-                            "children": [
+              "winner":"Croatia",
+              "children": [
                 {
                   "name": "Sweden v Switzerland",
                   "round": "round-of-16",
