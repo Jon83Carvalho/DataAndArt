@@ -2336,23 +2336,31 @@ const wrldCup = JSON.parse(
 
     // Add round labels (smaller and closer to nodes)
     node.append('text')
-      .attr('dy', '-0.9em')
-      .attr('x', 0)
-      .attr('text-anchor', 'middle')
-      .style('font-size', '4px')
+      .attr('y', '-2.0em')
+      .attr('x', '1em')
+      .attr('text-anchor', 'left')
+      .style('font-size', '3.5px')
       .style('fill', d => getWorldCupColor(d))
       .style('font-style', 'italic')
-      .text(d => `Winner: ${d.data.winner}, Match:${d.data.match}` || '');
+      .text(d => d.data.match || '');
 
     // Add champion crown for the final match
     const championNode = node.filter(d => d.data.round === "world-cup");
     championNode.append('text')
-      .attr('dy', '2em')
-      .attr('x', '-2em')
+      .attr('dy', '2.5em')
+      .attr('x', '0em')
       .attr('text-anchor', 'middle')
       .style('fill', d => getWorldCupColor(d))
-      .style('font-size', '6px')
+      .style('font-size', '5px')
       .text(d => d.data.name);
+    
+      node.append('image')
+      .attr('xlink:href', d => `/assets/flags/${d.data.winner}.svg`)
+      .attr('x', '-0.5em')
+      .attr('y', '-0.35em')
+      .attr('width', 12)
+      .attr('height', 12)
+      .attr('preserveAspectRatio', 'xMidYMid meet');
 
   }, [dimensions]);
 
