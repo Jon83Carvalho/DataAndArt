@@ -2354,6 +2354,17 @@ const wrldCup = JSON.parse(
       .style('font-size', '5px')
       .text(d => d.data.name);
     
+    const trophy = node.filter(d => d.data.name === "FIFA World Cup");
+    trophy.append('image')
+      .attr('xlink:href', `/assets/trophy.png`)
+      .attr('x', '-2.5em')
+      .attr('y', '-2.4em')
+      .attr('width', 80)
+      .attr('height', 80)
+      .attr('transform', 'rotate(-87)')
+      .attr('preserveAspectRatio', 'xMidYMid meet');
+
+    
       node.append('image')
       .attr('xlink:href', d => `/assets/flags/${d.data.winner}.svg`)
       .attr('x', '-0.5em')
@@ -2372,7 +2383,7 @@ const wrldCup = JSON.parse(
       >
         <Text style={styles.backButtonText}>← Back to Gallery</Text>
       </TouchableOpacity>
-      <Text style={styles.title}>Fifa World Cup 2022</Text>
+      <Text style={styles.title}>Fifa World Cup</Text>
       <Text style={styles.subtitle}>Tournament Radial Bracket Visualization</Text>
       {Platform.OS === 'web' && (
         <Text style={{color: '#666', fontSize: 12, position: 'absolute', bottom: 20}}>
